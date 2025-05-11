@@ -6,7 +6,7 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 17:59:40 by zaboulaza         #+#    #+#             */
-/*   Updated: 2025/05/10 05:42:19 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/05/11 04:23:04 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # define BUFFER_SIZE 5
 # endif
 
+char *get_next_line(int fd);
+char *clean_stash(char *stash);
+char *extract_line(char *stash);
+char *read_and_stash(int fd, char *stash);
 char *get_next_line(int fd);
 size_t ft_strlen(const char *str);
 char *ft_strchr(const char *s, int c);
