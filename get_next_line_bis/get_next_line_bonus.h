@@ -6,12 +6,12 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:27:44 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/16 15:53:35 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/17 01:02:28 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -27,7 +27,7 @@
 char	*get_next_line(int fd);
 char	*clean_stash(char *stash);
 char	*extract_line(char *stash);
-char	*read_and_stash(int fd, char *stash);
+char	*read_and_stash(int fd, char *stash, char *buf, ssize_t bytes_read);
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);

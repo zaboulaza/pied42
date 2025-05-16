@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line1.c                                   :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:27:39 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/16 11:17:59 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/17 01:14:26 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*ft_strjoin(char *s1, const char *s2)
 	size_t	j;
 	char	*s3;
 
+	if (!s1)
+		return (NULL);
 	tailleg = ft_strlen(s1) + ft_strlen(s2);
 	i = 0;
 	s3 = malloc(tailleg + 1);
@@ -54,11 +56,7 @@ char	*ft_strjoin(char *s1, const char *s2)
 	}
 	j = 0;
 	while (s2[j])
-	{
-		s3[i] = s2[j];
-		i++;
-		j++;
-	}
+		s3[i++] = s2[j++];
 	s3[i] = '\0';
 	free(s1);
 	return (s3);
@@ -83,8 +81,6 @@ char	*ft_strdup(const char *s)
 	sdup[i] = '\0';
 	return (sdup);
 }
-
-#include <stdio.h>
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
