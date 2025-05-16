@@ -1,41 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 18:04:53 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/17 01:46:15 by nsmail           ###   ########.fr       */
+/*   Created: 2025/05/17 01:47:56 by nsmail            #+#    #+#             */
+/*   Updated: 2025/05/17 01:49:53 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*clean_stash(char *stash)
 {
-	static char	*stash[1024];
-	char		*line;
-	char		*buf;
-	ssize_t		bytes_read;
+	size_t	i;
+	size_t	j;
+	char	*rest;
 
-	buf = NULL;
-	bytes_read = 0;
-	stash[fd] = read_and_stash(fd, stash[fd], buf, bytes_read);
-	if (!stash[fd])
-		return (free(stash[fd]), stash[fd] = NULL);
-	line = extract_line(stash[fd]);
+	i = 0;
+	while (stash[i] != '\n' && stash[i] != '\0')
+		i++;
+	j = i;
+	while (stash[i])
+		i++;
+	if (j == i)
+		return (stash[0] = 0, stash);
+	rest = ft_substr(stash, j + 1, i);
+	if (!rest)
+		return (free(stash), stash = 0, NULL);
+	return (free(stash), stash = 0, rest);
+}
+
+char	*extract_line(char *stash)
+{
+	size_t	i;
+	char	*line;
+
+	if (!stash)
+		return (NULL);
+	i = 0;
+	while (stash[i] != '\n' && stash[i] != '\0')
+		i++;
+	if (stash[i] == '\n')
+		i++;
+	line = malloc(i + 1);
 	if (!line)
-		return (free(stash[fd]), stash[fd] = NULL);
-	if (stash[fd])
-		stash[fd] = clean_stash(stash[fd]);
-	if (!stash[fd])
-		return (free(line), stash[fd] = NULL);
-	if (stash[fd][0] == 0)
-	{
-		free(stash[fd]);
-		stash[fd] = 0;
-	}
+		return (NULL);
+	line[i] = '\0';
+	while (i-- > 0)
+		line[i] = stash[i];
 	return (line);
 }
 
@@ -68,43 +82,29 @@ char	*read_and_stash(int fd, char *stash, char *buf, ssize_t bytes_read)
 	return (free(buf), stash);
 }
 
-char	*extract_line(char *stash)
+char	*get_next_line(int fd)
 {
-	size_t	i;
-	char	*line;
+	static char	*stash[1024];
+	char		*line;
+	char		*buf;
+	ssize_t		bytes_read;
 
-	if (!stash)
-		return (NULL);
-	i = 0;
-	while (stash[i] != '\n' && stash[i] != '\0')
-		i++;
-	if (stash[i] == '\n')
-		i++;
-	line = malloc(i + 1);
+	buf = NULL;
+	bytes_read = 0;
+	stash[fd] = read_and_stash(fd, stash[fd], buf, bytes_read);
+	if (!stash[fd])
+		return (free(stash[fd]), stash[fd] = NULL);
+	line = extract_line(stash[fd]);
 	if (!line)
-		return (NULL);
-	line[i] = '\0';
-	while (i-- > 0)
-		line[i] = stash[i];
+		return (free(stash[fd]), stash[fd] = NULL);
+	if (stash[fd])
+		stash[fd] = clean_stash(stash[fd]);
+	if (!stash[fd])
+		return (free(line), stash[fd] = NULL);
+	if (stash[fd][0] == 0)
+	{
+		free(stash[fd]);
+		stash[fd] = 0;
+	}
 	return (line);
-}
-
-char	*clean_stash(char *stash)
-{
-	size_t	i;
-	size_t	j;
-	char	*rest;
-
-	i = 0;
-	while (stash[i] != '\n' && stash[i] != '\0')
-		i++;
-	j = i;
-	while (stash[i])
-		i++;
-	if (j == i)
-		return (stash[0] = 0, stash);
-	rest = ft_substr(stash, j + 1, i);
-	if (!rest)
-		return (free(stash), stash = 0, NULL);
-	return (free(stash), stash = 0, rest);
 }

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 15:57:59 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/17 01:46:44 by nsmail           ###   ########.fr       */
+/*   Created: 2025/05/17 01:50:45 by nsmail            #+#    #+#             */
+/*   Updated: 2025/05/17 01:50:47 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <fcntl.h>
 # include <stdio.h>
