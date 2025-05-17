@@ -6,11 +6,11 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 01:49:18 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/17 01:49:35 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/17 19:18:38 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {

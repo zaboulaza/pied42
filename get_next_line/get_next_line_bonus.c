@@ -6,11 +6,11 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 01:47:56 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/17 04:44:37 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/17 19:18:23 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*clean_stash(char *stash)
 {
