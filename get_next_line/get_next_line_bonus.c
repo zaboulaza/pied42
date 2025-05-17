@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 01:47:56 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/17 01:49:53 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/17 04:44:37 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*extract_line(char *stash)
 char	*read_and_stash(int fd, char *stash, char *buf, ssize_t bytes_read)
 {
 	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf || BUFFER_SIZE <= 0 || fd < 0)
+	if (!buf)
 		return (free(buf), free(stash), stash = NULL);
 	bytes_read = read(fd, buf, BUFFER_SIZE);
 	if (bytes_read == 0)
@@ -84,13 +84,15 @@ char	*read_and_stash(int fd, char *stash, char *buf, ssize_t bytes_read)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash[1024];
+	static char	*stash[BUFFER_MAX] = {0};
 	char		*line;
 	char		*buf;
 	ssize_t		bytes_read;
 
 	buf = NULL;
 	bytes_read = 0;
+	if (fd > BUFFER_MAX || BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
 	stash[fd] = read_and_stash(fd, stash[fd], buf, bytes_read);
 	if (!stash[fd])
 		return (free(stash[fd]), stash[fd] = NULL);

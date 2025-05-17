@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:04:53 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/17 01:46:15 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/17 04:44:05 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*stash[1024];
+	static char	*stash = NULL;
 	char		*line;
 	char		*buf;
 	ssize_t		bytes_read;
 
 	buf = NULL;
 	bytes_read = 0;
-	stash[fd] = read_and_stash(fd, stash[fd], buf, bytes_read);
-	if (!stash[fd])
-		return (free(stash[fd]), stash[fd] = NULL);
-	line = extract_line(stash[fd]);
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
+	stash = read_and_stash(fd, stash, buf, bytes_read);
+	if (!stash)
+		return (free(stash), stash = NULL);
+	line = extract_line(stash);
 	if (!line)
-		return (free(stash[fd]), stash[fd] = NULL);
-	if (stash[fd])
-		stash[fd] = clean_stash(stash[fd]);
-	if (!stash[fd])
-		return (free(line), stash[fd] = NULL);
-	if (stash[fd][0] == 0)
+		return (free(stash), stash = NULL);
+	if (stash)
+		stash = clean_stash(stash);
+	if (!stash)
+		return (free(line), stash = NULL);
+	if (stash[0] == 0)
 	{
-		free(stash[fd]);
-		stash[fd] = 0;
+		free(stash);
+		stash = 0;
 	}
 	return (line);
 }
@@ -42,7 +44,7 @@ char	*get_next_line(int fd)
 char	*read_and_stash(int fd, char *stash, char *buf, ssize_t bytes_read)
 {
 	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf || BUFFER_SIZE <= 0 || fd < 0)
+	if (!buf)
 		return (free(buf), free(stash), stash = NULL);
 	bytes_read = read(fd, buf, BUFFER_SIZE);
 	if (bytes_read == 0)
