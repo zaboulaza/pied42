@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 01:47:56 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/17 19:18:23 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/18 19:53:46 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,10 @@ char	*get_next_line(int fd)
 	char		*buf;
 	ssize_t		bytes_read;
 
-	buf = NULL;
-	bytes_read = 0;
 	if (fd > BUFFER_MAX || BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
+	buf = NULL;
+	bytes_read = 0;
 	stash[fd] = read_and_stash(fd, stash[fd], buf, bytes_read);
 	if (!stash[fd])
 		return (free(stash[fd]), stash[fd] = NULL);

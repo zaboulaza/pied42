@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:57:59 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/17 01:46:44 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/18 19:54:33 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
-
-# define BUFFER_MAX 1024
 
 char	*get_next_line(int fd);
 char	*clean_stash(char *stash);
