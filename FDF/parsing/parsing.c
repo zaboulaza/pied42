@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:19:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/24 08:16:58 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/29 20:12:45 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,33 @@
 // 	return (tab);
 // }
 
-int	parsing_general(t_nb_utile *nb)
+int	parsing_general(t_nb_utile *nb, char *argv1)
 {
+	if (argv1_good_format(nb, argv1) == 0)
+		return (0);
 	if (one_big_line(nb) == 0)
 		return (0);
 	if (count_word(nb) == 0)
 		return (0);
 	nb->res_count_word = count_word(nb);
 	if (compare_height_ligne(nb) == 0)
+		return (0);
+	return (1);
+}
+
+int	argv1_good_format(t_nb_utile *nb, char *argv1)
+{
+	nb->i = 0;
+	nb->len_argv1 = ft_strlen(argv1);
+	if (argv1[nb->len_argv1 - 1] != 'f')
+		return (0);
+	if (argv1[nb->len_argv1 - 2] != 'd')
+		return (0);
+	if (argv1[nb->len_argv1 - 3] != 'f')
+		return (0);
+	if (argv1[nb->len_argv1 - 4] != '.')
+		return (0);
+	if (argv1[nb->len_argv1 - 5] == '/')
 		return (0);
 	return (1);
 }
