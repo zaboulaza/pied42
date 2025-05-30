@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:07:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/29 21:14:40 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/05/30 21:17:38 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-typedef struct s_pos
-{
-	size_t		x;
-	size_t		y;
-	size_t		z;
-}				t_pos;
 
 typedef struct s_nb_utile
 {
@@ -58,8 +51,6 @@ typedef struct s_mlx
 	int			endian;
 	void		*ptr_mlx;
 	void		*mlx_win;
-	t_pixel_put	*pixel;
-	t_nb_utile	*nb;
 }				t_mlx;
 
 typedef struct s_point
@@ -70,15 +61,24 @@ typedef struct s_point
 	int			color;
 }				t_point;
 
+typedef struct s_general
+{
+	t_nb_utile	*nb;
+	t_pixel_put	*pix;
+	t_mlx		*mlx;
+	t_point		**tab;
+}				t_general;
+
 int				main(int ac, char **av);
-int				parsing_general(t_nb_utile *nb, char *argv1);
-int				one_big_line(t_nb_utile *nb);
-int				count_word(t_nb_utile *nb);
-int				compare_height_ligne(t_nb_utile *nb);
-int				argv1_good_format(t_nb_utile *nb, char *argv1);
-void			test_mlx(t_mlx *mlx);
-void			my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
-int				key_hook(int keycode, t_mlx *mlx);
-void			display_point(t_mlx *mlx);
+int				parsing_general(t_general *g, char *argv1);
+int				one_big_line(t_general *g);
+int				count_word(t_general *g);
+int				compare_height_ligne(t_general *g);
+int				argv1_good_format(t_general *g, char *argv1);
+void			test_mlx(t_general *g);
+void			my_mlx_pixel_put(t_general *g, int x, int y, int color);
+int				key_hook(int keycode, t_general *g);
+void			display_point(t_general *g);
+void			creat_struct(t_general *g);
 
 #endif

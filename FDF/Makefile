@@ -6,14 +6,14 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/20 17:02:03 by nsmail            #+#    #+#              #
-#    Updated: 2025/05/29 20:48:00 by nsmail           ###   ########.fr        #
+#    Updated: 2025/05/30 16:11:06 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 # Fichiers sources
-SRCS = main.c parsing/parsing.c parsing/parsing_2.c
+SRCS = main.c parsing/parsing.c parsing/parsing_2.c src/ramplisage.c
 
 # Bibliothèques
 LIBFT_DIR = libft
