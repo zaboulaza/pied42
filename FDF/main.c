@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:26:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/30 21:20:09 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/05 14:57:19 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void	creat_struct(t_general *g)
 	g->nb = malloc(sizeof(t_nb_utile));
 	g->pix = malloc(sizeof(t_pixel_put));
 	g->mlx = malloc(sizeof(t_mlx));
+	g->b = malloc(sizeof(t_general));
 }

@@ -6,27 +6,11 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:19:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/30 21:12:16 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/03 14:32:11 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fils_de_flut.h"
-
-// int	*parse_line(char **splitted_line, int len)
-// {
-// 	int	*tab;
-// 	int	i;
-// 	int	j;
-
-// 	i = -1;
-// 	j = -1;
-// 	tab = (int *) malloc(sizeof(int) * ft_strlen(len));
-// 	if (!tab)
-// 		return (NULL);
-// 	while (splitted_line[++i])
-// 		tab[++j] = ft_atoi(splitted_line[i]);
-// 	return (tab);
-// }
 
 int	parsing_general(t_general *g, char *argv1)
 {
@@ -39,6 +23,7 @@ int	parsing_general(t_general *g, char *argv1)
 	g->nb->res_count_word = count_word(g);
 	if (compare_height_ligne(g) == 0)
 		return (0);
+	remplisage(g);
 	return (1);
 }
 

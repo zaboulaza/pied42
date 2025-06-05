@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:07:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/30 21:17:38 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/05 14:57:13 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,28 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+// # ifndef WIN_LENGTH
+// #  define WIN_LENGTH (int)1920;
+// // # endif
+
+// # ifndef WIN_HEIGHT
+// #  define WIN_HEIGHT (int)1080;
+// # endif
+
 typedef struct s_nb_utile
 {
-	int			i;
-	int			j;
-	int			fd;
 	char		**map;
 	char		*ligne;
 	char		*temp_gnl;
+	char		**tokens;
+	int			len_argv1;
+	int			i;
+	int			j;
+	int			k;
+	int			fd;
 	int			height;
 	int			length;
 	int			res_count_word;
-	int			len_argv1;
 }				t_nb_utile;
 
 typedef struct s_pixel_put
@@ -45,12 +55,12 @@ typedef struct s_pixel_put
 typedef struct s_mlx
 {
 	void		*img;
+	void		*ptr_mlx;
+	void		*mlx_win;
 	char		*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	void		*ptr_mlx;
-	void		*mlx_win;
 }				t_mlx;
 
 typedef struct s_point
@@ -61,12 +71,26 @@ typedef struct s_point
 	int			color;
 }				t_point;
 
+typedef struct s_bresenham
+{
+	int			dx;
+	int			dy;
+	int			des;
+	int			i;
+	int			x;
+	int			y;
+	int			xx;
+	int			yy;
+	int			zoom;
+}				t_bresenham;
+
 typedef struct s_general
 {
+	t_mlx		*mlx;
 	t_nb_utile	*nb;
 	t_pixel_put	*pix;
-	t_mlx		*mlx;
 	t_point		**tab;
+	t_bresenham	*b;
 }				t_general;
 
 int				main(int ac, char **av);
@@ -80,5 +104,14 @@ void			my_mlx_pixel_put(t_general *g, int x, int y, int color);
 int				key_hook(int keycode, t_general *g);
 void			display_point(t_general *g);
 void			creat_struct(t_general *g);
-
+int				ft_atoi_base(const char *str, int str_base);
+int				is_valid(char c, int str_base);
+int				after(char *s, t_general *g);
+int				before(char *s);
+void			remplisage(t_general *g);
+void			draw_line_between(t_general *g, t_point a, t_point b);
+void			more_than_1(t_general *g);
+void			less_than_1(t_general *g);
+void			draw_map(t_general *g);
+void			draw_line(t_general *g, int x, int y);
 #endif

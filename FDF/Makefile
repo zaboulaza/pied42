@@ -6,14 +6,15 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/20 17:02:03 by nsmail            #+#    #+#              #
-#    Updated: 2025/05/30 16:11:06 by nsmail           ###   ########.fr        #
+#    Updated: 2025/06/03 15:21:37 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
 # Fichiers sources
-SRCS = main.c parsing/parsing.c parsing/parsing_2.c src/ramplisage.c
+SRCS = 	main.c parsing/parsing.c parsing/parsing_2.c src/ramplisage.c \
+		trace_ligne.c
 
 # Bibliothèques
 LIBFT_DIR = libft
@@ -27,7 +28,7 @@ GNL = $(GNL_DIR)/get_next_line.a
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 all: $(NAME)
 
