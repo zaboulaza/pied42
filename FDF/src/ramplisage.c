@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:09:42 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/05 15:13:42 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/07 17:47:13 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	remplisage(t_general *g)
 	nb->i = 0;
 	g->tab = malloc(sizeof(t_point *));
 	while (nb->i < nb->height)
-		g->tab[nb->i++] = malloc(nb->length * sizeof(t_point));  
+		g->tab[nb->i++] = malloc(nb->length * sizeof(t_point));
 	y = 0;
 	while (y < nb->height)
 	{
@@ -34,6 +34,9 @@ void	remplisage(t_general *g)
 			g->tab[y][x].y = y;
 			g->tab[y][x].z = before(nb->tokens[x]);
 			g->tab[y][x].color = after(nb->tokens[x], g);
+			g->tab[y][x].r = (g->tab[y][x].color >> 16) & 0xFF;
+			g->tab[y][x].g = (g->tab[y][x].color >> 8) & 0xFF;
+			g->tab[y][x].b = (g->tab[y][x].color) & 0xFF;
 			x++;
 		}
 		free(nb->tokens[x]);

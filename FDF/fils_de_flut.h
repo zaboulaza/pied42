@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:07:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/05 14:57:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/07 17:00:26 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "mlx/mlx.h"
 # include "mlx/mlx_int.h"
 # include <fcntl.h>
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -69,6 +70,9 @@ typedef struct s_point
 	int			y;
 	int			z;
 	int			color;
+	int			r;
+	int			g;
+	int			b;
 }				t_point;
 
 typedef struct s_bresenham
@@ -114,4 +118,6 @@ void			more_than_1(t_general *g);
 void			less_than_1(t_general *g);
 void			draw_map(t_general *g);
 void			draw_line(t_general *g, int x, int y);
+void			isometrique_projection(t_point *p);
+
 #endif

@@ -6,11 +6,46 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:28:48 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/05 17:13:29 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/07 12:52:50 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fils_de_flut.h"
+
+void	draw_map(t_general *g)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	// printf("tu me vois 1 ?\n"); OK
+	while (y < g->nb->length)
+	{
+		x = 0;
+		while (x < g->nb->height)
+		{
+			// printf("tu me vois 2 ?\n"); OK
+			draw_line(g, x, y);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	draw_line(t_general *g, int x, int y)
+{
+	// printf("tu me vois 3 ?\n"); OK
+	if (x + 1 < g->nb->length)
+	{
+		draw_line_between(g, g->tab[y][x], g->tab[y][x + 1]);
+		// printf("tu me vois 4 ?\n"); OK
+	}
+	if (y + 1 < g->nb->height)
+	{
+		draw_line_between(g, g->tab[y][x], g->tab[y + 1][x]);
+		// printf("tu me vois 5 ?\n"); OK
+	}
+}
 
 void	draw_line_between(t_general *g, t_point a, t_point b)
 {
@@ -21,6 +56,8 @@ void	draw_line_between(t_general *g, t_point a, t_point b)
 	b.x *= g->b->zoom;
 	b.y *= g->b->zoom;
 	b.z *= g->b->zoom;
+	isometrique_projection(&a);
+	isometrique_projection(&b);
 	a.x += 1920 / 2;
 	a.y += 1080 / 2;
 	b.x += 1920 / 2;
@@ -102,40 +139,5 @@ void	more_than_1(t_general *g)
 		}
 		my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->tab[g->b->y][g->b->x].color);
 		g->b->i++;
-	}
-}
-
-void	draw_map(t_general *g)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	// printf("tu me vois 1 ?\n"); OK
-	while (y < g->nb->length)
-	{
-		x = 0;
-		while (x < g->nb->height)
-		{
-			// printf("tu me vois 2 ?\n"); OK
-			draw_line(g, x, y);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	draw_line(t_general *g, int x, int y)
-{
-	// printf("tu me vois 3 ?\n"); OK
-	if (x + 1 < g->nb->length)
-	{
-		draw_line_between(g, g->tab[y][x], g->tab[y][x + 1]);
-		// printf("tu me vois 4 ?\n"); OK
-	}
-	if (y + 1 < g->nb->height)
-	{
-		draw_line_between(g, g->tab[y][x], g->tab[y + 1][x]);
-		// printf("tu me vois 5 ?\n"); OK
 	}
 }
