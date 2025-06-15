@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 21:27:36 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 11:45:25 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 18:36:57 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	move(int keycode, t_general *g)
 	else if (keycode == LEFT_ROTATION_SEVEN)
 		g->cam->gamma += 0.2;
 	else if (keycode == RIGHT_ROTATION_NINE)
-		g->cam->gamma -= 0.2;
+		g->cam->gamma -= 0.01;
 }
 
 int	close_win(t_general *g)

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:19:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 16:51:21 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 18:09:15 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int	one_big_line(t_general *g)
 	if (g->nb->ligne == NULL)
 		return (0);
 	g->nb->temp_gnl = get_next_line(g->nb->fd);
-	// if (g->nb->temp_gnl == NULL)
-	// 	return (0);
 	while (g->nb->temp_gnl)
 	{
 		g->nb->ligne = ft_strjoin(g->nb->ligne, g->nb->temp_gnl);

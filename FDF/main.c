@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:26:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 16:59:40 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 18:33:28 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,25 @@ int	main(int ac, char **av)
 
 	creat_struct(&g);
 	if (ac != 2)
+	{
+		free_struct(&g);
 		return (0);
+	}
 	g.nb->fd = open(av[1], O_RDONLY);
 	if (g.nb->fd == -1)
+	{
+		free_struct(&g);
 		return (EXIT_FAILURE);
+	}
 	if (parsing_general(&g, av[1]) == 0)
+	{
+		close(g.nb->fd);
+		free_struct(&g);
 		return (0);
+	}
 	close(g.nb->fd);
 	test_mlx(&g);
+	free_struct(&g);
 	return (0);
 }
 
@@ -54,16 +65,27 @@ void	creat_struct(t_general *g)
 void	free_struct(t_general *g)
 {
 	g->nb->i = 0;
-	while (g->nb->i < g->nb->height)
+	if (g->tab)
 	{
-		free(g->tab[g->nb->i]);
-		g->nb->i++;
+		while (g->nb->i < g->nb->height)
+		{
+			free(g->tab[g->nb->i]);
+			g->nb->i++;
+		}
+		free(g->tab);
 	}
-	free(g->tab);
-	free(g->pix);
-	free(g->cam);
-	free(g->b);
-	free(g->mlx);
-	free(g->nb->ligne);
-	free(g->nb);
+	if (g->pix)
+		free(g->pix);
+	if (g->cam)
+		free(g->cam);
+	if (g->b)
+		free(g->b);
+	if (g->mlx)
+		free(g->mlx);
+	if (g->nb)
+	{
+		if (g->nb->ligne)
+			free(g->nb->ligne);
+		free(g->nb);
+	}
 }
