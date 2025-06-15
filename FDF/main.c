@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:26:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 12:27:05 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 16:59:40 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,17 @@ void	creat_struct(t_general *g)
 
 void	free_struct(t_general *g)
 {
+	g->nb->i = 0;
+	while (g->nb->i < g->nb->height)
+	{
+		free(g->tab[g->nb->i]);
+		g->nb->i++;
+	}
+	free(g->tab);
 	free(g->pix);
 	free(g->cam);
 	free(g->b);
 	free(g->mlx);
+	free(g->nb->ligne);
 	free(g->nb);
 }
