@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:19:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/03 14:32:11 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 14:12:43 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	parsing_general(t_general *g, char *argv1)
 		return (0);
 	if (count_word(g) == 0)
 		return (0);
-	g->nb->res_count_word = count_word(g);
+	g->nb->length = count_word(g);
 	if (compare_height_ligne(g) == 0)
 		return (0);
 	remplisage(g);
@@ -46,41 +46,29 @@ int	argv1_good_format(t_general *g, char *argv1)
 
 int	one_big_line(t_general *g)
 {
-	g->nb->height = 0;
-	g->nb->i = 0;
-	g->nb->ligne = NULL;
 	if (g->nb->ligne == NULL)
 		g->nb->ligne = ft_strdup("");
 	if (g->nb->ligne == NULL)
 		return (0);
 	g->nb->temp_gnl = get_next_line(g->nb->fd);
+	// if (g->nb->temp_gnl == NULL)
+	// 	return (0);
 	while (g->nb->temp_gnl)
 	{
 		g->nb->ligne = ft_strjoin(g->nb->ligne, g->nb->temp_gnl);
+		free(g->nb->temp_gnl);
 		if (g->nb->ligne == NULL)
-		{
-			free(g->nb->ligne);
-			free(g->nb->temp_gnl);
 			return (0);
-		}
 		g->nb->height++;
 		g->nb->temp_gnl = get_next_line(g->nb->fd);
 	}
-	printf("ligne :\n%s\n\n", g->nb->ligne);
-	printf("height : %d\n\n", g->nb->height);
 	g->nb->map = ft_split(g->nb->ligne, '\n');
-	while (g->nb->map[g->nb->i])
-	{
-		printf("map %d : %s\n", g->nb->i, g->nb->map[g->nb->i]);
-		g->nb->i++;
-	}
-	printf("\n");
 	return (1);
 }
 
 int	count_word(t_general *g)
 {
-	g->nb->length = 0;
+	g->nb->res_count_word = 0;
 	g->nb->i = 0;
 	if (g->nb->ligne[g->nb->i] && g->nb->ligne[g->nb->i] == '\n')
 		g->nb->i++;
@@ -88,15 +76,18 @@ int	count_word(t_general *g)
 		g->nb->i++;
 	while (g->nb->ligne[g->nb->i] != '\n' && g->nb->ligne[g->nb->i] != '\0')
 	{
-		g->nb->length++;
+		g->nb->res_count_word++;
 		while (g->nb->ligne[g->nb->i] != ' ' && g->nb->ligne[g->nb->i] != '\0'
 			&& g->nb->ligne[g->nb->i] != '\n')
 			g->nb->i++;
 		while (g->nb->ligne[g->nb->i] == ' ')
 			g->nb->i++;
 	}
-	printf("length : %d\n", g->nb->length);
-	return (g->nb->length);
+	// free(g->nb->ligne);
+	g->nb->res_count_word++;
+	// while (g->nb->map[g->nb->i])
+	// 	g->nb->i++;
+	return (g->nb->res_count_word);
 }
 
 int	compare_height_ligne(t_general *g)
@@ -105,13 +96,13 @@ int	compare_height_ligne(t_general *g)
 	while (g->nb->map[g->nb->j])
 	{
 		g->nb->i = 0;
-		g->nb->length = 0;
+		g->nb->res_count_word = 0;
 		while (g->nb->map[g->nb->j][g->nb->i] == ' ')
 			g->nb->i++;
 		while (g->nb->map[g->nb->j][g->nb->i] != '\n'
 			&& g->nb->map[g->nb->j][g->nb->i] != '\0')
 		{
-			g->nb->length++;
+			g->nb->res_count_word++;
 			while (g->nb->map[g->nb->j][g->nb->i] != ' '
 				&& g->nb->map[g->nb->j][g->nb->i] != '\n'
 				&& g->nb->map[g->nb->j][g->nb->i] != '\0')
@@ -119,7 +110,7 @@ int	compare_height_ligne(t_general *g)
 			while (g->nb->map[g->nb->j][g->nb->i] == ' ')
 				g->nb->i++;
 		}
-		if (g->nb->length != g->nb->res_count_word)
+		if (g->nb->res_count_word + 1 != g->nb->length)
 			return (0);
 		g->nb->j++;
 	}

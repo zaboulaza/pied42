@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:09:42 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/07 17:47:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 14:08:34 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,32 @@
 
 void	remplisage(t_general *g)
 {
-	t_nb_utile	*nb;
-	int			y;
-	int			x;
+	int	y;
+	int	x;
 
-	nb = g->nb;
-	nb->i = 0;
-	g->tab = malloc(sizeof(t_point *));
-	while (nb->i < nb->height)
-		g->tab[nb->i++] = malloc(nb->length * sizeof(t_point));
 	y = 0;
-	while (y < nb->height)
+	init(g);
+	while (y < g->nb->height)
 	{
-		nb->tokens = ft_split(nb->map[y], ' ');
+		g->nb->tokens = ft_split(g->nb->map[y], ' ');
+		free(g->nb->map[y]);
 		x = 0;
-		while (nb->tokens[x])
+		while (g->nb->tokens[x])
 		{
 			g->tab[y][x].x = x;
 			g->tab[y][x].y = y;
-			g->tab[y][x].z = before(nb->tokens[x]);
-			g->tab[y][x].color = after(nb->tokens[x], g);
+			g->tab[y][x].z = before(g->nb->tokens[x]);
+			g->tab[y][x].color = after(g->nb->tokens[x], g);
 			g->tab[y][x].r = (g->tab[y][x].color >> 16) & 0xFF;
 			g->tab[y][x].g = (g->tab[y][x].color >> 8) & 0xFF;
 			g->tab[y][x].b = (g->tab[y][x].color) & 0xFF;
+			free(g->nb->tokens[x]);
 			x++;
 		}
-		free(nb->tokens[x]);
+		free(g->nb->tokens);
 		y++;
 	}
+	free(g->nb->map);
 }
 
 int	before(char *s)
@@ -59,14 +57,12 @@ int	before(char *s)
 		s2 = malloc(i + 1);
 		if (!s2)
 			return (0);
-		i = 0;
-		while (s[i] != ',')
-		{
+		i = -1;
+		while (s[++i] != ',')
 			s2[i] = s[i];
-			i++;
-		}
 		s2[i] = '\0';
 		sfinal = ft_atoi(s2);
+		free(s2);
 		return (sfinal);
 	}
 	sfinal = ft_atoi(s);
@@ -76,6 +72,7 @@ int	before(char *s)
 int	after(char *s, t_general *g)
 {
 	char	*color;
+	int		color_int;
 
 	g->nb->i = 0;
 	g->nb->j = 0;
@@ -88,14 +85,14 @@ int	after(char *s, t_general *g)
 		while (s[g->nb->i])
 			g->nb->i++;
 		color = malloc(g->nb->i - g->nb->k + 1);
+		if (!color)
+			return (16777215);
 		while (s[g->nb->k])
-		{
-			color[g->nb->j] = s[g->nb->k];
-			g->nb->j++;
-			g->nb->k++;
-		}
-		color[g->nb->i] = '\0';
-		return (ft_atoi_base(color, 16));
+			color[g->nb->j++] = s[g->nb->k++];
+		color[g->nb->j] = '\0';
+		color_int = ft_atoi_base(color, 16);
+		free(color);
+		return (color_int);
 	}
 	return (16777215);
 }

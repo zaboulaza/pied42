@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:07:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/07 17:00:26 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 11:44:07 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,38 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-// # ifndef WIN_LENGTH
-// #  define WIN_LENGTH (int)1920;
-// // # endif
+# ifndef WIN_LENGTH
+#  define WIN_LENGTH 1920
+# endif
 
-// # ifndef WIN_HEIGHT
-// #  define WIN_HEIGHT (int)1080;
+# ifndef WIN_HEIGHT
+#  define WIN_HEIGHT 1080
+# endif
+
+// # ifndef ZOOM
+// #  define ZOOM 2
 // # endif
+# define EXIT_FAILURE 1
+
+# define ESCAPE 65307
+
+# define RIGHT_ARROW 65363
+# define LEFT_ARROW 65361
+# define TOP_ARROW 65362
+# define BOTTOM_ARROW 65364
+
+# define EIGHT 65431
+# define FOUR 65430
+# define TWO 65433
+# define SIX 65432
+
+# define RIGHT_ROTATION_NINE 65434
+# define LEFT_ROTATION_SEVEN 65429
+
+# define ZOOM_PLUS 65451
+# define DEZOOM_LESS 65453
+# define ZOOM_ASTERIX 65450
+# define DEZOOM_SLASH 65455
 
 typedef struct s_nb_utile
 {
@@ -75,6 +100,12 @@ typedef struct s_point
 	int			b;
 }				t_point;
 
+typedef struct s_Z_Min_Max
+{
+	int			max;
+	int			min;
+}				t_Z_Min_Max;
+
 typedef struct s_bresenham
 {
 	int			dx;
@@ -85,8 +116,16 @@ typedef struct s_bresenham
 	int			y;
 	int			xx;
 	int			yy;
-	int			zoom;
+	int			color_gradent;
 }				t_bresenham;
+
+typedef struct s_camera
+{
+	float		alpha;
+	float		beta;
+	float		gamma;
+	float		zoom;
+}				t_camera;
 
 typedef struct s_general
 {
@@ -95,6 +134,8 @@ typedef struct s_general
 	t_pixel_put	*pix;
 	t_point		**tab;
 	t_bresenham	*b;
+	t_Z_Min_Max	*z;
+	t_camera	*cam;
 }				t_general;
 
 int				main(int ac, char **av);
@@ -114,10 +155,21 @@ int				after(char *s, t_general *g);
 int				before(char *s);
 void			remplisage(t_general *g);
 void			draw_line_between(t_general *g, t_point a, t_point b);
-void			more_than_1(t_general *g);
-void			less_than_1(t_general *g);
+void			more_than_1(t_general *g, t_point a, t_point b);
+void			less_than_1(t_general *g, t_point a, t_point b);
 void			draw_map(t_general *g);
 void			draw_line(t_general *g, int x, int y);
 void			isometrique_projection(t_point *p);
+float			fraction(int x, int y, t_point *a, t_point *b);
+int				get_color(int x, int y, t_point *a, t_point *b);
+void			init(t_general *g);
+void			centre_zoom(t_general *g, t_point *a, t_point *b);
+void			rotate_z(t_point *p, float gamma);
+void			rotate_y(t_point *p, float beta);
+void			rotate_x(t_point *p, float alpha);
+void			move(int keycode, t_general *g);
+void			zoom(int keycode, t_general *g);
+int				close_win(t_general *g);
+void			free_struct(t_general *g);
 
 #endif

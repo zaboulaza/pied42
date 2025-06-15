@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:28:48 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/07 12:52:50 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 13:56:05 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ void	draw_map(t_general *g)
 	int	y;
 
 	y = 0;
-	// printf("tu me vois 1 ?\n"); OK
-	while (y < g->nb->length)
+	while (y < g->nb->height)
 	{
 		x = 0;
-		while (x < g->nb->height)
+		while (x < g->nb->length - 1)
 		{
-			// printf("tu me vois 2 ?\n"); OK
 			draw_line(g, x, y);
 			x++;
 		}
@@ -34,87 +32,70 @@ void	draw_map(t_general *g)
 
 void	draw_line(t_general *g, int x, int y)
 {
-	// printf("tu me vois 3 ?\n"); OK
-	if (x + 1 < g->nb->length)
-	{
+	if (x + 1 < g->nb->length - 1)
 		draw_line_between(g, g->tab[y][x], g->tab[y][x + 1]);
-		// printf("tu me vois 4 ?\n"); OK
-	}
 	if (y + 1 < g->nb->height)
-	{
 		draw_line_between(g, g->tab[y][x], g->tab[y + 1][x]);
-		// printf("tu me vois 5 ?\n"); OK
-	}
 }
 
 void	draw_line_between(t_general *g, t_point a, t_point b)
 {
-	g->b->zoom = 20;
-	a.x *= g->b->zoom;
-	a.y *= g->b->zoom;
-	a.z *= g->b->zoom;
-	b.x *= g->b->zoom;
-	b.y *= g->b->zoom;
-	b.z *= g->b->zoom;
+	centre_zoom(g, &a, &b);
+	rotate_x(&a, g->cam->alpha);
+	rotate_y(&a, g->cam->beta);
+	rotate_z(&a, g->cam->gamma);
+	rotate_x(&b, g->cam->alpha);
+	rotate_y(&b, g->cam->beta);
+	rotate_z(&b, g->cam->gamma);
 	isometrique_projection(&a);
 	isometrique_projection(&b);
-	a.x += 1920 / 2;
-	a.y += 1080 / 2;
-	b.x += 1920 / 2;
-	b.y += 1080 / 2;
-	g->b->dx = a.x - g->tab[g->b->y][g->b->x].x;
-	g->b->dy = g->tab[g->b->y + 1][g->b->x].y - g->tab[g->b->y][g->b->x].y;
-	g->b->xx = g->tab[g->b->y][g->b->x].x;
-	g->b->yy = g->tab[g->b->y][g->b->x].y;
-	// printf("tu me vois 6 ?\n"); OK
+	a.x += WIN_LENGTH / 2;
+	a.y += WIN_HEIGHT / 2;
+	b.x += WIN_LENGTH / 2;
+	b.y += WIN_HEIGHT / 2;
+	g->b->dx = b.x - a.x;
+	// printf("b.x = [%d]  et  a.x = [%d\n]", b.x, a.x);
+	g->b->dy = b.y - a.y;
+	// printf("b.y = [%d]  et  a.y = [%d\n]", b.x, a.x);
+	g->b->xx = a.x;
+	g->b->yy = a.y;
 	if (abs(g->b->dx) > abs(g->b->dy))
-	{
-		less_than_1(g);
-		// printf("tu me vois 7 ?\n"); OK
-	}
+		less_than_1(g, a, b);
 	else
-	{
-		more_than_1(g);
-		printf("tu me vois 8 ?\n");
-	}
+		more_than_1(g, a, b);
 }
 
-void	less_than_1(t_general *g)
+void	less_than_1(t_general *g, t_point a, t_point b)
 {
 	g->b->y = 0;
 	g->b->x = 0;
 	g->b->i = 0;
 	g->b->des = 2 * abs(g->b->dy) - abs(g->b->dx);
-	printf("tu me vois 9 ?\n");
 	my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->tab[g->b->y][g->b->x].color);
 	while (g->b->i < abs(g->b->dx))
 	{
-		printf("tu me vois 10 ?\n");
 		if (g->b->dx > 0)
 			g->b->xx += 1;
 		else
 			g->b->xx -= 1;
 		if (g->b->des < 0)
-		{
 			g->b->des = g->b->des + 2 * abs(g->b->dy);
-			printf("tu me vois 11 ?\n");
-		}
 		else
 		{
-			printf("tu me vois 12 ?\n");
 			if (g->b->dy > 0)
 				g->b->yy += 1;
 			else
 				g->b->yy -= 1;
 			g->b->des = g->b->des + 2 * abs(g->b->dy) - 2 * abs(g->b->dx);
 		}
-		my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->tab[g->b->y][g->b->x].color);
+		g->b->color_gradent = get_color(g->b->xx, g->b->yy, &a, &b);
+		my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->b->color_gradent);
+		// my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->b->color_gradent);
 		g->b->i++;
-		printf("tu me vois 13 ?\n");
 	}
 }
 
-void	more_than_1(t_general *g)
+void	more_than_1(t_general *g, t_point a, t_point b)
 {
 	g->b->y = 0;
 	g->b->x = 0;
@@ -137,7 +118,8 @@ void	more_than_1(t_general *g)
 				g->b->xx -= 1;
 			g->b->des = g->b->des + 2 * abs(g->b->dx) - 2 * abs(g->b->dy);
 		}
-		my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->tab[g->b->y][g->b->x].color);
+		g->b->color_gradent = get_color(g->b->xx, g->b->yy, &a, &b);
+		my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->b->color_gradent);
 		g->b->i++;
 	}
 }

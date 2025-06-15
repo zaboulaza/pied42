@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:26:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/05 14:57:19 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/15 12:27:05 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,41 @@ int	main(int ac, char **av)
 		return (0);
 	g.nb->fd = open(av[1], O_RDONLY);
 	if (g.nb->fd == -1)
-		return (0);
+		return (EXIT_FAILURE);
 	if (parsing_general(&g, av[1]) == 0)
 		return (0);
 	close(g.nb->fd);
 	test_mlx(&g);
-	printf("fin de boucle\n");
 	return (0);
 }
 
 void	creat_struct(t_general *g)
 {
-	g->nb = malloc(sizeof(t_nb_utile));
+	ft_memset(g, 0, sizeof(t_general));
+	g->nb = calloc(1, sizeof(t_nb_utile));
+	if (!g->nb)
+		exit(EXIT_FAILURE);
 	g->pix = malloc(sizeof(t_pixel_put));
-	g->mlx = malloc(sizeof(t_mlx));
-	g->b = malloc(sizeof(t_general));
+	if (!g->pix)
+		exit(EXIT_FAILURE);
+	g->mlx = calloc(1, sizeof(t_mlx));
+	if (!g->mlx)
+		exit(EXIT_FAILURE);
+	g->b = calloc(1, sizeof(t_bresenham));
+	if (!g->b)
+		exit(EXIT_FAILURE);
+	g->cam = malloc(sizeof(t_camera));
+	if (!g->cam)
+		exit(EXIT_FAILURE);
+	ft_memset(g->cam, 0, sizeof(t_camera));
+	g->cam->zoom = 2;
+}
+
+void	free_struct(t_general *g)
+{
+	free(g->pix);
+	free(g->cam);
+	free(g->b);
+	free(g->mlx);
+	free(g->nb);
 }
