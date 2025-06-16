@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 15:30:42 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/11 21:07:15 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 19:58:05 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	free_all(char **tab)
 	}
 	free(tab);
 }
-#include <stdio.h>
+
 static size_t	count_word(const char *s, char c)
 {
 	size_t	count;
@@ -43,7 +43,6 @@ static size_t	count_word(const char *s, char c)
 				i++;
 		}
 	}
-	// printf("count split : %zu\n", count);
 	return (count);
 }
 
@@ -75,7 +74,6 @@ char	**ft_split(char const *s, char c)
 	if (!tab_g)
 		return (NULL);
 	tab_g[count_word(s, c)] = NULL;
-	// printf("");
 	i = 0;
 	while (*s)
 	{

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:26:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 18:33:28 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 19:23:31 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	creat_struct(t_general *g)
 	if (!g->cam)
 		exit(EXIT_FAILURE);
 	ft_memset(g->cam, 0, sizeof(t_camera));
-	g->cam->zoom = 2;
+	g->cam->zoom = 15;
+	g->cam->decal_x = 0;
+	g->cam->decal_y = 0;
+	g->cam->z = 1;
 }
 
 void	free_struct(t_general *g)
@@ -68,10 +71,7 @@ void	free_struct(t_general *g)
 	if (g->tab)
 	{
 		while (g->nb->i < g->nb->height)
-		{
-			free(g->tab[g->nb->i]);
-			g->nb->i++;
-		}
+			free(g->tab[g->nb->i++]);
 		free(g->tab);
 	}
 	if (g->pix)
@@ -86,6 +86,7 @@ void	free_struct(t_general *g)
 	{
 		if (g->nb->ligne)
 			free(g->nb->ligne);
-		free(g->nb);
+		if (g->nb->map)
+			free(g->nb);
 	}
 }

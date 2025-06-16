@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 11:19:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 18:09:15 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 19:56:16 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,6 @@ int	count_word(t_general *g)
 			g->nb->i++;
 	}
 	g->nb->res_count_word++;
-	// while (g->nb->map[g->nb->i])
-	// 	g->nb->i++;
-	// free(g->nb->ligne);
 	return (g->nb->res_count_word);
 }
 

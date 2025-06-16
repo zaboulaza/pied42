@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:19:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 18:17:09 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 19:52:48 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	render(t_general *g)
 void	mlx_first_verif(t_general *g)
 {
 	g->mlx->ptr_mlx = mlx_init();
-	if (g->mlx->ptr_mlx == NULL)
+	if (!g->mlx->ptr_mlx)
 		exit(EXIT_FAILURE);
 	g->mlx->mlx_win = mlx_new_window(g->mlx->ptr_mlx, WIN_LENGTH, WIN_HEIGHT,
 			"titre");
@@ -57,28 +57,14 @@ void	mlx_first_verif(t_general *g)
 		exit(EXIT_FAILURE);
 	}
 	g->mlx->img = mlx_new_image(g->mlx->ptr_mlx, WIN_LENGTH, WIN_HEIGHT);
-	if (g->mlx->img == NULL)
-	{
-		mlx_destroy_window(g->mlx->ptr_mlx, g->mlx->mlx_win);
-		mlx_destroy_display(g->mlx->ptr_mlx);
-		free(g->mlx->ptr_mlx);
-		exit(EXIT_FAILURE);
-	}
-	g->mlx->addr = mlx_get_data_addr(g->mlx->img, &g->mlx->bits_per_pixel,
-			&g->mlx->line_length, &g->mlx->endian);
-	if (g->mlx->addr == NULL)
-	{
-		mlx_destroy_window(g->mlx->ptr_mlx, g->mlx->mlx_win);
-		mlx_destroy_display(g->mlx->ptr_mlx);
-		free(g->mlx->ptr_mlx);
-		exit(EXIT_FAILURE);
-	}
+	verif_mlx(g);
 }
 
 void	test_mlx(t_general *g)
 {
 	mlx_first_verif(g);
 	mlx_hook(g->mlx->mlx_win, 2, 1, key_hook, g);
+	mlx_hook(g->mlx->mlx_win, 17, 0, close_win, g);
 	mlx_loop_hook(g->mlx->ptr_mlx, render, g);
 	mlx_loop(g->mlx->ptr_mlx);
 }

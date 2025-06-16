@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 16:09:42 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 14:08:34 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 20:01:58 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	remplisage(t_general *g)
 	{
 		g->nb->tokens = ft_split(g->nb->map[y], ' ');
 		free(g->nb->map[y]);
-		x = 0;
-		while (g->nb->tokens[x])
+		x = -1;
+		while (g->nb->tokens[++x])
 		{
 			g->tab[y][x].x = x;
 			g->tab[y][x].y = y;
@@ -34,7 +34,6 @@ void	remplisage(t_general *g)
 			g->tab[y][x].g = (g->tab[y][x].color >> 8) & 0xFF;
 			g->tab[y][x].b = (g->tab[y][x].color) & 0xFF;
 			free(g->nb->tokens[x]);
-			x++;
 		}
 		free(g->nb->tokens);
 		y++;

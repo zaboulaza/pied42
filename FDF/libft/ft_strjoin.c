@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 21:33:51 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/24 03:31:19 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 20:00:37 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,19 @@
 char	*ft_strjoin(char *s1, char const *s2)
 {
 	size_t	tailleg;
-	size_t	i;
+	int		i;
 	size_t	j;
 	char	*s3;
 
 	if (!s1)
 		return (NULL);
 	tailleg = ft_strlen(s1) + ft_strlen(s2);
-	i = 0;
+	i = -1;
 	s3 = malloc(tailleg + 1);
 	if (!s3)
 		return (NULL);
-	while (s1[i])
-	{
+	while (s1[++i])
 		s3[i] = s1[i];
-		i++;
-	}
 	j = 0;
 	while (s2[j])
 	{

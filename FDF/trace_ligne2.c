@@ -6,19 +6,19 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:36:56 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 02:30:14 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 19:53:15 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fils_de_flut.h"
 
-void	isometrique_projection(t_point *p)
+void	isometrique_projection(t_point *p, t_general *g)
 {
 	int	tmp;
 
 	tmp = p->x;
 	p->x = (tmp - p->y) * cos(0.523599);
-	p->y = (tmp + p->y) * sin(0.523599) - p->z;
+	p->y = (tmp + p->y) * sin(0.523599) - p->z * g->cam->z;
 }
 
 float	fraction(int x, int y, t_point *a, t_point *b)
@@ -72,4 +72,25 @@ void	centre_zoom(t_general *g, t_point *a, t_point *b)
 	b->x *= g->cam->zoom;
 	b->y *= g->cam->zoom;
 	b->z *= g->cam->zoom;
+}
+
+void	verif_mlx(t_general *g)
+{
+	if (g->mlx->img == NULL)
+	{
+		mlx_destroy_window(g->mlx->ptr_mlx, g->mlx->mlx_win);
+		mlx_destroy_display(g->mlx->ptr_mlx);
+		free(g->mlx->ptr_mlx);
+		exit(EXIT_FAILURE);
+	}
+	g->mlx->addr = mlx_get_data_addr(g->mlx->img, &g->mlx->bits_per_pixel,
+			&g->mlx->line_length, &g->mlx->endian);
+	if (g->mlx->addr == NULL)
+	{
+		mlx_destroy_window(g->mlx->ptr_mlx, g->mlx->mlx_win);
+		mlx_destroy_image(g->mlx->ptr_mlx, g->mlx->img);
+		mlx_destroy_display(g->mlx->ptr_mlx);
+		free(g->mlx->ptr_mlx);
+		exit(EXIT_FAILURE);
+	}
 }

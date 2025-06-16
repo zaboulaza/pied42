@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:07:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 11:44:07 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 19:54:32 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,19 @@
 
 # define EIGHT 65431
 # define FOUR 65430
-# define TWO 65433
+# define FIVE 65437
 # define SIX 65432
 
 # define RIGHT_ROTATION_NINE 65434
 # define LEFT_ROTATION_SEVEN 65429
 
-# define ZOOM_PLUS 65451
-# define DEZOOM_LESS 65453
+# define Z_PLUS 65451
+# define Z_LESS 65453
+
 # define ZOOM_ASTERIX 65450
 # define DEZOOM_SLASH 65455
+
+# define SPACE 32
 
 typedef struct s_nb_utile
 {
@@ -125,6 +128,9 @@ typedef struct s_camera
 	float		beta;
 	float		gamma;
 	float		zoom;
+	int			decal_x;
+	int			decal_y;
+	int			z;
 }				t_camera;
 
 typedef struct s_general
@@ -147,7 +153,6 @@ int				argv1_good_format(t_general *g, char *argv1);
 void			test_mlx(t_general *g);
 void			my_mlx_pixel_put(t_general *g, int x, int y, int color);
 int				key_hook(int keycode, t_general *g);
-void			display_point(t_general *g);
 void			creat_struct(t_general *g);
 int				ft_atoi_base(const char *str, int str_base);
 int				is_valid(char c, int str_base);
@@ -159,7 +164,7 @@ void			more_than_1(t_general *g, t_point a, t_point b);
 void			less_than_1(t_general *g, t_point a, t_point b);
 void			draw_map(t_general *g);
 void			draw_line(t_general *g, int x, int y);
-void			isometrique_projection(t_point *p);
+void			isometrique_projection(t_point *p, t_general *g);
 float			fraction(int x, int y, t_point *a, t_point *b);
 int				get_color(int x, int y, t_point *a, t_point *b);
 void			init(t_general *g);
@@ -171,5 +176,8 @@ void			move(int keycode, t_general *g);
 void			zoom(int keycode, t_general *g);
 int				close_win(t_general *g);
 void			free_struct(t_general *g);
+void			reset(t_general *g);
+void			verif_mlx(t_general *g);
+void			reset(t_general *g);
 
 #endif

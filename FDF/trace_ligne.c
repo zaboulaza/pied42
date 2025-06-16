@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:28:48 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/15 13:56:05 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/16 19:51:40 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,14 @@ void	draw_line_between(t_general *g, t_point a, t_point b)
 	rotate_x(&b, g->cam->alpha);
 	rotate_y(&b, g->cam->beta);
 	rotate_z(&b, g->cam->gamma);
-	isometrique_projection(&a);
-	isometrique_projection(&b);
-	a.x += WIN_LENGTH / 2;
-	a.y += WIN_HEIGHT / 2;
-	b.x += WIN_LENGTH / 2;
-	b.y += WIN_HEIGHT / 2;
+	isometrique_projection(&a, g);
+	isometrique_projection(&b, g);
+	a.x += WIN_LENGTH / 2 + g->cam->decal_x;
+	a.y += WIN_HEIGHT / 2 + g->cam->decal_y;
+	b.x += WIN_LENGTH / 2 + g->cam->decal_x;
+	b.y += WIN_HEIGHT / 2 + g->cam->decal_y;
 	g->b->dx = b.x - a.x;
-	// printf("b.x = [%d]  et  a.x = [%d\n]", b.x, a.x);
 	g->b->dy = b.y - a.y;
-	// printf("b.y = [%d]  et  a.y = [%d\n]", b.x, a.x);
 	g->b->xx = a.x;
 	g->b->yy = a.y;
 	if (abs(g->b->dx) > abs(g->b->dy))
@@ -90,7 +88,6 @@ void	less_than_1(t_general *g, t_point a, t_point b)
 		}
 		g->b->color_gradent = get_color(g->b->xx, g->b->yy, &a, &b);
 		my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->b->color_gradent);
-		// my_mlx_pixel_put(g, g->b->xx, g->b->yy, g->b->color_gradent);
 		g->b->i++;
 	}
 }
