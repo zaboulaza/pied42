@@ -1,7 +1,13 @@
 {
     "files.associations": {
+        "fils_de_flut.h": "c",
+        "mlx_int.h": "c",
+        "get_next_line.h": "c",
+        "xutil.h": "c",
+        "xlib.h": "c",
+        "unistd.h": "c",
         "stdlib.h": "c",
-        "stdio.h": "c",
-        "type_traits": "c"
+        "cstdlib": "c",
+        "stdio.h": "c"
     }
 }

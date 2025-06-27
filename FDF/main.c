@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:26:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/16 19:23:31 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/18 10:50:09 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	creat_struct(t_general *g)
 	g->pix = malloc(sizeof(t_pixel_put));
 	if (!g->pix)
 		exit(EXIT_FAILURE);
-	g->mlx = calloc(1, sizeof(t_mlx));
+	g->mlx = ft_calloc(1, sizeof(t_mlx));
 	if (!g->mlx)
 		exit(EXIT_FAILURE);
-	g->b = calloc(1, sizeof(t_bresenham));
+	g->b = ft_calloc(1, sizeof(t_bresenham));
 	if (!g->b)
 		exit(EXIT_FAILURE);
 	g->cam = malloc(sizeof(t_camera));
