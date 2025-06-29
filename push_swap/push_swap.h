@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 03:02:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/27 19:38:17 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/29 06:04:03 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 typedef struct s_stack
 {
 	int				nb;
-	// int				count;
+	int				count;
 	int				index;
-	bool			up_median;
+	int				up_down;
+	// bool			up_median;
 	struct s_stack	*target;
 	struct s_stack	*next;
 }					t_stack;
@@ -68,6 +69,18 @@ void				push_3_1(t_stack **stack_a, t_stack **stack_b);
 void				target_g(t_stack **stack_a, t_stack **stack_b);
 void				target_b(t_stack *first_a, t_stack *tmp_b);
 void				target_a(t_stack *first_a, t_stack *first_b);
+int					nb_coup_g(t_stack **stack_a);
+void				stock_count(t_stack *first_a);
+// changer  le blaze de la variable
+void				put_first(t_stack **stack_a, t_stack **stack_b,
+						int index_to_move_a);
+void				target_reset(t_stack **stack_a);
+int					size_(t_stack **tmp);
+void				cut_index_a(t_stack *first_a, int i, int size, int k);
+void				cut_index_b(t_stack *first_b, int i, int size, int k);
+void				push_top(t_stack **stack_b);
+void				mouve_top(int pos, t_stack **stack_b);
+void				push_a(t_stack **stack_a, t_stack **stack_b);
 
 // ------------------------- FREE ------------------------//
 void				free_struct(t_general *g);
@@ -99,6 +112,11 @@ int					rrb(t_stack **stack_b);
 int					rrr(t_stack **stack_a, t_stack **stack_b);
 
 // ------------------------- FONCTION TEST ------------------------//
-void				print_list(t_stack *head);
+void				print_list_a(t_stack *head);
+void				print_list_b(t_stack *head);
+
+// tmp debug
+
+void				pimp(t_stack *head);
 
 #endif

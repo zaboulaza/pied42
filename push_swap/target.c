@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 14:50:10 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/27 19:51:53 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/06/28 07:20:48 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,17 @@ void	target_b(t_stack *first_a, t_stack *tmp_b)
 	{
 		if (first_a->target == NULL || first_a->target->nb < tmp_b->nb)
 			first_a->target = tmp_b;
+	}
+}
+
+void	target_reset(t_stack **stack_a)
+{
+	t_stack	*first;
+
+	first = *stack_a;
+	while (first != NULL)
+	{
+		first->target = NULL;
+		first = first->next;
 	}
 }

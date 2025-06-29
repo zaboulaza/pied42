@@ -6,14 +6,15 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/18 02:32:42 by nsmail            #+#    #+#              #
-#    Updated: 2025/06/27 16:53:21 by nsmail           ###   ########.fr        #
+#    Updated: 2025/06/29 05:48:16 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
 SRCS = 	main.c parcing_base.c creat_stack.c swap.c push.c rotate.c \
-reverse_rotate.c index_median.c start_algo.c target.c
+reverse_rotate.c index_median.c start_algo.c target.c nb_cout.c \
+put_first.c find_top.c push_a.c
 
 LIBFT_DIR = libft
 # GNL_DIR = get_next_line
