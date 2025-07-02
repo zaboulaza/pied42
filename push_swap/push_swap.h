@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 03:02:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/29 06:04:03 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 02:21:03 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int					main(int ac, char **av);
 int					parcing_1(t_general *g, char **av);
 void				creat_struct(t_general *g);
 int					join_line(t_general *g, char **av);
-
 // ------------------------- PARSING ------------------------//
 int					verif_good_format(t_general *g);
 int					verif_good_cara(char *s);
@@ -81,7 +80,12 @@ void				cut_index_b(t_stack *first_b, int i, int size, int k);
 void				push_top(t_stack **stack_b);
 void				mouve_top(int pos, t_stack **stack_b);
 void				push_a(t_stack **stack_a, t_stack **stack_b);
-
+void				rotate_a(int neg, int index_to_move_a, t_stack **stack_a);
+void				rotate_bb(int neg_b, int rotate_b, t_stack **stack_b);
+int					good_format_start(t_stack **stack_a, t_stack **stack_b);
+int					all_is_good(t_stack *first_a);
+void				sort_3(t_stack **stack_a);
+void				sort_5(t_stack **stack_a, t_stack **stack_b);
 // ------------------------- FREE ------------------------//
 void				free_struct(t_general *g);
 void				free_tab(char **tab);

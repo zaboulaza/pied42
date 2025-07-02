@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 07:32:38 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/26 09:33:07 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 07:04:39 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	parcing_1(t_general *g, char **av)
 		printf("err\n");
 		return (1);
 	}
+	if (size_(&g->stacks->stack_a) < 2)
+		return (1);
 	return (0);
 }
 
@@ -99,7 +101,6 @@ int	split_number(t_general *g)
 	g->prcg->nb_str = ft_split(g->prcg->arg_join, ' ');
 	if (!g->prcg->nb_str)
 		return (1);
-	free(g->prcg->arg_join);
 	while (g->prcg->nb_str[i] != NULL)
 	{
 		if (add_to_liste(&g->stacks->stack_a, g->prcg->nb_str[i]) == 1)

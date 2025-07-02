@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 02:59:43 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/27 17:04:15 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 07:01:20 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,15 @@ int	main(int ac, char **av)
 {
 	t_general	g;
 
-	creat_struct(&g);
 	if (ac < 2)
 		return (1);
+	creat_struct(&g);
 	if (parcing_1(&g, av) == 1)
 	{
 		free_struct(&g);
 		return (1);
 	}
 	algo_main(&g);
-	// pb(&g.stacks->stack_a, &g.stacks->stack_b);
-	// pb(&g.stacks->stack_a, &g.stacks->stack_b);
-	// pb(&g.stacks->stack_a, &g.stacks->stack_b);
-	// put_index(&g.stacks->stack_a, &g.stacks->stack_b);
-	// print_list(g.stacks->stack_a);
-	// printf("\n");
-	// printf("\n");
-	// printf("\n");
-	// print_list(g.stacks->stack_b);
-	// printf("\n");
 	free_struct(&g);
 	return (1);
 }
@@ -63,6 +53,8 @@ void	free_struct(t_general *g)
 	i = 0;
 	if (g->stack)
 		free(g->stack);
+	if (g->prcg->arg_join)
+		free(g->prcg->arg_join);
 	if (g->prcg)
 		free(g->prcg);
 	if (g->stacks)

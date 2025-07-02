@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 10:02:50 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/29 06:07:42 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 02:40:46 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	algo_main(t_general *g)
 	int		nb_coup;
 
 	stack_a = g->stacks->stack_a;
+	if (good_format_start(&g->stacks->stack_a, &g->stacks->stack_b) == 0)
+		return ;
 	push_3(&g->stacks->stack_a, &g->stacks->stack_b);
 	while (stack_a != NULL)
 	{
 		put_index(&g->stacks->stack_a, &g->stacks->stack_b);
 		target_g(&g->stacks->stack_a, &g->stacks->stack_b);
-		// segfault si on enleve
 		if (g->stacks->stack_a == NULL)
 			break ;
 		nb_coup = nb_coup_g(&g->stacks->stack_a);
