@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 03:02:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/02 02:21:03 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 19:23:14 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ int					good_format_start(t_stack **stack_a, t_stack **stack_b);
 int					all_is_good(t_stack *first_a);
 void				sort_3(t_stack **stack_a);
 void				sort_5(t_stack **stack_a, t_stack **stack_b);
+int					sort_5_0(t_stack *tmp, t_stack **stack_a, int index);
+void				sort_5_1(t_stack **stack_a, t_stack **stack_b, int index);
+void				sort_5_2(t_stack **stack_a, t_stack **stack_b, int index);
 // ------------------------- FREE ------------------------//
 void				free_struct(t_general *g);
 void				free_tab(char **tab);
@@ -114,13 +117,5 @@ int					rr(t_stack **stack_a, t_stack **stack_b);
 int					rra(t_stack **stack_a);
 int					rrb(t_stack **stack_b);
 int					rrr(t_stack **stack_a, t_stack **stack_b);
-
-// ------------------------- FONCTION TEST ------------------------//
-void				print_list_a(t_stack *head);
-void				print_list_b(t_stack *head);
-
-// tmp debug
-
-void				pimp(t_stack *head);
 
 #endif

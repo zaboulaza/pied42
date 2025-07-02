@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/29 03:40:30 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/29 06:03:43 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 19:23:33 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	push_top(t_stack **stack_b)
 	mouve_top(pos, stack_b);
 }
 
-void mouve_top(int pos, t_stack **stack_b)
+void	mouve_top(int pos, t_stack **stack_b)
 {
 	if (pos <= size_(stack_b) / 2)
 	{

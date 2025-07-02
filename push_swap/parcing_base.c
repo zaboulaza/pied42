@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 07:32:38 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/02 07:04:39 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 19:35:49 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,23 @@
 int	parcing_1(t_general *g, char **av)
 {
 	if (join_line(g, av) == 1)
+	{
+		ft_printf("Error\n");
 		return (1);
+	}
 	if (verif_good_format(g) == 1)
+	{
+		ft_printf("Error\n");
 		return (1);
+	}
 	if (split_number(g) == 1)
+	{
+		ft_printf("Error\n");
 		return (1);
+	}
 	if (verif_same_nb(g->stacks->stack_a) == 1)
 	{
-		printf("err\n");
+		ft_printf("Error\n");
 		return (1);
 	}
 	if (size_(&g->stacks->stack_a) < 2)
@@ -46,6 +55,8 @@ int	join_line(t_general *g, char **av)
 		prcg->arg_join = ft_strjoin(prcg->arg_join, av[i]);
 		i++;
 	}
+	if (prcg->arg_join[0] == 0)
+		return (1);
 	return (0);
 }
 
@@ -81,9 +92,9 @@ int	verif_good_format(t_general *g)
 			i++;
 		if (s[i] && (s[i] == '+' || s[i] == '-'))
 		{
-			if (ft_isdigit(s[i + 1]))
+			if (ft_isdigit(s[i + 1]) == 0)
 				return (1);
-			if (s[i - 1] != ' ' || s[i - 1] != 0)
+			if (!s[i - 1] || s[i - 1] != ' ')
 				return (1);
 			i++;
 		}

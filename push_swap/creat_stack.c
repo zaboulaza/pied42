@@ -6,93 +6,11 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:07:59 by nsmail            #+#    #+#             */
-/*   Updated: 2025/06/29 03:17:06 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 19:23:03 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	pimp(t_stack *head) {
-
-	t_stack	*tmp;
-	
-	tmp = head;
-	printf("stack pimp:\t");
-	while (tmp) {
-		
-		printf("%d ", tmp->nb);
-		tmp = tmp->next;
-	}
-	printf("\n");
-	
-}
-
-void	print_list_a(t_stack *head)
-{
-	t_stack	*tmp;
-	int		nb;
-	int		i;
-
-	i = 1;
-	tmp = head;
-	printf("A: ");
-	while (tmp)
-	{
-		nb = tmp->nb;
-		printf("index : [%d] --->  liste : [%d]\n", tmp->index, tmp->nb);
-		printf("index : [%d] --->  adress target : [%p]\n", tmp->index,
-			tmp->target);
-		printf("index : [%d] --->  mon adress : [%p]\n", tmp->index, tmp);
-		printf("index : [%d] --->  count : [%d]\n", tmp->index, tmp->count);
-		printf("index : [%d] --->  up_down : [%d]\n", tmp->index, tmp->up_down);
-		printf("\n");
-		i++;
-		tmp = tmp->next;
-	}
-	
-	// printf("a\t");
-	// while (tmp) {
-	// 	nb = tmp->nb;
-	// 	printf("%d ", tmp->nb);
-	// 	tmp = tmp->next;
-	// }
-	// printf("\n");
-	
-}
-
-void	print_list_b(t_stack *head)
-{
-	t_stack	*tmp;
-	int		nb;
-	int		i;
-
-	i = 1;
-	tmp = head;
-	printf("B: ");
-	while (tmp)
-	{
-		nb = tmp->nb;
-		printf("index : [%d] --->  liste : [%d]\n", tmp->index, tmp->nb);
-		printf("index : [%d] --->  adress target : [%p]\n", tmp->index,
-			tmp->target);
-		printf("index : [%d] --->  mon adress : [%p]\n", tmp->index, tmp);
-		printf("index : [%d] --->  count : [%d]\n", tmp->index, tmp->count);
-		printf("index : [%d] --->  up_down : [%d]\n", tmp->index, tmp->up_down);
-		printf("\n");
-		i++;
-		tmp = tmp->next;
-	}
-
-	// tmp = head;
-	// printf("b\t");
-	// while (tmp) {
-	// 	nb = tmp->nb;
-	// 	printf("%d ", tmp->nb);
-	// 	tmp = tmp->next;
-
-	// }
-	// printf("\n");
-}
 
 int	add_to_liste(t_stack **head, char *value)
 {

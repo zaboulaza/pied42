@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 02:59:43 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/02 07:01:20 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 19:35:29 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ int	main(int ac, char **av)
 	t_general	g;
 
 	if (ac < 2)
+	{
+		ft_printf("Error\n");
 		return (1);
+	}
 	creat_struct(&g);
 	if (parcing_1(&g, av) == 1)
 	{
@@ -43,7 +46,6 @@ void	creat_struct(t_general *g)
 	if (!g->stacks)
 		exit(1);
 	ft_memset(g->stacks, 0, sizeof(t_stacks));
-	// g->stack->target = NULL;
 }
 
 void	free_struct(t_general *g)
