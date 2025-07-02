@@ -1,1 +1,0 @@
-free (g->prcg->nb_str) (**)
