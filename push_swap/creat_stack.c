@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 16:07:59 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/02 19:23:03 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 20:56:39 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,19 @@ int	add_to_liste(t_stack **head, char *value)
 
 t_stack	*new_node(char *value)
 {
-	t_stack	*node;
+	t_stack		*node;
+	long long	check_value;
 
 	node = malloc(sizeof(t_stack));
 	if (!node)
 		return (NULL);
-	node->nb = ft_atoi(value);
-	if (!(node->nb >= INT_MIN && node->nb <= INT_MAX))
+	check_value = ft_atoll(value);
+	if (!(check_value >= INT_MIN && check_value <= INT_MAX))
 	{
 		free(node);
 		return (NULL);
 	}
+	node->nb = ft_atoi(value);
 	node->next = NULL;
 	node->target = NULL;
 	return (node);
@@ -70,4 +72,31 @@ int	verif_same_nb(t_stack *stack_a)
 		tmp = tmp->next;
 	}
 	return (0);
+}
+
+long long	ft_atoll(const char *nb)
+{
+	int			i;
+	int			neg;
+	long long	res;
+
+	res = 0;
+	i = 0;
+	neg = 0;
+	while ((nb[i] >= 9 && nb[i] <= 13) || nb[i] == 32)
+		i++;
+	if (nb[i] == '-' || nb[i] == '+')
+	{
+		if (nb[i] == '-')
+			neg = 1;
+		i++;
+	}
+	while (nb[i] >= '0' && nb[i] <= '9')
+	{
+		res = (res * 10) + (nb[i] - '0');
+		i++;
+	}
+	if (neg == 1)
+		res = res * -1;
+	return (res);
 }

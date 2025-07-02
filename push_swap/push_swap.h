@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 03:02:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/02 19:23:14 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 20:55:47 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include "stdbool.h"
 # include "stdio.h"
+# include <limits.h>
 
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
@@ -26,7 +27,6 @@ typedef struct s_stack
 	int				count;
 	int				index;
 	int				up_down;
-	// bool			up_median;
 	struct s_stack	*target;
 	struct s_stack	*next;
 }					t_stack;
@@ -55,6 +55,7 @@ int					main(int ac, char **av);
 int					parcing_1(t_general *g, char **av);
 void				creat_struct(t_general *g);
 int					join_line(t_general *g, char **av);
+long long			ft_atoll(const char *nb);
 // ------------------------- PARSING ------------------------//
 int					verif_good_format(t_general *g);
 int					verif_good_cara(char *s);

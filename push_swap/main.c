@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 02:59:43 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/02 19:35:29 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 20:31:39 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 	{
-		ft_printf("Error\n");
+		write(2, "Error\n", 7);
 		return (1);
 	}
 	creat_struct(&g);
@@ -40,11 +40,17 @@ void	creat_struct(t_general *g)
 		exit(1);
 	g->stack = ft_calloc(1, sizeof(t_stack));
 	if (!g->stack)
+	{
+		free_struct(g);
 		exit(1);
+	}
 	ft_memset(g->stack, 0, sizeof(t_stack));
 	g->stacks = ft_calloc(1, sizeof(t_stacks));
 	if (!g->stacks)
+	{
+		free_struct(g);
 		exit(1);
+	}
 	ft_memset(g->stacks, 0, sizeof(t_stacks));
 }
 
@@ -55,14 +61,18 @@ void	free_struct(t_general *g)
 	i = 0;
 	if (g->stack)
 		free(g->stack);
-	if (g->prcg->arg_join)
-		free(g->prcg->arg_join);
 	if (g->prcg)
+	{
+		if (g->prcg->arg_join)
+			free(g->prcg->arg_join);
 		free(g->prcg);
+	}
 	if (g->stacks)
 	{
-		free_list(g->stacks->stack_a);
-		free_list(g->stacks->stack_b);
+		if (g->stacks->stack_a)
+			free_list(g->stacks->stack_a);
+		if (g->stacks->stack_b)
+			free_list(g->stacks->stack_b);
 		free(g->stacks);
 	}
 }

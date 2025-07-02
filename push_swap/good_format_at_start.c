@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 20:30:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/02 19:31:47 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/02 20:18:53 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	sort_3(t_stack **stack_a)
 
 void	sort_5(t_stack **stack_a, t_stack **stack_b)
 {
+	
 	t_stack	*tmp;
 	int		index;
 
