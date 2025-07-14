@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 05:07:14 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/13 23:51:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/14 08:40:59 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	start_exec(t_general *g, char **av, char **env)
 
 	i = 0;
 	g->i_av++;
+	if (ft_strlen(av[g->i_av]) == 0)
+		return (1);
 	g->first_av = ft_split(av[g->i_av], ' ');
 	while (g->path_split[i])
 	{

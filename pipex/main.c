@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 02:29:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/13 16:45:49 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/14 06:48:59 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ int	main(int ac, char **av, char **env)
 	if (ac < 2)
 		return (1);
 	init_function(&g);
-	find_path(av, env, &g);
+	if (find_path(ac, av, env, &g))
+	{
+		free_function(&g);
+		return (1);
+	}
 	start_algo(&g, ac, av, env);
 	free_function(&g);
 	return (0);
@@ -41,6 +45,8 @@ void	free_function(t_general *g)
 	i = 0;
 	if (g->path_split)
 		free_tab(g->path_split);
+	if (g->first_av)
+		free_tab(g->first_av);
 }
 
 void	free_tab(char **tab)

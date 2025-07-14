@@ -6,27 +6,37 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 17:17:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/13 17:34:43 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/14 08:40:55 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	find_path(char **av, char **env, t_general *g)
+int	find_path(int ac, char **av, char **env, t_general *g)
 {
 	int	i;
 
 	i = 0;
+	if (ac <= 3)
+	{
+		ft_printf("less than 4 argument\n");
+		return (1);
+	}
 	if (!env || !*env)
 		return (1);
+	if (access(av[1], R_OK) == -1)
+	{
+		perror(av[1]);
+		return (1);
+	}
 	while (env[i])
 	{
 		if (ft_strncmp("PATH=", env[i], 5) == 0)
-		{
 			g->path_line = env[i];
-		}
 		i++;
 	}
+	if (!g->path_line)
+		return (1);
 	test_av(av, g);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:20:33 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/13 23:51:30 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/14 08:56:24 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int	start_algo(t_general *g, int ac, char **av, char **env)
 	int		infile;
 
 	infile = open(av[1], O_RDONLY);
+	if (infile == -1)
+		return (1);
 	outfile = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 777);
+	if (outfile == -1)
+		return (1);
 	if (pipe(pipefd) == -1)
 	{
 		perror("pipe");
@@ -36,7 +40,12 @@ int	start_algo(t_general *g, int ac, char **av, char **env)
 		close(infile);
 		dup2(pipefd[1], 1);
 		close(pipefd[1]);
-		start_exec(g, av, env);
+		if (start_exec(g, av, env) == 1)
+		{
+			close(outfile);
+			free_function(g);
+			exit(1);
+		}
 	}
 	else if (pip1 > 0)
 	{
@@ -49,12 +58,19 @@ int	start_algo(t_general *g, int ac, char **av, char **env)
 			dup2(outfile, 1);
 			close(outfile);
 			g->i_av++;
-			start_exec(g, av, env);
+			if (start_exec(g, av, env) == 1)
+			{
+				close(infile);
+				free_function(g);
+				exit(1);
+			}
 		}
 		close(pipefd[0]);
 		close(pipefd[1]);
 		waitpid(pip1, NULL, 0);
 		waitpid(pip2, NULL, 0);
+		close(outfile);
+		close(infile);
 	}
 	return (0);
 }

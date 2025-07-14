@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 02:33:19 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/13 16:30:39 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/14 06:28:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		init_function(t_general *g);
 void		free_function(t_general *g);
 void		free_tab(char **tab);
 int			main(int ac, char **av, char **env);
-int			find_path(char **av, char **env, t_general *g);
+int			find_path(int ac, char **av, char **env, t_general *g);
 int			test_av(char **av, t_general *g);
 int			put_back_slash(t_general *g);
 void		rm_path(t_general *g);
