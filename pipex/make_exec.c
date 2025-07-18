@@ -6,21 +6,20 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 05:07:14 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/14 08:40:59 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/18 05:14:52 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	start_exec(t_general *g, char **av, char **env)
+int	start_exec(t_general *g, char **av, char **env, int i_av)
 {
 	int	i;
 
 	i = 0;
-	g->i_av++;
-	if (ft_strlen(av[g->i_av]) == 0)
+	if (ft_strlen(av[i_av]) == 0)
 		return (1);
-	g->first_av = ft_split(av[g->i_av], ' ');
+	g->first_av = ft_split(av[i_av], ' ');
 	while (g->path_split[i])
 	{
 		g->path_split[i] = ft_strjoin(g->path_split[i], g->first_av[0]);

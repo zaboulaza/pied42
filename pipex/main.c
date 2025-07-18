@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 02:29:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/14 06:48:59 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/18 04:41:18 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int ac, char **av, char **env)
 void	init_function(t_general *g)
 {
 	ft_memset(g, 0, sizeof(t_general));
-	g->i_av = 1;
+	g->i_av = 2;
 	// g = ft_calloc(1, sizeof(t_general));
 	// if (!g)
 	// 	exit(1);
