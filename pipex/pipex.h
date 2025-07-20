@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 02:33:19 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/20 06:56:28 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/20 20:22:51 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void		rm_path(t_general *g);
 int			start_algo(t_general *g, int ac, char **av, char **env);
 int			start_exec(t_general *g, char **av, char **env, int i_av);
 int			start_algo_here_doc(t_general *g, int ac, char **av, char **env);
+int			here_doc(t_general *g, char **av);
 
 #endif

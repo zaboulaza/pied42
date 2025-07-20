@@ -6,28 +6,38 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 01:55:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/20 06:56:50 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/20 21:59:17 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <sys/wait.h>
 
-int here_doc(t_general *g, char **av)
+int	here_doc(t_general *g, char **av)
 {
-    char *line;
-    
-    if (pipe(g->here_fd) == -1)
-    {
-        free_function(g);
-        return (1);
-    }
-    while (1)
-    {
-        write(1, "heredoc> ", 9);
-        line = get_next_line(fd[1]);
-    }
-    
+	char	*line;
+
+	if (pipe(g->here_fd) == -1)
+	{
+		free_function(g);
+		perror("pipe");
+		return (1);
+	}
+	while (1)
+	{
+		write(1, "heredoc> ", 9);
+		line = get_next_line(0);
+		if (!line || (ft_strncmp(line, av[2], ft_strlen(av[2])) == 0
+				&& line[ft_strlen(av[2])] == '\n'))
+		{
+			free(line);
+			break ;
+		}
+		write(g->here_fd[1], line, ft_strlen(line));
+		free(line);
+	}
+	close(g->here_fd[1]);
+	return (0);
 }
 
 int	start_algo_here_doc(t_general *g, int ac, char **av, char **env)
@@ -38,9 +48,12 @@ int	start_algo_here_doc(t_general *g, int ac, char **av, char **env)
 	int		i_pipe;
 	int		i;
 
+	g->i_av++;
 	nb_av = 0;
 	i_pipe = 0;
-	pipefd[0] = open(av[1], O_RDONLY);
+	if (here_doc(g, av) == 1)
+		return (1);
+	pipefd[0] = g->here_fd[0];
 	if (pipefd[0] == -1)
 		pipefd[0] = open("/dev/null", O_RDONLY);
 	while (i_pipe < ac - 5)
@@ -74,7 +87,7 @@ int	start_algo_here_doc(t_general *g, int ac, char **av, char **env)
 	pipes[i_pipe] = fork();
 	if (pipes[i_pipe] == 0 && i_pipe == ac - 4)
 	{
-		pipefd[3] = open(av[ac - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		pipefd[3] = open(av[ac - 1], O_CREAT | O_WRONLY | O_APPEND, 0644);
 		dup2(pipefd[0], 0);
 		dup2(pipefd[3], 1);
 		close(pipefd[0]);

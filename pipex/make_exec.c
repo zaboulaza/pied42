@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 05:07:14 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/18 17:39:24 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/20 20:42:49 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	start_exec(t_general *g, char **av, char **env, int i_av)
 	{
 		if (access(g->path_split[i], X_OK) == 0)
 		{
-			
 			execve(g->path_split[i], g->first_av, env);
 		}
 		i++;
