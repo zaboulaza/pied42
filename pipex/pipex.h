@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 02:33:19 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/18 04:06:06 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/20 06:56:28 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PIPEX_H
 
 # include "./libft/libft.h"
+# include "get_next_line/get_next_line.h"
 # include <fcntl.h>
 # include <sys/types.h>
 
@@ -24,6 +25,7 @@ typedef struct s_general
 	char	*path_join_av;
 	char	**first_av;
 	int		i_av;
+	int		here_fd[2];
 }			t_general;
 
 void		init_function(t_general *g);
@@ -36,4 +38,6 @@ int			put_back_slash(t_general *g);
 void		rm_path(t_general *g);
 int			start_algo(t_general *g, int ac, char **av, char **env);
 int			start_exec(t_general *g, char **av, char **env, int i_av);
+int			start_algo_here_doc(t_general *g, int ac, char **av, char **env);
+
 #endif

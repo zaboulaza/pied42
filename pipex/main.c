@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 02:29:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/18 04:41:18 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/20 06:55:25 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	main(int ac, char **av, char **env)
 		free_function(&g);
 		return (1);
 	}
-	start_algo(&g, ac, av, env);
+	if (ft_strncmp(av[1], "here_doc", 8) == 0)
+		start_algo_here_doc(&g, ac, av, env);
+	else
+		start_algo(&g, ac, av, env);
 	free_function(&g);
 	return (0);
 }
@@ -33,9 +36,6 @@ void	init_function(t_general *g)
 {
 	ft_memset(g, 0, sizeof(t_general));
 	g->i_av = 2;
-	// g = ft_calloc(1, sizeof(t_general));
-	// if (!g)
-	// 	exit(1);
 }
 
 void	free_function(t_general *g)
@@ -64,15 +64,3 @@ void	free_tab(char **tab)
 		free(tab);
 	}
 }
-
-// void init_function(t_general *g)
-
-// ./pipex infile cmd1 cmd2 cmd3 cmd4 outfile
-// ./pipex here_doc limiter cmd1 cmd2 cmd3 cmd4 outfile
-
-// char	**ok;
-// ok = malloc(100);
-// ok[0] = "/bin/ls";
-// ok[1] = "-la";
-// ok[2] = NULL;
-// execve("ok[0]", ok, env);

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 17:17:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/14 08:40:55 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/20 02:11:58 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int	find_path(int ac, char **av, char **env, t_general *g)
 	if (!env || !*env)
 		return (1);
 	if (access(av[1], R_OK) == -1)
-	{
 		perror(av[1]);
-		return (1);
-	}
 	while (env[i])
 	{
 		if (ft_strncmp("PATH=", env[i], 5) == 0)
