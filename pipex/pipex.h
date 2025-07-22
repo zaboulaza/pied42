@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 02:33:19 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/20 20:22:51 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/22 02:42:59 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 
 typedef struct s_general
 {
+	int		ac;
+	char	**av;
+	char	**env;
 	char	*path_line;
 	char	**path_split;
 	char	*path_join_av;
@@ -36,9 +39,13 @@ int			find_path(int ac, char **av, char **env, t_general *g);
 int			test_av(char **av, t_general *g);
 int			put_back_slash(t_general *g);
 void		rm_path(t_general *g);
-int			start_algo(t_general *g, int ac, char **av, char **env);
-int			start_exec(t_general *g, char **av, char **env, int i_av);
+int			start_algo(t_general *g, int ac, char **av);
+int			start_exec(t_general *g, int i_av);
 int			start_algo_here_doc(t_general *g, int ac, char **av, char **env);
 int			here_doc(t_general *g, char **av);
+void		waitpid_(int ac, pid_t *pipes);
+void		close023(int *pipefd);
+void		child(t_general *g, int *pipefd, int i_pipe, pid_t *pipes);
+void		child_last(t_general *g, int *pipefd, int i_pipe, pid_t *pipes);
 
 #endif

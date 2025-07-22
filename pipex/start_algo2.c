@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 01:55:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/20 21:59:17 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/22 00:18:22 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	start_algo_here_doc(t_general *g, int ac, char **av, char **env)
 	int		i_pipe;
 	int		i;
 
+	(void)env;
 	g->i_av++;
 	nb_av = 0;
 	i_pipe = 0;
@@ -72,7 +73,7 @@ int	start_algo_here_doc(t_general *g, int ac, char **av, char **env)
 			close(pipefd[2]);
 			close(pipefd[3]);
 			nb_av = i_pipe + g->i_av;
-			if (start_exec(g, av, env, nb_av) == 1)
+			if (start_exec(g, nb_av) == 1)
 			{
 				free_function(g);
 				exit(1);
@@ -94,10 +95,10 @@ int	start_algo_here_doc(t_general *g, int ac, char **av, char **env)
 		close(pipefd[2]);
 		close(pipefd[3]);
 		nb_av = i_pipe + g->i_av - 1;
-		if (start_exec(g, av, env, nb_av) == 1)
+		if (start_exec(g, nb_av) == 1)
 		{
 			free_function(g);
-			return (1);
+			exit(1);
 		}
 	}
 	close(pipefd[0]);

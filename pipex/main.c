@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 02:29:35 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/20 06:55:25 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/22 02:43:04 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ int	main(int ac, char **av, char **env)
 	if (ac < 2)
 		return (1);
 	init_function(&g);
+	g.ac = ac;
+	g.av = av;
+	g.env = env;
 	if (find_path(ac, av, env, &g))
 	{
 		free_function(&g);
@@ -27,7 +30,7 @@ int	main(int ac, char **av, char **env)
 	if (ft_strncmp(av[1], "here_doc", 8) == 0)
 		start_algo_here_doc(&g, ac, av, env);
 	else
-		start_algo(&g, ac, av, env);
+		start_algo(&g, ac, av);
 	free_function(&g);
 	return (0);
 }
@@ -64,3 +67,5 @@ void	free_tab(char **tab)
 		free(tab);
 	}
 }
+
+

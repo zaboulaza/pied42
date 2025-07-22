@@ -1,24 +1,3 @@
-22
-22
-     22     191    1279
-find_path.c
-find_path.o
-first_avmake
-get_next_line
-libft
-main.c
-main.o
-make_exec.c
-make_exec.o
-Makefile
-outfile
-pipex
-pipex.h
-start_algo2.c
-start_algo2.o
-start_algo.c
-start_algo.o
-test
 find_path.c
 find_path.o
 first_avmake

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 17:17:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/20 02:11:58 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/22 00:32:17 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	find_path(int ac, char **av, char **env, t_general *g)
 	int	i;
 
 	i = 0;
-	if (ac <= 3)
+	if (ft_strncmp(av[1], "here_doc", 8) != 0 && ac <= 3)
 	{
 		ft_printf("less than 4 argument\n");
 		return (1);
 	}
+	else if (ft_strncmp(av[1], "here_doc", 8) == 0 && ac <= 4)
+		return (ft_printf("less than 5 argument\n"), 1);
 	if (!env || !*env)
 		return (1);
-	if (access(av[1], R_OK) == -1)
-		perror(av[1]);
 	while (env[i])
 	{
 		if (ft_strncmp("PATH=", env[i], 5) == 0)
