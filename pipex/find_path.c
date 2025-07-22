@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 17:17:41 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/22 00:32:17 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/22 20:58:14 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	find_path(int ac, char **av, char **env, t_general *g)
 	int	i;
 
 	i = 0;
-	if (ft_strncmp(av[1], "here_doc", 8) != 0 && ac <= 3)
+	if (ft_strncmp(av[1], "here_doc", 8) != 0 && ac <= 4)
 	{
-		ft_printf("less than 4 argument\n");
+		ft_printf("less than 5 argument\n");
 		return (1);
 	}
-	else if (ft_strncmp(av[1], "here_doc", 8) == 0 && ac <= 4)
-		return (ft_printf("less than 5 argument\n"), 1);
+	else if (ft_strncmp(av[1], "here_doc", 8) == 0 && ac <= 5)
+		return (ft_printf("less than 6 argument\n"), 1);
 	if (!env || !*env)
 		return (1);
 	while (env[i])
@@ -85,4 +85,11 @@ void	rm_path(t_general *g)
 	size = ft_strlen(g->path_split[0]);
 	g->path_split[0] = ft_substr(g->path_split[0], 5, size - 5);
 	free(old);
+}
+
+void	close023(int *pipefd)
+{
+	close(pipefd[0]);
+	close(pipefd[2]);
+	close(pipefd[3]);
 }
