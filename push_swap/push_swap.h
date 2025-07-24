@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 03:02:15 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/02 20:55:47 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/07/24 19:10:40 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include "stdio.h"
 # include <limits.h>
 
-# define INT_MAX 2147483647
-# define INT_MIN -2147483648
+// # define INT_MAX 2147483647
+// # define INT_MIN -2147483648
 
 typedef struct s_stack
 {
@@ -90,6 +90,7 @@ void				sort_5(t_stack **stack_a, t_stack **stack_b);
 int					sort_5_0(t_stack *tmp, t_stack **stack_a, int index);
 void				sort_5_1(t_stack **stack_a, t_stack **stack_b, int index);
 void				sort_5_2(t_stack **stack_a, t_stack **stack_b, int index);
+
 // ------------------------- FREE ------------------------//
 void				free_struct(t_general *g);
 void				free_tab(char **tab);
