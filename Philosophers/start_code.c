@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:58:44 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/02 05:09:19 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/09 19:53:52 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,57 +22,78 @@ int	start_code(t_general *g)
 void	*philo_routine(void *arg)
 {
 	t_philo	*ph;
+	int		i;
 
+	i = 0;
+	ph = (t_philo *)arg;
 	if (!arg)
 		return (NULL);
-	ph = (t_philo *)arg;
-	rout_eat(ph);
-	rout_sleep(ph);
-	return (NULL);
-}
-
-void	eat(t_philo *ph)
-{
-	if (ph->id % 2 == 0)
+	if (ph->g->ac == 6)
 	{
-		pthread_mutex_lock(&ph->forks_l);
-		pthread_mutex_lock(ph->forks_r);
+		while (i < ph->g->eat_nb)
+		{
+			mini_rout(ph);
+			i++;
+		}
 	}
 	else
 	{
-		pthread_mutex_lock(ph->forks_r);
-		pthread_mutex_lock(&ph->forks_l);
+		while (1)
+			mini_rout(ph);
 	}
-	rout_printf(ph, "is eating");
-	usleep(ph->g->t_eat);
-	ph->g->last_meal_time = get_time_in_ms();
+	return (NULL);
+}
+
+int	eat(t_philo *ph)
+{
+	if (ph->id % 2 == 0)
+		(pthread_mutex_lock(&ph->forks_l), pthread_mutex_lock(ph->forks_r));
+	else
+		(pthread_mutex_lock(ph->forks_r), pthread_mutex_lock(&ph->forks_l));
+	ph->count++;
+	if (ph->count > 1)
+	{
+		if (is_dead(ph) == 1)
+		{
+			pthread_mutex_unlock(&ph->forks_l);
+			pthread_mutex_unlock(ph->forks_r);
+			return (1);
+		}
+	}
+	print(ph, "is eating");
+	usleep(ph->g->t_eat * 1000);
+	ph->last_meal_time = get_time_in_ms();
 	pthread_mutex_unlock(&ph->forks_l);
 	pthread_mutex_unlock(ph->forks_r);
+	return (0);
 }
 
-void	print(t_philo *ph, char *str)
+int	is_dead(t_philo *ph)
 {
-	pthread_mutex_lock(&ph->g->print);
-	size_t timestamp = ph->g->last_meal_time - ph->g->start_time;
-	printf("%zu philo[%d] %s\n",timestamp, ph->id, str);
-	pthread_mutex_unlock(&ph->g->print);
+	pthread_mutex_lock(&ph->g->time);
+	ph->g->time_now = get_time_in_ms();
+	if (ph->g->time_now - ph->g->ph->last_meal_time > (size_t)ph->g->t_die)
+	{
+		print(ph, "is dead");
+		pthread_mutex_unlock(&ph->g->time);
+		return (1);
+	}
+	pthread_mutex_unlock(&ph->g->time);
+	return (0);
 }
 
-void	sleep(t_philo *ph)
+int	mini_rout(t_philo *ph)
 {
-	rout_printf(ph, "is sleeping");
-	usleep(ph->g->t_sleep);
+	pthread_mutex_lock(&ph->g->test);
+	if (eat(ph) == 1)
+	{
+		pthread_mutex_unlock(&ph->g->test);
+		exit(1);
+	}
+	pthread_mutex_unlock(&ph->g->test);
+	if (sleep_(ph) == 1)
+	{
+		exit(1);
+	}
+	return (0);
 }
-
-void is_dead(ph)
-{
-	gettimeofday(&ph->g->start_time, NULL);
-	if time_to_die <  + time_to_sleep
-		is_dead 
-}
-
-// lock les forks
-// mange donc usleep
-// unlock
-// dors donc usleep
-// think

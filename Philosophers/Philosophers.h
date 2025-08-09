@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:11:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/02 04:37:16 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/09 19:53:34 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,22 @@ typedef struct s_general
 	char				**av;
 	int					nb_philo;
 	size_t				start_time;
-	size_t				last_meal_time;
 	int					t_die;
 	int					t_eat;
 	int					t_sleep;
 	int					eat_nb;
 	pthread_mutex_t		print;
+	pthread_mutex_t		time;
+	pthread_mutex_t		test;
+	size_t				time_now;
 	struct s_philo		*ph;
 }						t_general;
 
 typedef struct s_philo
 {
 	int					id;
+	int					count;
+	size_t				last_meal_time;
 	pthread_mutex_t		forks_l;
 	pthread_mutex_t		*forks_r;
 	pthread_t			thread;
@@ -53,9 +57,12 @@ int						start_code(t_general *g);
 void					*philo_routine(void *arg);
 void					creat_thread(t_general *g);
 void					init_fork(t_general *g);
-void					eat(t_philo *ph);
+int						sleep_(t_philo *ph);
+int						eat(t_philo *ph);
 void					print(t_philo *ph, char *str);
-void					sleep(t_philo *ph);
+size_t					get_time_in_ms(void);
+int						is_dead(t_philo *ph);
+int						mini_rout(t_philo *ph);
 // void		print_list(t_general *g);
 
 #endif

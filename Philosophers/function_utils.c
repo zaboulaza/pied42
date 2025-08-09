@@ -6,12 +6,13 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 04:03:45 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/02 04:35:11 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/09 15:29:09 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 #include <sys/time.h>
+
 long long	ft_atol(char *nb)
 {
 	int			i;
@@ -71,6 +72,8 @@ void	init_fork(t_general *g)
 	}
 	i = 0;
 	pthread_mutex_init(&g->print, NULL);
+	pthread_mutex_init(&g->test, NULL);
+	pthread_mutex_init(&g->time, NULL);
 	while (i < g->nb_philo)
 	{
 		g->ph[i].g = g;
@@ -84,6 +87,15 @@ size_t	get_time_in_ms(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+int	sleep_(t_philo *ph)
+{
+	print(ph, "is sleeping");
+	usleep(ph->g->t_sleep * 1000);
+	// if (is_dead(ph) == 1)
+	// 	return (1);
+	return (0);
 }
 
 // void	init_philo(t_general *g, t_philo *ph)

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:22:43 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/01 18:16:48 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/08 20:04:15 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	start_code(&g);
-	// print_list(&g);
 	printf("fini\n");
 	free_struct(&g);
 	return (0);
