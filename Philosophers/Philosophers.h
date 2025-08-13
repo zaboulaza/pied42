@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:11:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/09 19:53:34 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/13 04:53:48 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_general
 	int					t_eat;
 	int					t_sleep;
 	int					eat_nb;
+	int					dead;
 	pthread_mutex_t		print;
 	pthread_mutex_t		time;
 	pthread_mutex_t		test;

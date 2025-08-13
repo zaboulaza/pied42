@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 04:03:45 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/09 15:29:09 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/13 05:42:24 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	init_fork(t_general *g)
 			g->ph[i].forks_r = &g->ph[0].forks_l;
 		else
 			g->ph[i].forks_r = &g->ph[i + 1].forks_l;
+		g->ph[i].last_meal_time = g->start_time;
 		i++;
 	}
 	i = 0;
@@ -91,10 +92,12 @@ size_t	get_time_in_ms(void)
 
 int	sleep_(t_philo *ph)
 {
+	if (ph->g->dead == 1)
+		return (1);
 	print(ph, "is sleeping");
 	usleep(ph->g->t_sleep * 1000);
-	// if (is_dead(ph) == 1)
-	// 	return (1);
+	print(ph, "is thinking");
+	usleep(1000);
 	return (0);
 }
 
