@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:22:43 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/12 22:54:28 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/14 17:07:36 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	start_code(&g);
-	printf("fini\n");
+	if (g.compt == 1)
+		ft_printf("all philo eat\n");
 	free_struct(&g);
 	return (0);
 }

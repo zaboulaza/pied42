@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:58:44 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/13 07:18:31 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/14 23:21:16 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void	*philo_routine(void *arg)
 	t_philo	*ph;
 	int		i;
 
-	i = 0;
 	ph = (t_philo *)arg;
-	if (!arg)
+	if (!ph)
 		return (NULL);
 	if (ph->g->nb_philo == 1)
 	{
@@ -34,15 +33,18 @@ void	*philo_routine(void *arg)
 		return (NULL);
 	}
 	if (ph->id % 2 == 1)
-		usleep(100000000);
+		usleep(5000);
+	i = 0;
 	if (ph->g->ac == 6)
 	{
 		while (i < ph->g->eat_nb)
 		{
 			if (i == ph->g->eat_nb)
 			{
-				ft_printf("all philo eat\n");
-				return (NULL);
+				pthread_mutex_lock(&ph->g->time);
+				ph->g->compt = 1;
+				pthread_mutex_unlock(&ph->g->time);
+				break ;
 			}
 			if (mini_rout(ph) == 1)
 				break ;
@@ -60,20 +62,20 @@ void	*philo_routine(void *arg)
 
 int	eat(t_philo *ph)
 {
-	if (ph->g->dead == 1)
+	if (is_philo_dead(ph->g) == 1)
 		return (1);
 	ph->count++;
 	if (is_dead(ph) == 1)
 		return (1);
 	if (ph->id % 2 == 0)
 		(pthread_mutex_lock(&ph->forks_l), print(ph, "has taken a fork"),
-			pthread_mutex_lock(ph->forks_r));
+			pthread_mutex_lock(ph->forks_r), print(ph, "has taken a fork"));
 	else
 		(pthread_mutex_lock(ph->forks_r), print(ph, "has taken a fork"),
-			pthread_mutex_lock(&ph->forks_l));
+			pthread_mutex_lock(&ph->forks_l), print(ph, "has taken a fork"));
 	print(ph, "is eating");
-	usleep(ph->g->t_eat * 1000);
 	ph->last_meal_time = get_time_in_ms();
+	usleep(ph->g->t_eat * 1000);
 	pthread_mutex_unlock(&ph->forks_l);
 	pthread_mutex_unlock(ph->forks_r);
 	return (0);
@@ -88,7 +90,9 @@ int	is_dead(t_philo *ph)
 		if (ph->g->time_now - ph->g->start_time > (size_t)ph->g->t_die)
 		{
 			print(ph, "is dead");
+			pthread_mutex_lock(&ph->g->dead_mut);
 			ph->g->dead = 1;
+			pthread_mutex_unlock(&ph->g->dead_mut);
 			pthread_mutex_unlock(&ph->g->time);
 			return (1);
 		}
@@ -98,7 +102,9 @@ int	is_dead(t_philo *ph)
 		if (ph->g->time_now - ph->last_meal_time > (size_t)ph->g->t_die)
 		{
 			print(ph, "is dead");
+			pthread_mutex_lock(&ph->g->dead_mut);
 			ph->g->dead = 1;
+			pthread_mutex_unlock(&ph->g->dead_mut);
 			pthread_mutex_unlock(&ph->g->time);
 			return (1);
 		}
@@ -109,18 +115,10 @@ int	is_dead(t_philo *ph)
 
 int	mini_rout(t_philo *ph)
 {
-	pthread_mutex_lock(&ph->g->test);
-	if (ph->g->dead == 1)
-	{
-		pthread_mutex_unlock(&ph->g->test);
+	if (is_philo_dead(ph->g) == 1)
 		return (1);
-	}
 	if (eat(ph) == 1)
-	{
-		pthread_mutex_unlock(&ph->g->test);
 		return (1);
-	}
-	pthread_mutex_unlock(&ph->g->test);
 	if (sleep_(ph) == 1)
 		return (1);
 	return (0);

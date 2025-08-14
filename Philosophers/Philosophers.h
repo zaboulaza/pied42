@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:11:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/13 04:53:48 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/14 23:19:22 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ typedef struct s_general
 	int					t_sleep;
 	int					eat_nb;
 	int					dead;
+	int					compt;
 	pthread_mutex_t		print;
 	pthread_mutex_t		time;
 	pthread_mutex_t		test;
+	pthread_mutex_t		dead_mut;
 	size_t				time_now;
 	struct s_philo		*ph;
 }						t_general;
@@ -64,6 +66,7 @@ void					print(t_philo *ph, char *str);
 size_t					get_time_in_ms(void);
 int						is_dead(t_philo *ph);
 int						mini_rout(t_philo *ph);
+int						is_philo_dead(t_general *g);
 // void		print_list(t_general *g);
 
 #endif

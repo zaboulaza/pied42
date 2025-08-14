@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 04:03:45 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/13 05:42:24 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/14 23:24:03 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	creat_thread(t_general *g)
 	while (i < g->nb_philo)
 	{
 		g->ph[i].id = i + 1;
+		g->ph[i].last_meal_time = g->start_time;
 		if (pthread_create(&g->ph[i].thread, NULL, philo_routine,
 				&g->ph[i]) != 0)
 		{
@@ -68,13 +69,13 @@ void	init_fork(t_general *g)
 			g->ph[i].forks_r = &g->ph[0].forks_l;
 		else
 			g->ph[i].forks_r = &g->ph[i + 1].forks_l;
-		g->ph[i].last_meal_time = g->start_time;
 		i++;
 	}
 	i = 0;
 	pthread_mutex_init(&g->print, NULL);
 	pthread_mutex_init(&g->test, NULL);
 	pthread_mutex_init(&g->time, NULL);
+	pthread_mutex_init(&g->dead_mut, NULL);
 	while (i < g->nb_philo)
 	{
 		g->ph[i].g = g;
@@ -92,10 +93,28 @@ size_t	get_time_in_ms(void)
 
 int	sleep_(t_philo *ph)
 {
-	if (ph->g->dead == 1)
-		return (1);
+	size_t	start;
+	size_t	now;
+
+	// ph->count++;
+	start = get_time_in_ms();
 	print(ph, "is sleeping");
-	usleep(ph->g->t_sleep * 1000);
+	while (1)
+	{
+		if (is_philo_dead(ph->g) == 1)
+			return (1);
+		pthread_mutex_lock(&ph->g->dead_mut);
+		if (ph->g->dead == 1)
+		{
+			pthread_mutex_unlock(&ph->g->dead_mut);
+			return (1);
+		}
+		pthread_mutex_unlock(&ph->g->dead_mut);
+		now = get_time_in_ms();
+		if (now - start >= (size_t)ph->g->t_sleep)
+			break ;
+		usleep(500);
+	}
 	print(ph, "is thinking");
 	usleep(1000);
 	return (0);
