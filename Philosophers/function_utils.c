@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 04:03:45 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/14 23:24:03 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/15 22:40:23 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,27 +98,45 @@ int	sleep_(t_philo *ph)
 
 	// ph->count++;
 	start = get_time_in_ms();
+	if (is_dead(ph) == 1)
+		return (1);
+	if (is_philo_dead(ph->g) == 1)
+		return (1);
 	print(ph, "is sleeping");
 	while (1)
 	{
+		if (is_dead(ph) == 1)
+			return (1);
 		if (is_philo_dead(ph->g) == 1)
 			return (1);
-		pthread_mutex_lock(&ph->g->dead_mut);
-		if (ph->g->dead == 1)
-		{
-			pthread_mutex_unlock(&ph->g->dead_mut);
-			return (1);
-		}
-		pthread_mutex_unlock(&ph->g->dead_mut);
 		now = get_time_in_ms();
 		if (now - start >= (size_t)ph->g->t_sleep)
 			break ;
 		usleep(500);
 	}
+	if (is_dead(ph) == 1)
+		return (1);
+	if (is_philo_dead(ph->g) == 1)
+		return (1);
 	print(ph, "is thinking");
 	usleep(1000);
 	return (0);
 }
+
+// void	*monitor(void *arg)
+// {
+// 	t_general	*g;
+// 	int			i;
+
+// 	g = (t_general *)arg;
+// 	i = 0;
+// 	while (1)
+// 	{
+// 		g->ph[i % g->nb_philo];
+// 		pthread_mutex_lock();
+// 		i++;
+// 	}
+// }
 
 // void	init_philo(t_general *g, t_philo *ph)
 // {
