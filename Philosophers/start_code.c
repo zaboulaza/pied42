@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:58:44 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/16 17:09:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/16 23:49:27 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int	start_code(t_general *g)
 {
 	init_fork(g);
-	creat_thread(g);
+	if (creat_thread(g) == 1)
+		return (1);
 	return (0);
 }
 
@@ -84,11 +85,13 @@ int	eat(t_philo *ph)
 	print(ph, "has taken a fork");
 	print(ph, "has taken a fork");
 	print(ph, "is eating");
+	pthread_mutex_lock(&ph->last_meal_mutex);
 	ph->last_meal_time = get_time_in_ms();
-	// usleep(ph->g->t_eat * 1000);
+	pthread_mutex_unlock(&ph->last_meal_mutex);
 	while (1)
 	{
-		if (is_dead(ph) == 1 || is_philo_dead(ph->g) == 1)
+		if (is_dead(ph) == 1 || is_philo_dead(ph->g) == 1
+			|| check_usleep(ph->g) == 1)
 		{
 			(pthread_mutex_unlock(&ph->forks_l),
 				pthread_mutex_unlock(ph->forks_r));
@@ -98,8 +101,6 @@ int	eat(t_philo *ph)
 		if (now - start >= (size_t)ph->g->t_eat)
 			break ;
 		usleep(500);
-		if (check_usleep(ph->g) == 1)
-			return (1);
 	}
 	if (is_dead(ph) == 1 || is_philo_dead(ph->g) == 1)
 	{
@@ -114,14 +115,21 @@ int	eat(t_philo *ph)
 
 int	is_dead(t_philo *ph)
 {
+	size_t	last_meal;
+
 	pthread_mutex_lock(&ph->g->time);
 	ph->g->time_now = get_time_in_ms();
-	if (ph->g->time_now - ph->last_meal_time > (size_t)ph->g->t_die)
+	pthread_mutex_lock(&ph->last_meal_mutex);
+	last_meal = ph->last_meal_time;
+	pthread_mutex_unlock(&ph->last_meal_mutex);
+	if (ph->g->time_now - last_meal > (size_t)ph->g->t_die)
 	{
 		if (ph->g->all_ready_print != 1)
 		{
 			print(ph, "is dead");
+			// pthread_mutex_lock(&ph->g->dead_mut);
 			ph->g->all_ready_print = 1;
+			// pthread_mutex_unlock(&ph->g->dead_mut);
 		}
 		pthread_mutex_lock(&ph->g->dead_mut);
 		ph->g->dead = 1;
@@ -144,4 +152,4 @@ int	mini_rout(t_philo *ph)
 	return (0);
 }
 
-//  ./Philosophers 5 800 200 200 7 verif ce test+
+//  ./Philosophers 5 800 200 200 7 verif ce tes

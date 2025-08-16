@@ -6,17 +6,18 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:11:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/16 17:07:52 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/17 00:07:00 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include "./libft/libft.h"
 # include "stdio.h"
 # include <limits.h>
 # include <pthread.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_general
 {
@@ -44,6 +45,7 @@ typedef struct s_philo
 	int					id;
 	int					count;
 	size_t				last_meal_time;
+	pthread_mutex_t		last_meal_mutex;
 	pthread_mutex_t		forks_l;
 	pthread_mutex_t		*forks_r;
 	pthread_t			thread;
@@ -59,7 +61,7 @@ long long				ft_atol(char *nb);
 int						atoi_(t_general *g);
 int						start_code(t_general *g);
 void					*philo_routine(void *arg);
-void					creat_thread(t_general *g);
+int						creat_thread(t_general *g);
 void					init_fork(t_general *g);
 int						sleep_(t_philo *ph);
 int						eat(t_philo *ph);
@@ -69,6 +71,9 @@ int						is_dead(t_philo *ph);
 int						mini_rout(t_philo *ph);
 int						is_philo_dead(t_general *g);
 int						check_usleep(t_general *g);
+void					ft_bzero(void *ptr, size_t n);
+void					*ft_calloc(size_t nmenb, size_t size);
+
 // void		print_list(t_general *g);
 
 #endif

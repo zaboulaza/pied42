@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 03:27:01 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/31 14:46:36 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/17 00:02:17 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,42 @@ int	parsing_general(t_general *g)
 	if (atoi_(g) == 1)
 		return (1);
 	return (0);
+}
+
+int	ft_isalnum(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int	ft_atoi(const char *nb)
+{
+	int	i;
+	int	neg;
+	int	res;
+
+	res = 0;
+	i = 0;
+	neg = 0;
+	while ((nb[i] >= 9 && nb[i] <= 13) || nb[i] == 32)
+		i++;
+	if (nb[i] == '-' || nb[i] == '+')
+	{
+		if (nb[i] == '-')
+			neg = 1;
+		i++;
+	}
+	while (nb[i] >= '0' && nb[i] <= '9')
+	{
+		res = (res * 10) + (nb[i] - '0');
+		i++;
+	}
+	if (neg == 1)
+		res = res * -1;
+	return (res);
 }
 
 int	verif_good_cara(t_general *g)

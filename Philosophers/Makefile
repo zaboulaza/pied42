@@ -6,41 +6,35 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/26 22:09:56 by nsmail            #+#    #+#              #
-#    Updated: 2025/08/09 06:47:18 by nsmail           ###   ########.fr        #
+#    Updated: 2025/08/17 00:14:11 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Philosophers
 
 SRCS = main.c parsing_general.c function_utils.c start_code.c \
-		function_utils_2.c
+       function_utils_2.c
 
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 
+CFLAGS = -Wall -Wextra -Werror -g3
 
-LIBFT_DIR = libft
-
-LIBFT = $(LIBFT_DIR)/libft.a
-
-INCLUDES = -I$(LIBFT_DIR)
-
+# compilation de base
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(GNL) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
+# règle générique pour compiler les .c en .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	make -C $(LIBFT_DIR) clean
-	rm -f $(OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
-	make -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 

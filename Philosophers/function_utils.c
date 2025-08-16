@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 04:03:45 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/16 17:09:02 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/17 00:05:07 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ long long	ft_atol(char *nb)
 	while (nb[i] >= '0' && nb[i] <= '9')
 	{
 		res = (res * 10) + (nb[i] - '0');
+		if (res > INT_MAX)
+			return (LONG_MAX);
 		i++;
 	}
 	return (res);
 }
 
-void	creat_thread(t_general *g)
+int	creat_thread(t_general *g)
 {
 	int	i;
 
@@ -39,19 +41,26 @@ void	creat_thread(t_general *g)
 	while (i < g->nb_philo)
 	{
 		g->ph[i].id = i + 1;
+		pthread_mutex_lock(&g->ph[i].last_meal_mutex);
 		g->ph[i].last_meal_time = g->start_time;
+		pthread_mutex_unlock(&g->ph[i].last_meal_mutex);
 		if (pthread_create(&g->ph[i].thread, NULL, philo_routine,
 				&g->ph[i]) != 0)
 		{
-			ft_printf("creation of thread fail\n");
+			while (i-- > 0)
+			{
+				pthread_join(g->ph[i].thread, NULL);
+			}
+			printf("creation of thread fail\n");
 			free_struct(g);
-			exit(1);
+			return 1;
 		}
 		i++;
 	}
 	i = 0;
 	while (i < g->nb_philo)
 		pthread_join(g->ph[i++].thread, NULL);
+	return 0;
 }
 
 void	init_fork(t_general *g)
@@ -65,6 +74,7 @@ void	init_fork(t_general *g)
 	while (i < g->nb_philo)
 	{
 		pthread_mutex_init(&g->ph[i].forks_l, NULL);
+		pthread_mutex_init(&g->ph[i].last_meal_mutex, NULL);
 		if (i == g->nb_philo - 1)
 			g->ph[i].forks_r = &g->ph[0].forks_l;
 		else
