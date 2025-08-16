@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:11:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/15 22:28:45 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/16 17:07:52 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ size_t					get_time_in_ms(void);
 int						is_dead(t_philo *ph);
 int						mini_rout(t_philo *ph);
 int						is_philo_dead(t_general *g);
+int						check_usleep(t_general *g);
 // void		print_list(t_general *g);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 19:58:44 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/15 23:51:01 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/16 17:09:13 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,23 @@ int	eat(t_philo *ph)
 	size_t	start;
 	size_t	now;
 
-	start = get_time_in_ms();
 	if (is_philo_dead(ph->g) == 1 || is_dead(ph) == 1)
 		return (1);
-	ph->count++;
 	if (ph->id % 2 == 0)
-		(pthread_mutex_lock(&ph->forks_l), print(ph, "has taken a fork"),
-			pthread_mutex_lock(ph->forks_r), print(ph, "has taken a fork"));
+		(pthread_mutex_lock(&ph->forks_l), pthread_mutex_lock(ph->forks_r));
 	else
-		(pthread_mutex_lock(ph->forks_r), print(ph, "has taken a fork"),
-			pthread_mutex_lock(&ph->forks_l), print(ph, "has taken a fork"));
+		(pthread_mutex_lock(ph->forks_r), pthread_mutex_lock(&ph->forks_l));
+	if (is_dead(ph) == 1 || is_philo_dead(ph->g) == 1)
+	{
+		(pthread_mutex_unlock(&ph->forks_l), pthread_mutex_unlock(ph->forks_r));
+		return (1);
+	}
+	start = get_time_in_ms();
+	print(ph, "has taken a fork");
+	print(ph, "has taken a fork");
 	print(ph, "is eating");
 	ph->last_meal_time = get_time_in_ms();
+	// usleep(ph->g->t_eat * 1000);
 	while (1)
 	{
 		if (is_dead(ph) == 1 || is_philo_dead(ph->g) == 1)
@@ -93,6 +98,8 @@ int	eat(t_philo *ph)
 		if (now - start >= (size_t)ph->g->t_eat)
 			break ;
 		usleep(500);
+		if (check_usleep(ph->g) == 1)
+			return (1);
 	}
 	if (is_dead(ph) == 1 || is_philo_dead(ph->g) == 1)
 	{
@@ -109,77 +116,18 @@ int	is_dead(t_philo *ph)
 {
 	pthread_mutex_lock(&ph->g->time);
 	ph->g->time_now = get_time_in_ms();
-	if (ph->count < 1)
+	if (ph->g->time_now - ph->last_meal_time > (size_t)ph->g->t_die)
 	{
-		if (ph->g->time_now - ph->g->start_time > (size_t)ph->g->t_die)
+		if (ph->g->all_ready_print != 1)
 		{
-			if (ph->g->all_ready_print != 1)
-			{
-				print(ph, "is dead");
-				ph->g->all_ready_print = 1;
-			}
-			pthread_mutex_lock(&ph->g->dead_mut);
-			ph->g->dead = 1;
-			pthread_mutex_unlock(&ph->g->dead_mut);
-			pthread_mutex_unlock(&ph->g->time);
-			return (1);
+			print(ph, "is dead");
+			ph->g->all_ready_print = 1;
 		}
-	}
-	else
-	{
-		if (ph->g->time_now - ph->last_meal_time > (size_t)ph->g->t_die)
-		{
-			if (ph->g->all_ready_print != 1)
-			{
-				print(ph, "is dead");
-				ph->g->all_ready_print = 1;
-			}
-			pthread_mutex_lock(&ph->g->dead_mut);
-			ph->g->dead = 1;
-			pthread_mutex_unlock(&ph->g->dead_mut);
-			pthread_mutex_unlock(&ph->g->time);
-			return (1);
-		}
-	}
-	pthread_mutex_unlock(&ph->g->time);
-	return (0);
-}
-
-int	is_dead(t_philo *ph)
-{
-	pthread_mutex_lock(&ph->g->time);
-	ph->g->time_now = get_time_in_ms();
-	if (ph->count < 1)
-	{
-		if (ph->g->time_now - ph->g->start_time > (size_t)ph->g->t_die)
-		{
-			if (ph->g->all_ready_print != 1)
-			{
-				print(ph, "is dead");
-				ph->g->all_ready_print = 1;
-			}
-			pthread_mutex_lock(&ph->g->dead_mut);
-			ph->g->dead = 1;
-			pthread_mutex_unlock(&ph->g->dead_mut);
-			pthread_mutex_unlock(&ph->g->time);
-			return (1);
-		}
-	}
-	else
-	{
-		if (ph->g->time_now - ph->last_meal_time > (size_t)ph->g->t_die)
-		{
-			if (ph->g->all_ready_print != 1)
-			{
-				print(ph, "is dead");
-				ph->g->all_ready_print = 1;
-			}
-			pthread_mutex_lock(&ph->g->dead_mut);
-			ph->g->dead = 1;
-			pthread_mutex_unlock(&ph->g->dead_mut);
-			pthread_mutex_unlock(&ph->g->time);
-			return (1);
-		}
+		pthread_mutex_lock(&ph->g->dead_mut);
+		ph->g->dead = 1;
+		pthread_mutex_unlock(&ph->g->dead_mut);
+		pthread_mutex_unlock(&ph->g->time);
+		return (1);
 	}
 	pthread_mutex_unlock(&ph->g->time);
 	return (0);
@@ -196,4 +144,4 @@ int	mini_rout(t_philo *ph)
 	return (0);
 }
 
-//  ./Philosophers 5 800 200 200 7 verif ce test
+//  ./Philosophers 5 800 200 200 7 verif ce test+

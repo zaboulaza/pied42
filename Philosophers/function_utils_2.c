@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 06:46:44 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/15 20:35:23 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/16 17:11:52 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,18 @@ int	is_philo_dead(t_general *g)
 	dead = g->dead;
 	pthread_mutex_unlock(&g->dead_mut);
 	return (dead);
+}
+
+int	check_usleep(t_general *g)
+{
+	int	i;
+
+	i = 0;
+	while (i < g->nb_philo)
+	{
+		if (is_dead(&g->ph[i]) == 1 || is_philo_dead(g) == 1)
+			return (1);
+		i++;
+	}
+	return (0);
 }
