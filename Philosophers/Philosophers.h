@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:11:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/17 00:07:00 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/17 22:26:38 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ int						is_philo_dead(t_general *g);
 int						check_usleep(t_general *g);
 void					ft_bzero(void *ptr, size_t n);
 void					*ft_calloc(size_t nmenb, size_t size);
+int						uslp_eat(t_philo *ph, size_t start);
+void					norm1_eat(t_philo *ph);
+void					norm1_philo_rout(t_philo *ph, int i);
 
 // void		print_list(t_general *g);
 

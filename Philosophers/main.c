@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 22:22:43 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/17 00:04:35 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/17 22:52:03 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int ac, char **av)
 	}
 	if (start_code(&g) == 1)
 		return (free(g.ph), 1);
-	if (g.compt == 1)
+	if (g.compt == 1 && g.dead != 1)
 		printf("all philo eat\n");
 	free_struct(&g);
 	return (0);
@@ -57,34 +57,4 @@ void	free_struct(t_general *g)
 {
 	if (g->ph)
 		free(g->ph);
-	// if (g)
-	// 	free(g);
 }
-
-// void	print_list(t_general *g)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < g->ac - 1)
-// 	{
-// 		printf("av[%d] = %d\n", i, g->av_int[i]);
-// 		i++;
-// 	}
-// }
-
-// void	free_tab(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (tab)
-// 	{
-// 		while (tab[i])
-// 		{
-// 			free(tab[i]);
-// 			i++;
-// 		}
-// 		free(tab);
-// 	}
-// }

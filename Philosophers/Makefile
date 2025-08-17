@@ -6,14 +6,14 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/26 22:09:56 by nsmail            #+#    #+#              #
-#    Updated: 2025/08/17 00:14:11 by nsmail           ###   ########.fr        #
+#    Updated: 2025/08/17 22:11:07 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Philosophers
 
 SRCS = main.c parsing_general.c function_utils.c start_code.c \
-       function_utils_2.c
+       function_utils_2.c function_utils_3.c
 
 OBJS = $(SRCS:.c=.o)
 
