@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 04:40:20 by nsmail            #+#    #+#             */
-/*   Updated: 2025/07/07 17:34:32 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/22 15:52:37 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 
-int					ft_printf(const char *format, ...);
 int					ft_putchar2(int c);
 int					ft_putstr2(char *str);
 int					count_int(long nb);

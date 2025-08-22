@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   creat_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 13:04:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/22 21:42:18 by nsmail           ###   ########.fr       */
+/*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
+/*   Updated: 2025/08/22 13:17:36 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mini.h"
+// #include "../Mini.h"
 
-int	token(t_general *g)
-{
-	if (first_verif(g) == 1)
-		return (1);
-	return (0);
-}
-
-int	first_verif(t_general *g)
-{
-	if (parents(g) == 1)
-	{
-		printf("parents not good\n");
-		return (1);
-	}
-	if (quote(g) == 1)
-	{
-		printf("quote not good\n");
-		return (1);
-	}
-	return (0);
-}
+// int new_node(t_general *g)
+// {
+    
+// }
