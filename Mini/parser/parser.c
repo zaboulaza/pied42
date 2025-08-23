@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:35:38 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/22 13:06:16 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/23 18:36:54 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	parsing_general(t_general *g)
 {
 	if (token(g) == 1)
+		return (1);
+	if (add_to_liste(&g->node, g->one_line) == 1)
 		return (1);
 	return (0);
 }

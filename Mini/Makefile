@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+         #
+#    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 12:55:13 by nsmail            #+#    #+#              #
-#    Updated: 2025/08/23 02:28:39 by zaboulaza        ###   ########.fr        #
+#    Updated: 2025/08/23 17:18:04 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS = src/main.c \
        parser/parser.c \
        parser/tokenizer.c \
        parser/creat_list.c \
+       parser/creat_list_utils1.c \
        parser/tokenizer_utils1.c
 
 # Dossier des objets

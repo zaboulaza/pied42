@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 02:34:34 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/08/23 18:45:51 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int ac, char **av, char **env)
 				free_all(&g);
 				return (1); // erreur
 			}
+			// print_list(&g.node);
 		}
 	}
 	return (0);
@@ -53,4 +54,19 @@ void	free_all(t_general *g)
 {
 	if (g->one_line)
 		free(g->one_line);
+}
+
+void	print_list(t_node **node)
+{
+	t_node	*first;
+
+	first = *node;
+	while (first->next != NULL)
+	{
+		printf("id = %d\n", first->id);
+		printf("type = %d\n", first->type);
+		printf("content = %s\n", first->content);
+		printf("\n\n");
+		first = first->next;
+	}
 }
