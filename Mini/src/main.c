@@ -6,11 +6,11 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 18:45:51 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/23 23:26:13 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mini.h"
+#include "../mini.h"
 
 int	main(int ac, char **av, char **env)
 {
@@ -34,7 +34,7 @@ int	main(int ac, char **av, char **env)
 				free_all(&g);
 				return (1); // erreur
 			}
-			// print_list(&g.node);
+			print_list(g.node);
 		}
 	}
 	return (0);
@@ -45,9 +45,7 @@ void	creat_struct(t_general *g, int ac, char **av)
 	ft_memset(g, 0, sizeof(t_general));
 	g->ac = ac;
 	g->av = av;
-	g->node = ft_calloc(1, sizeof(t_node));
-	if (!g->node)
-		exit(1);
+	g->node = NULL;
 }
 
 void	free_all(t_general *g)
@@ -56,17 +54,14 @@ void	free_all(t_general *g)
 		free(g->one_line);
 }
 
-void	print_list(t_node **node)
+void	print_list(t_node *node)
 {
-	t_node	*first;
-
-	first = *node;
-	while (first->next != NULL)
+	while (node != NULL)
 	{
-		printf("id = %d\n", first->id);
-		printf("type = %d\n", first->type);
-		printf("content = %s\n", first->content);
-		printf("\n\n");
-		first = first->next;
+		printf("id = %d\n", node->id);
+		printf("type = %d\n", node->type);
+		printf("content = %s\n", node->content);
+		printf("\n");
+		node = node->next;
 	}
 }

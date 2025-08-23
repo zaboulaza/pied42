@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 13:54:49 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 04:22:12 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/08/23 22:19:46 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mini.h"
+#include "../mini.h"
 
 int	bracket(t_general *g)
 {

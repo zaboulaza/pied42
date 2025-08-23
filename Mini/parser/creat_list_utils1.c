@@ -6,11 +6,11 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 18:35:43 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/23 22:59:51 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mini.h"
+#include "../mini.h"
 
 int	find_type(char *line)
 {
@@ -63,13 +63,14 @@ char	*find_content(char *line)
 	}
 	else
 	{
-		while (*line && (ft_strchr(special, *line) == NULL
-				|| ispacce(*line) != 1))
+		while (line[lenght] && (ft_strchr(special, line[lenght]) == NULL
+				&& ispacce(line[lenght]) != 1))
 		{
 			lenght++;
-			line++;
 		}
 	}
+	while (ispacce(*line) == 1)
+		line++;
 	return (ft_substr(line, 0, lenght));
 }
 
@@ -82,15 +83,13 @@ int	ispacce(char c)
 
 void	list_size(t_node *node)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (node == NULL)
-		return;
-	while (node->next != 0)
+	while (node != NULL)
 	{
-		node = node->next;
 		node->id = i;
 		i++;
+		node = node->next;
 	}
 }

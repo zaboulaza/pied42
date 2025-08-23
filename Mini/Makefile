@@ -6,7 +6,7 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 12:55:13 by nsmail            #+#    #+#              #
-#    Updated: 2025/08/23 17:18:04 by nsmail           ###   ########.fr        #
+#    Updated: 2025/08/23 22:21:03 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
 
 # Compilateur & flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror -g3 
 
 # Librairies
 LIBFT = libft/libft.a

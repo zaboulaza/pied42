@@ -6,11 +6,11 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:35:38 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 18:36:54 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/23 22:19:44 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mini.h"
+#include "../mini.h"
 
 int	parsing_general(t_general *g)
 {

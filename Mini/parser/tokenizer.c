@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:04:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 04:22:48 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/08/23 22:19:53 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Mini.h"
+#include "../mini.h"
 
 int	token(t_general *g)
 {

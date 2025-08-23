@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Mini.h                                             :+:      :+:    :+:   */
+/*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 18:37:20 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/23 23:12:27 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ char				*find_content(char *line);
 void				list_size(t_node *node);
 
 // fonction de test
-void				print_list(t_node **node);
+void				print_list(t_node *node);
 
 #endif
