@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 13:54:49 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/22 21:54:09 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/23 04:22:12 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Mini.h"
 
-int	parents(t_general *g)
+int	bracket(t_general *g)
 {
 	int	i;
 	int	count;

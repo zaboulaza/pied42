@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:04:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/22 21:42:18 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/23 04:22:48 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	token(t_general *g)
 
 int	first_verif(t_general *g)
 {
-	if (parents(g) == 1)
+	if (bracket(g) == 1)
 	{
 		printf("parents not good\n");
 		return (1);
