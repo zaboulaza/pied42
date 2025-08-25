@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_utils1.c                                 :+:      :+:    :+:   */
+/*   token_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 13:54:49 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 22:19:46 by nsmail           ###   ########.fr       */
+/*   Created: 2025/08/21 13:04:26 by nsmail            #+#    #+#             */
+/*   Updated: 2025/08/25 17:36:13 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
+
+int	token_first(t_general *g)
+{
+	if (bracket(g) == 1)
+	{
+		printf("parents not good\n");
+		return (1);
+	}
+	if (quote(g) == 1)
+	{
+		printf("quote not good\n");
+		return (1);
+	}
+	if (esperluette(g) == 1)
+	{
+		printf("esperluette not good\n");
+		return (1);
+	}
+	return (0);
+}
 
 int	bracket(t_general *g)
 {
@@ -59,5 +79,24 @@ int	quote(t_general *g)
 	}
 	if (count % 2 != 0)
 		return (1);
+	return (0);
+}
+
+int	esperluette(t_general *g)
+{
+	int	i;
+
+	i = 0;
+	while (g->one_line[i])
+	{
+		if (g->one_line[i] == '&')
+		{
+			if (g->one_line[i + 1] != '&')
+				return (1);
+			else
+				i++;
+		}
+		i++;
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 12:55:13 by nsmail            #+#    #+#              #
-#    Updated: 2025/08/23 22:21:03 by nsmail           ###   ########.fr        #
+#    Updated: 2025/08/25 17:35:46 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,9 @@ NAME        = MINI
 # Fichiers source
 SRCS = src/main.c \
        parser/parser.c \
-       parser/tokenizer.c \
+       parser/token_first.c \
        parser/creat_list.c \
-       parser/creat_list_utils1.c \
-       parser/tokenizer_utils1.c
+       parser/creat_list_utils1.c
 
 # Dossier des objets
 OBJDIR = obj

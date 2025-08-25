@@ -1,35 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   token_second.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 13:04:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 22:19:53 by nsmail           ###   ########.fr       */
+/*   Created: 2025/08/25 17:38:12 by nsmail            #+#    #+#             */
+/*   Updated: 2025/08/25 17:39:23 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
 
-int	token(t_general *g)
+int token_second(t_general *g)
 {
-	if (first_verif(g) == 1)
-		return (1);
-	return (0);
-}
-
-int	first_verif(t_general *g)
-{
-	if (bracket(g) == 1)
-	{
-		printf("parents not good\n");
-		return (1);
-	}
-	if (quote(g) == 1)
-	{
-		printf("quote not good\n");
-		return (1);
-	}
-	return (0);
+    
+    return (0);
 }
