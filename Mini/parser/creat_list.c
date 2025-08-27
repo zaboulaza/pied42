@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/25 16:35:11 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/27 15:36:11 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,39 +51,49 @@ t_node	*new_node(char *line)
 	node->type = find_type(line);
 	node->content = find_content(line);
 	node->next = NULL;
-	printf("NEW NODE: type=%d, content='%s'\n", node->type, node->content);
 	return (node);
 }
 
 char	*next_step(char *line)
 {
-	char	special[7] = "|&()<>";
+	char	*special;
 
+	special = "|&()<>";
 	while (ispacce(*line) == 1)
 		line++;
-    
-	if (ft_strchr(special, *line) != NULL)
+	if (*line == '"')
 	{
-		if ((*line == '|' && *(line + 1) == '|') || (*line == '&' && *(line
-					+ 1) == '&'))
-			return (line + 2);
-		if ((*line == '|' && *(line + 1) != '|') || (*line == '('
-				|| *line == ')'))
-			return (line + 1);
-		if ((*line == '<' && *(line + 1) == '<') || (*line == '>' && *(line
-					+ 1) == '>'))
-			return (line + 2);
-		if ((*line == '<' && *(line + 1) != '<') || (*line == '>' && *(line
-					+ 1) != '>'))
-			return (line + 1);
+		line++;
+		while (*line && *line != '"')
+			line++;
+		if (*(line + 1))
+			line++;
 	}
+	else if (ft_strchr(special, *line) != NULL)
+		return (line + next_step_norm(line));
 	else
 	{
 		while (*line && (ft_strchr(special, *line) == NULL
 				&& ispacce(*line) != 1))
 			line++;
 	}
-	while (ispacce(*line) == 1)
+	while (*line && ispacce(*line) == 1)
 		line++;
 	return (line);
+}
+
+int	next_step_norm(char *line)
+{
+	if ((*line == '|' && *(line + 1) == '|') || (*line == '&' && *(line
+				+ 1) == '&'))
+		return (2);
+	if ((*line == '|' && *(line + 1) != '|') || (*line == '(' || *line == ')'))
+		return (1);
+	if ((*line == '<' && *(line + 1) == '<') || (*line == '>' && *(line
+				+ 1) == '>'))
+		return (2);
+	if ((*line == '<' && *(line + 1) != '<') || (*line == '>' && *(line
+				+ 1) != '>'))
+		return (1);
+	return (0);
 }

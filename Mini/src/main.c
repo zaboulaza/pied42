@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/23 23:26:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/27 15:20:19 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int	main(int ac, char **av, char **env)
 		}
 		if (*g.one_line)
 		{
-			printf("Tu as écrit: %s\n", g.one_line);
 			if (parsing_general(&g) == 1)
 			{
 				free_all(&g);
-				return (1); // erreur
+				return (1);
 			}
 			print_list(g.node);
 		}

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/25 15:25:14 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/27 15:35:31 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	find_type(char *line)
 {
+	if (*line == '"')
+		return (QUOTE);
 	if (*line == '|' && *(line + 1) != '|')
 		return (PIPE);
 	if (*line == '|' && *(line + 1) == '|')
@@ -38,36 +40,47 @@ int	find_type(char *line)
 char	*find_content(char *line)
 {
 	int		lenght;
-	char	special[7] = "|&()<>";
+	char	*special;
 
+	special = "|&()<>";
 	lenght = 0;
-	if (ft_strchr(special, *line) != NULL)
+	if (line[lenght] == '"')
 	{
-		if (*line == '|' && *(line + 1) != '|')
-			return (ft_substr(line, 0, 1));
-		if ((*line == '|' && *(line + 1) == '|') || (*line == '&' && *(line
-					+ 1) == '&'))
-			return (ft_substr(line, 0, 2));
-		if ((*line == '(') || (*line == ')'))
-			return (ft_substr(line, 0, 1));
-		if ((*line == '<' && *(line + 1) != '<') || (*line == '>' && *(line
-					+ 1) != '>'))
-			return (ft_substr(line, 0, 1));
-		if ((*line == '<' && *(line + 1) == '<') || (*line == '>' && *(line
-					+ 1) == '>'))
-			return (ft_substr(line, 0, 2));
+		lenght++;
+		while (line[lenght] && line[lenght] != '"')
+			lenght++;
+		if (line[lenght + 1] != '\0')
+			lenght++;
 	}
+	else if (ft_strchr(special, *line) != NULL)
+		return (ft_substr(line, 0, find_content_norm(line)));
 	else
 	{
 		while (line[lenght] && (ft_strchr(special, line[lenght]) == NULL
 				&& ispacce(line[lenght]) != 1))
-		{
 			lenght++;
-		}
 	}
 	while (ispacce(*line) == 1)
 		line++;
 	return (ft_substr(line, 0, lenght));
+}
+
+int	find_content_norm(char *line)
+{
+	if (*line == '|' && *(line + 1) != '|')
+		return (1);
+	if ((*line == '|' && *(line + 1) == '|') || (*line == '&' && *(line
+				+ 1) == '&'))
+		return (2);
+	if ((*line == '(') || (*line == ')'))
+		return (1);
+	if ((*line == '<' && *(line + 1) != '<') || (*line == '>' && *(line
+				+ 1) != '>'))
+		return (1);
+	if ((*line == '<' && *(line + 1) == '<') || (*line == '>' && *(line
+				+ 1) == '>'))
+		return (2);
+	return (0);
 }
 
 int	ispacce(char c)
