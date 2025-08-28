@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/27 15:25:47 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/27 23:51:08 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_general
 	struct s_node	*node;
 }					t_general;
 
+// token
 typedef struct s_node
 {
 	int				type;
@@ -45,6 +46,23 @@ typedef struct s_node
 	int				id;
 	struct s_node	*next;
 }					t_node;
+
+// regroupement
+typedef struct s_files
+{
+	char			*path;
+	int mode; // < / << / > / >>
+	char			**heredoc_content;
+	struct s_files	*next;
+}					t_files;
+
+typedef struct s_cmd
+{
+	int type; // cmd / subshell () / pipe / et / ou
+	char			**args;
+	t_files *files;
+	struct s_cmd *next;
+} t_cmd;
 
 // main.c
 ////////////////////////////////////////////////////////////////////////////
