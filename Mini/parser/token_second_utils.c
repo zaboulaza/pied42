@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 19:34:07 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/27 15:37:31 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/29 14:37:12 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	team_redir(t_node *tmp)
 		return (1);
 	if (tmp->next != NULL)
 	{
-		if (tmp->next->type != WORD && tmp->next->type != QUOTE)
+		if (tmp->next->type != WORD)
 			return (1);
 	}
 	return (0);
@@ -32,8 +32,7 @@ int	team_and_or(t_node *tmp)
 		return (1);
 	if (tmp->next != NULL)
 	{
-		if (tmp->next->type != WORD && tmp->next->type != QUOTE
-			&& tmp->next->type != OPEN_PAREN)
+		if (tmp->next->type != WORD && tmp->next->type != OPEN_PAREN)
 			return (1);
 	}
 	return (0);
@@ -45,8 +44,7 @@ int	team_open_parent(t_node *tmp)
 		return (1);
 	if (tmp->next != NULL)
 	{
-		if (tmp->next->type != WORD && tmp->next->type != QUOTE
-			&& tmp->next->type != OPEN_PAREN)
+		if (tmp->next->type != WORD && tmp->next->type != OPEN_PAREN)
 			return (1);
 	}
 	return (0);
@@ -58,7 +56,7 @@ int	team_close_parent(t_node *tmp)
 		return (1);
 	if (tmp->next != NULL)
 	{
-		if (tmp->next->type == WORD || tmp->next->type == QUOTE)
+		if (tmp->next->type == WORD)
 			return (1);
 	}
 	return (0);

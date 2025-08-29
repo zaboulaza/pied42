@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:04:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/25 17:36:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/29 14:52:14 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	token_first(t_general *g)
 {
-	if (bracket(g) == 1)
-	{
-		printf("parents not good\n");
-		return (1);
-	}
 	if (quote(g) == 1)
 	{
 		printf("quote not good\n");
+		return (1);
+	}
+	if (bracket(g) == 1)
+	{
+		printf("parents not good\n");
 		return (1);
 	}
 	if (esperluette(g) == 1)
@@ -41,6 +41,12 @@ int	bracket(t_general *g)
 	i = 0;
 	while (g->one_line[i])
 	{
+		if (g->one_line[i] == '"')
+		{
+			i++;
+			while (g->one_line[i] != '"')
+				i++;
+		}
 		if (g->one_line[i] == ')')
 			count--;
 		else if (g->one_line[i] == '(')
@@ -91,6 +97,12 @@ int	esperluette(t_general *g)
 	{
 		if (g->one_line[i] == '&')
 		{
+			if (g->one_line[i] == '"')
+			{
+				i++;
+				while (g->one_line[i] != '"')
+					i++;
+			}
 			if (g->one_line[i + 1] != '&')
 				return (1);
 			else

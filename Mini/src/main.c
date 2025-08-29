@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/27 23:56:11 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/29 13:27:16 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,13 @@ void	free_all(t_general *g)
 }
 
 
-void print_type(int type)
-{
-	char *msg;
-	if (type == 0)
-		msg = "WORD";
-	printf("id = %s\n", msg);
-}
-
+// void print_type(int type)
+// {
+// 	char *msg;
+// 	if (type == 0)
+// 		msg = "WORD";
+// 	printf("id = %s\n", msg);
+// }
 
 void	print_list(t_node *node)
 {

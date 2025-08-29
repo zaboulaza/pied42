@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/27 23:51:08 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/29 14:36:20 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define REDIR_OUT 7
 # define REDIR_APPEND 8
 # define HEREDOC 9
-# define QUOTE 10
 
 typedef struct s_general
 {
@@ -48,21 +47,21 @@ typedef struct s_node
 }					t_node;
 
 // regroupement
-typedef struct s_files
-{
-	char			*path;
-	int mode; // < / << / > / >>
-	char			**heredoc_content;
-	struct s_files	*next;
-}					t_files;
+// typedef struct s_files
+// {
+// 	char			*path;
+// 	int mode; // < / << / > / >>
+// 	char			**heredoc_content;
+// 	struct s_files	*next;
+// }					t_files;
 
-typedef struct s_cmd
-{
-	int type; // cmd / subshell () / pipe / et / ou
-	char			**args;
-	t_files *files;
-	struct s_cmd *next;
-} t_cmd;
+// typedef struct s_cmd
+// {
+// 	int type; // cmd / subshell () / pipe / et / ou
+// 	char			**args;
+// 	t_files *files;
+// 	struct s_cmd *next;
+// } t_cmd;
 
 // main.c
 ////////////////////////////////////////////////////////////////////////////

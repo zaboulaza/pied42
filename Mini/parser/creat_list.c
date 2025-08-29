@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/27 15:36:11 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/29 14:46:58 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,16 @@ char	*next_step(char *line)
 	special = "|&()<>";
 	while (ispacce(*line) == 1)
 		line++;
-	if (*line == '"')
+	if (*line == '"' && *(line + 1) == '"')
+		line = line + 2;
+	else if (*line == '"')
 	{
 		line++;
 		while (*line && *line != '"')
 			line++;
 		if (*(line + 1))
+			line++;
+		while (*line && ispacce(*line) != 1)
 			line++;
 	}
 	else if (ft_strchr(special, *line) != NULL)
