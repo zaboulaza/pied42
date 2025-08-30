@@ -1,10 +1,13 @@
 FINI
 
-"ok"cat | ls ->  "ok"cat doit etre un seul token
-"" -> fait un invalid read 
+"" -> doit faire un token avec content "" 
 (("ss))" -> doit etre une erreur de parsing car ce qui est dans les guillemets ne comptent pas
 -> revoir les guillemets
 
 A FAIRE
 
+1- il faut que je fasse une fonction un peu comme (next_step) mais pour faire avancer node dans token_third --> add_to_cmd_list
+2- il faut que je trouve bien comment faire mon find_cmd_type en pensant a mon comment je vais faire la suite
+3-
 
+ok"|"

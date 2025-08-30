@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/29 14:36:20 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/30 22:10:54 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_general
 	char			**av;
 	char			*one_line;
 	struct s_node	*node;
+	struct s_cmd	*cmd;
 }					t_general;
 
 // token
@@ -47,21 +48,21 @@ typedef struct s_node
 }					t_node;
 
 // regroupement
-// typedef struct s_files
-// {
-// 	char			*path;
-// 	int mode; // < / << / > / >>
-// 	char			**heredoc_content;
-// 	struct s_files	*next;
-// }					t_files;
+typedef struct s_files
+{
+	char			*path;
+	int mode; // < / << / > / >>
+	char			**heredoc_content;
+	struct s_files	*next;
+}					t_files;
 
-// typedef struct s_cmd
-// {
-// 	int type; // cmd / subshell () / pipe / et / ou
-// 	char			**args;
-// 	t_files *files;
-// 	struct s_cmd *next;
-// } t_cmd;
+typedef struct s_cmd
+{
+	int type; // cmd / subshell () / pipe / et / ou
+	char			**args;
+	t_files			*files;
+	struct s_cmd	*next;
+}					t_cmd;
 
 // main.c
 ////////////////////////////////////////////////////////////////////////////
@@ -100,6 +101,12 @@ int					team_open_parent(t_node *tmp);
 int					team_close_parent(t_node *tmp);
 int					team_word(t_node *tmp);
 int					token_second_norme(t_node *tmp);
+
+// ##############################  token_third.c  ##########################
+
+int					token_third(t_general *g);
+int					add_to_cmd_liste(t_cmd **cmd, t_node *node);
+int					new_cmd(t_node *node);
 
 // fonction de test
 void				print_list(t_node *node);

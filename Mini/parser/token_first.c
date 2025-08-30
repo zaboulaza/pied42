@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:04:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/29 14:52:14 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/30 19:14:54 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ int	bracket(t_general *g)
 			while (g->one_line[i] != '"')
 				i++;
 		}
+		if (g->one_line[i] == 39)
+		{
+			i++;
+			while (g->one_line[i] != 39)
+				i++;
+		}
 		if (g->one_line[i] == ')')
 			count--;
 		else if (g->one_line[i] == '(')
@@ -79,7 +85,7 @@ int	quote(t_general *g)
 	i = 0;
 	while (g->one_line[i])
 	{
-		if (g->one_line[i] == 39)
+		if (g->one_line[i] == 2)
 			count++;
 		i++;
 	}
@@ -101,6 +107,12 @@ int	esperluette(t_general *g)
 			{
 				i++;
 				while (g->one_line[i] != '"')
+					i++;
+			}
+			if (g->one_line[i] == 39)
+			{
+				i++;
+				while (g->one_line[i] != 39)
 					i++;
 			}
 			if (g->one_line[i + 1] != '&')

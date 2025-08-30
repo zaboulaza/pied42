@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/29 14:46:58 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/30 19:40:05 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ char	*next_step(char *line)
 	special = "|&()<>";
 	while (ispacce(*line) == 1)
 		line++;
-	if (*line == '"' && *(line + 1) == '"')
+	if ((*line == '"' && *(line + 1) == '"') && *line == 39 && *(line
+			+ 1) == 39)
 		line = line + 2;
 	else if (*line == '"')
 	{
@@ -73,13 +74,34 @@ char	*next_step(char *line)
 		while (*line && ispacce(*line) != 1)
 			line++;
 	}
+	else if (*line == 39)
+	{
+		line++;
+		while (*line && *line != 39)
+			line++;
+		if (*(line + 1))
+			line++;
+		while (*line && ispacce(*line) != 1)
+			line++;
+	}
 	else if (ft_strchr(special, *line) != NULL)
 		return (line + next_step_norm(line));
 	else
 	{
-		while (*line && (ft_strchr(special, *line) == NULL
-				&& ispacce(*line) != 1))
+		while (*line)
+		{
+			if (*line == '"')
+			{
+				line++;
+				while (*line && *line != '"')
+					line++;
+				line++;
+			}
 			line++;
+			if (ft_strchr(special, *line) != NULL
+				&& ispacce(*line != 1))
+				break ;
+		}
 	}
 	while (*line && ispacce(*line) == 1)
 		line++;
