@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/30 19:40:05 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/31 21:14:53 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	add_to_liste(t_node **node, char *line)
 
 	while (*line != '\0')
 	{
+		// printf("dasn add to list\n");
+		// print_list(*node);
 		while (*line && ispacce(*line) == 1)
 			line++;
 		if (!*line)
@@ -61,8 +63,8 @@ char	*next_step(char *line)
 	special = "|&()<>";
 	while (ispacce(*line) == 1)
 		line++;
-	if ((*line == '"' && *(line + 1) == '"') && *line == 39 && *(line
-			+ 1) == 39)
+	if ((*line == '"' && *(line + 1) == '"') || (*line == 39 && *(line
+				+ 1) == 39))
 		line = line + 2;
 	else if (*line == '"')
 	{
@@ -97,10 +99,9 @@ char	*next_step(char *line)
 					line++;
 				line++;
 			}
-			line++;
-			if (ft_strchr(special, *line) != NULL
-				&& ispacce(*line != 1))
+			if (ft_strchr(special, *line) != NULL || ispacce(*line) == 1)
 				break ;
+			line++;
 		}
 	}
 	while (*line && ispacce(*line) == 1)

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/30 22:10:54 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/31 21:14:42 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define REDIR_OUT 7
 # define REDIR_APPEND 8
 # define HEREDOC 9
+
+# define CMD 10
+# define SUBSHELL 11
 
 typedef struct s_general
 {
@@ -106,9 +109,23 @@ int					token_second_norme(t_node *tmp);
 
 int					token_third(t_general *g);
 int					add_to_cmd_liste(t_cmd **cmd, t_node *node);
-int					new_cmd(t_node *node);
+t_cmd				*new_cmd(t_node *node);
+t_node				*next_step_cmd(t_node *node);
 
+// token_third_utils.c
+t_node				*next_step_norm_cmd(t_node *node);
+int					find_cmd_type(t_node *node);
+char				**find_arg(t_cmd *cmd, t_node *node);
+char				*ft_strjoin_(char *s1, char const *s2);
+
+// token_third_utils2.c
+static void			free_all_(char **tab);
+static size_t		count_word_(const char *s, char c);
+static char			*malloc_word_(char *str, char c);
+char				**ft_split_(char const *s, char c);
+char				*quote_norm(char *line);
 // fonction de test
 void				print_list(t_node *node);
+void				print_list_cmd(t_cmd *cmd);
 
 #endif

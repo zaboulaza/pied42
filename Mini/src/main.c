@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/29 13:27:16 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/31 16:57:01 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	main(int ac, char **av, char **env)
 				free_all(&g);
 				return (1);
 			}
-			print_list(g.node);
+			// print_list(g.node);
+			print_list_cmd(g.cmd);
 		}
 	}
 	return (0);
@@ -62,14 +63,24 @@ void	free_all(t_general *g)
 // 	printf("id = %s\n", msg);
 // }
 
-void	print_list(t_node *node)
+// void	print_list(t_node *node)
+// {
+// 	while (node != NULL)
+// 	{
+// 		printf("id = %d\n", node->id);
+// 		printf("type = %d\n", node->type);
+// 		printf("content = %s\n", node->content);
+// 		printf("\n");
+// 		node = node->next;
+// 	}
+// }
+
+void	print_list_cmd(t_cmd *cmd)
 {
-	while (node != NULL)
+	while (cmd != NULL)
 	{
-		printf("id = %d\n", node->id);
-		printf("type = %d\n", node->type);
-		printf("content = %s\n", node->content);
+		printf("type = %d\n", cmd->type);
 		printf("\n");
-		node = node->next;
+		cmd = cmd->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/30 22:26:01 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/31 20:50:59 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int	add_to_cmd_liste(t_cmd **cmd, t_node *node)
 				tmp = tmp->next;
 			tmp->next = new;
 		}
-		node = node->next;
+		node = next_step_cmd(node);
 	}
+	return (0);
 }
 
 t_cmd	*new_cmd(t_node *node)
@@ -53,13 +54,26 @@ t_cmd	*new_cmd(t_node *node)
 		return (NULL);
 	ft_bzero(cmd, sizeof(t_cmd));
 	cmd->type = find_cmd_type(node);
+	cmd->args = find_arg(cmd, node);
+	cmd->next = NULL;
 	return (cmd);
 }
 
-int	find_cmd_type(t_cmd *node)
+t_node	*next_step_cmd(t_node *node)
 {
 	if (node->type == WORD)
-		return (WORD);
-	else if (node->type == )
-		return (0);
+	{
+		while (node != NULL && node->type == WORD)
+		{
+			node = node->next;
+			while (node != NULL && (node->type >= REDIR_IN
+					&& node->type <= HEREDOC))
+				node = node->next;
+		}
+	}
+	else if (node->type == OPEN_PAREN)
+		node = next_step_norm_cmd(node);
+	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
+		node = node->next;
+	return (node);
 }

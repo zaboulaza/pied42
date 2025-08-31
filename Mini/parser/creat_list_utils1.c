@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/30 19:38:40 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/08/31 16:56:13 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ char	*find_content(char *line)
 
 	special = "|&()<>";
 	lenght = 0;
-	if ((*line == '"' && *(line + 1) == '"') && (*line == 39 && *(line
-				+ 1) == 39))
-		return ('\0');
-	else if (line[lenght] == '"')
+	if (line[lenght] == '"')
 	{
 		lenght++;
 		while (line[lenght] && line[lenght] != '"')
@@ -76,10 +73,10 @@ char	*find_content(char *line)
 					lenght++;
 				lenght++;
 			}
-			lenght++;
 			if (ft_strchr(special, line[lenght]) != NULL
-				&& ispacce(line[lenght] != 1))
+				|| ispacce(line[lenght]) == 1)
 				break ;
+			lenght++;
 		}
 		while (ispacce(*line) == 1)
 			line++;
