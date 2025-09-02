@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/31 21:14:42 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/02 00:52:42 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,14 @@ char				**find_arg(t_cmd *cmd, t_node *node);
 char				*ft_strjoin_(char *s1, char const *s2);
 
 // token_third_utils2.c
-static void			free_all_(char **tab);
-static size_t		count_word_(const char *s, char c);
-static char			*malloc_word_(char *str, char c);
-char				**ft_split_(char const *s, char c);
+void				free_all_(char **tab);
+size_t				count_word_(char *s, char c);
+char				*malloc_word_(char *str, char c);
+char				**ft_split_(char *s, char c);
 char				*quote_norm(char *line);
+// token_third_utils3.c
+// char				*skip_word(char *s, char c);
+
 // fonction de test
 void				print_list(t_node *node);
 void				print_list_cmd(t_cmd *cmd);

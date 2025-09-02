@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/31 16:57:01 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/02 01:51:25 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	free_all(t_general *g)
 		free(g->one_line);
 }
 
-
 // void print_type(int type)
 // {
 // 	char *msg;
@@ -77,9 +76,22 @@ void	free_all(t_general *g)
 
 void	print_list_cmd(t_cmd *cmd)
 {
+	int	i;
+
 	while (cmd != NULL)
 	{
 		printf("type = %d\n", cmd->type);
+		i = 0;
+		if (cmd->args)
+		{
+			while (cmd->args[i])
+			{
+				printf("arg = %s\n", cmd->args[i]);
+				i++;
+				if (!cmd->args[i])
+					printf("arg = %s\n", cmd->args[i]);
+			}
+		}
 		printf("\n");
 		cmd = cmd->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/31 21:07:20 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/02 02:03:16 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**find_arg(t_cmd *cmd, t_node *node)
 	char	**arg;
 
 	tmp = ft_strdup("");
-	if (cmd->type != CMD)
+	if (cmd->type != CMD && cmd->type != SUBSHELL)
 		return (NULL);
 	else if (node->type == WORD)
 	{
@@ -60,14 +60,27 @@ char	**find_arg(t_cmd *cmd, t_node *node)
 		{
 			tmp = ft_strjoin_(tmp, node->content);
 			node = node->next;
-			// while (node != NULL && (node->type >= REDIR_IN
-			// 		&& node->type <= HEREDOC))
-			// 	node = node->next;
+			while (node != NULL && (node->type >= REDIR_IN
+					&& node->type <= HEREDOC))
+			{
+				node = node->next;
+				node = node->next;
+			}
 		}
+		arg = ft_split_(tmp, ' ');
+		if (!arg)
+			return (NULL);
+		return (arg);
 	}
-	arg = ft_split_(tmp, ' ');
-	if (!arg)
-		return (NULL);
+	// else if (node->type == OPEN_PAREN)
+	// {
+	// 	while (node != NULL && node->type != CLOSE_PAREN)
+	// 	{
+	// 		tmp = ft_strjoin(tmp, node->content);
+	// 		node = node->next;
+	// 	}
+	// 	*arg = ft_strdup(tmp);
+	// }
 	return (arg);
 }
 
