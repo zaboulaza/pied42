@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/03 00:01:42 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/03 18:01:28 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,15 @@ void	print_list_cmd(t_cmd *cmd)
 				i++;
 				if (!cmd->args[i])
 					printf("arg = %s\n", cmd->args[i]);
+			}
+		}
+		if (cmd->files)
+		{
+			while (cmd->files)
+			{
+				printf("{files} // path = %s\n", cmd->files->path);
+				printf("{files} // mode = %d\n", cmd->files->mode);
+				cmd->files = cmd->files->next;
 			}
 		}
 		printf("\n");

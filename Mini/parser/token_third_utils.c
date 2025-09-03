@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/03 00:07:18 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/03 19:06:50 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ char	**find_arg(t_cmd *cmd, t_node *node)
 			while (node != NULL && (node->type >= REDIR_IN
 					&& node->type <= HEREDOC))
 			{
-				node = node->next;
-				node = node->next;
+				add_to_files_liste(cmd, node);
+				node = node->next->next;
 			}
 		}
 		arg = ft_split_(tmp, ' ');

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/03 00:16:32 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/03 19:30:19 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ typedef struct s_node
 typedef struct s_files
 {
 	char			*path;
-	int mode; // < / << / > / >>
+	int				mode;
 	char			**heredoc_content;
 	struct s_files	*next;
 }					t_files;
 
 typedef struct s_cmd
 {
-	int type; // cmd / subshell () / pipe / et / ou
+	int				type;
 	char			**args;
 	t_files			*files;
 	struct s_cmd	*next;
@@ -126,10 +126,11 @@ char				*malloc_word_(char *str, char c);
 char				**ft_split_(char *s, char c);
 char				*quote_norm(char *line);
 // token_third_utils3.c
-// char				*skip_word(char *s, char c);
+int				add_to_files_liste(t_cmd *cmd, t_node *node);
+t_files				*new_files(t_node *node);
 
 // fonction de test
-void				print_list(t_node *node);
+// void				print_list(t_node *node);
 void				print_list_cmd(t_cmd *cmd);
 
 #endif
