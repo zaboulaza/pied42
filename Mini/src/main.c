@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/02 01:51:25 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/03 00:01:42 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,6 @@ void	free_all(t_general *g)
 	if (g->one_line)
 		free(g->one_line);
 }
-
-// void print_type(int type)
-// {
-// 	char *msg;
-// 	if (type == 0)
-// 		msg = "WORD";
-// 	printf("id = %s\n", msg);
-// }
-
-// void	print_list(t_node *node)
-// {
-// 	while (node != NULL)
-// 	{
-// 		printf("id = %d\n", node->id);
-// 		printf("type = %d\n", node->type);
-// 		printf("content = %s\n", node->content);
-// 		printf("\n");
-// 		node = node->next;
-// 	}
-// }
 
 void	print_list_cmd(t_cmd *cmd)
 {

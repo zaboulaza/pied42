@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/02 00:52:42 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/03 00:16:32 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_node				*next_step_norm_cmd(t_node *node);
 int					find_cmd_type(t_node *node);
 char				**find_arg(t_cmd *cmd, t_node *node);
 char				*ft_strjoin_(char *s1, char const *s2);
+char				**find_arg_norm_parent(t_node *node);
 
 // token_third_utils2.c
 void				free_all_(char **tab);
@@ -132,3 +133,5 @@ void				print_list(t_node *node);
 void				print_list_cmd(t_cmd *cmd);
 
 #endif
+
+// garbege colector

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/02 02:03:16 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/03 00:07:18 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,39 @@ char	**find_arg(t_cmd *cmd, t_node *node)
 			return (NULL);
 		return (arg);
 	}
-	// else if (node->type == OPEN_PAREN)
-	// {
-	// 	while (node != NULL && node->type != CLOSE_PAREN)
-	// 	{
-	// 		tmp = ft_strjoin(tmp, node->content);
-	// 		node = node->next;
-	// 	}
-	// 	*arg = ft_strdup(tmp);
-	// }
+	else if (node->type == OPEN_PAREN)
+	{
+		arg = find_arg_norm_parent(node);
+		return (arg);
+	}
+	return (NULL);
+}
+
+char	**find_arg_norm_parent(t_node *node)
+{
+	char	**arg;
+	t_node	*size;
+	int		count;
+	int		i;
+
+	i = 0;
+	count = 1;
+	size = node;
+	while (size && size->type != CLOSE_PAREN)
+	{
+		size = size->next;
+		count++;
+	}
+	arg = malloc(sizeof(char *) * count + 1);
+	if (!arg)
+		return (NULL);
+	while (i < count)
+	{
+		arg[i] = node->content;
+		node = node->next;
+		i++;
+	}
+	arg[count] = NULL;
 	return (arg);
 }
 
