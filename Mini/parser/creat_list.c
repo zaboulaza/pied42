@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/31 21:14:53 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/04 22:24:56 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	add_to_liste(t_node **node, char *line)
 
 	while (*line != '\0')
 	{
-		// printf("dasn add to list\n");
-		// print_list(*node);
 		while (*line && ispacce(*line) == 1)
 			line++;
 		if (!*line)
@@ -59,27 +57,15 @@ t_node	*new_node(char *line)
 char	*next_step(char *line)
 {
 	char	*special;
+	char	quote;
 
 	special = "|&()<>";
 	while (ispacce(*line) == 1)
 		line++;
-	if ((*line == '"' && *(line + 1) == '"') || (*line == 39 && *(line
-				+ 1) == 39))
-		line = line + 2;
-	else if (*line == '"')
+	if (*line == '"' || *line == 39)
 	{
-		line++;
-		while (*line && *line != '"')
-			line++;
-		if (*(line + 1))
-			line++;
-		while (*line && ispacce(*line) != 1)
-			line++;
-	}
-	else if (*line == 39)
-	{
-		line++;
-		while (*line && *line != 39)
+		quote = *line++;
+		while (*line && *line != quote)
 			line++;
 		if (*(line + 1))
 			line++;
@@ -92,12 +78,13 @@ char	*next_step(char *line)
 	{
 		while (*line)
 		{
-			if (*line == '"')
+			if (*line == '"' || *line == 39)
 			{
-				line++;
-				while (*line && *line != '"')
+				quote = *line++;
+				while (*line && *line != quote)
 					line++;
-				line++;
+				if (*(line + 1))
+					line++;
 			}
 			if (ft_strchr(special, *line) != NULL || ispacce(*line) == 1)
 				break ;

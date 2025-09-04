@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/03 19:30:19 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/04 22:28:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_node
 	int				type;
 	char			*content;
 	int				id;
-	struct s_node	*next;
+	struct s_node *next;
 }					t_node;
 
 // regroupement
@@ -126,7 +126,7 @@ char				*malloc_word_(char *str, char c);
 char				**ft_split_(char *s, char c);
 char				*quote_norm(char *line);
 // token_third_utils3.c
-int				add_to_files_liste(t_cmd *cmd, t_node *node);
+int					add_to_files_liste(t_cmd *cmd, t_node *node);
 t_files				*new_files(t_node *node);
 
 // fonction de test
@@ -136,3 +136,6 @@ void				print_list_cmd(t_cmd *cmd);
 #endif
 
 // garbege colector
+
+// valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes
+// -q --suppressions=./ignore_leak_readline ./MINI
