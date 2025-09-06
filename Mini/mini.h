@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/06 07:00:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/06 14:55:13 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,12 @@ typedef struct s_general
 	char			*one_line;
 	struct s_node	*node;
 	struct s_cmd	*cmd;
+	struct s_free	*free;
 }					t_general;
+
+typedef struct s_free
+{
+}					t_free;
 
 // token
 typedef struct s_node

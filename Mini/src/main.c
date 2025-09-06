@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/05 23:54:40 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/06 14:58:27 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	creat_struct(t_general *g, int ac, char **av)
 	g->ac = ac;
 	g->av = av;
 	g->node = NULL;
+	g->free = ft_calloc(1, sizeof(t_free));
 }
 
 void	free_all(t_general *g)
@@ -96,4 +97,3 @@ void	print_list_cmd(t_cmd *cmd)
 // 		printf("\n");
 // 		node = node->next;
 // 	}
-// }
