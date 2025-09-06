@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 21:06:06 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/02 19:56:02 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/05 17:16:09 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char	*quote_norm(char *s)
 	quote = *s++;
 	while (*s && *s != quote)
 		s++;
-	s++;
+	if (*s == quote)
+		s++;
 	return (s);
 }

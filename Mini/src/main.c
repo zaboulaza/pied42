@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/04 22:25:14 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/05 23:54:40 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ void	print_list_cmd(t_cmd *cmd)
 		{
 			while (cmd->args[i])
 			{
-				printf("arg = %s\n", cmd->args[i]);
+				printf("{cmd} // arg = %s\n", cmd->args[i]);
 				i++;
 				if (!cmd->args[i])
-					printf("arg = %s\n", cmd->args[i]);
+					printf("{cmd} // arg = %s\n", cmd->args[i]);
 			}
 		}
 		if (cmd->files)
@@ -90,9 +90,9 @@ void	print_list_cmd(t_cmd *cmd)
 // {
 // 	while (node != NULL)
 // 	{
-// 		printf("id = %d\n", node->id);
-// 		printf("type = %d\n", node->type);
-// 		printf("content = %s\n", node->content);
+// 		printf("{LIST} id = %d\n", node->id);
+// 		printf("{LIST} type = %d\n", node->type);
+// 		printf("{LIST} content = %s\n", node->content);
 // 		printf("\n");
 // 		node = node->next;
 // 	}

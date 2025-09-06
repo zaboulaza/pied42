@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/02 19:30:57 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/06 07:10:15 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ t_node	*next_step_cmd(t_node *node)
 	else if (node->type == OPEN_PAREN)
 		node = next_step_norm_cmd(node);
 	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
+	{
 		node = node->next;
+		while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
+			node = node->next->next;
+	}
 	return (node);
 }

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 19:34:07 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/29 14:37:12 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/05 23:57:46 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int	team_and_or(t_node *tmp)
 		return (1);
 	if (tmp->next != NULL)
 	{
-		if (tmp->next->type != WORD && tmp->next->type != OPEN_PAREN)
+		if (tmp->next->type != WORD && tmp->next->type != OPEN_PAREN
+			&& tmp->next->type != REDIR_IN && tmp->next->type != HEREDOC
+			&& tmp->next->type != REDIR_OUT && tmp->next->type != REDIR_APPEND)
 			return (1);
 	}
 	return (0);

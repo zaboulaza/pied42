@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/04 22:28:41 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/06 07:00:13 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_node
 	int				type;
 	char			*content;
 	int				id;
-	struct s_node *next;
+	struct s_node	*next;
 }					t_node;
 
 // regroupement
@@ -79,8 +79,8 @@ int					parsing_general(t_general *g);
 // ##############################  token_first.c  #########################
 int					token_first(t_general *g);
 // tokenizer_utils1.c
-int					bracket(t_general *g);
 int					quote(t_general *g);
+int					bracket(t_general *g);
 int					esperluette(t_general *g);
 
 // ##############################  creat_list.c  ###########################
@@ -88,12 +88,15 @@ int					add_to_liste(t_node **node, char *line);
 t_node				*new_node(char *line);
 char				*next_step(char *line);
 int					next_step_norm(char *line);
-// creat_list_urils.c
+int					next_step_norm2(char *line);
+// creat_list_urils1.c
 int					find_type(char *line);
 int					ispacce(char c);
 char				*find_content(char *line);
 int					find_content_norm(char *line);
 void				list_size(t_node *node);
+// creat_list_urils2.c
+int					find_content_norm1(char *line);
 
 // ##############################  token_second.c  ##########################
 // parser la list
@@ -128,9 +131,10 @@ char				*quote_norm(char *line);
 // token_third_utils3.c
 int					add_to_files_liste(t_cmd *cmd, t_node *node);
 t_files				*new_files(t_node *node);
+char				**find_arg_norm(t_cmd *cmd, t_node *node);
 
 // fonction de test
-// void				print_list(t_node *node);
+void				print_list(t_node *node);
 void				print_list_cmd(t_cmd *cmd);
 
 #endif
@@ -139,3 +143,6 @@ void				print_list_cmd(t_cmd *cmd);
 
 // valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes
 // -q --suppressions=./ignore_leak_readline ./MINI
+
+// ################################################################################################ #
+// sl | lksadj f? < dsf > df ds | ""fdsf sdf""fds fddf sdfafja"ajakhdf"sdkafjah (jsdahf | dfsad) good

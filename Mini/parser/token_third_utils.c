@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/03 19:06:50 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/06 07:09:29 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,26 @@ int	find_cmd_type(t_node *node)
 
 char	**find_arg(t_cmd *cmd, t_node *node)
 {
-	char	*tmp;
 	char	**arg;
 
-	tmp = ft_strdup("");
-	if (cmd->type != CMD && cmd->type != SUBSHELL)
+	if (cmd->type != CMD && cmd->type != SUBSHELL && cmd->type != PIPE
+		&& cmd->type != DOUBLE_PIPE && cmd->type != ESPERLUETTE)
 		return (NULL);
 	else if (node->type == WORD)
 	{
-		while (node != NULL && node->type == WORD)
-		{
-			tmp = ft_strjoin_(tmp, node->content);
-			node = node->next;
-			while (node != NULL && (node->type >= REDIR_IN
-					&& node->type <= HEREDOC))
-			{
-				add_to_files_liste(cmd, node);
-				node = node->next->next;
-			}
-		}
-		arg = ft_split_(tmp, ' ');
-		if (!arg)
-			return (NULL);
+		arg = find_arg_norm(cmd, node);
 		return (arg);
 	}
 	else if (node->type == OPEN_PAREN)
+		return (find_arg_norm_parent(node));
+	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
 	{
-		arg = find_arg_norm_parent(node);
-		return (arg);
+		node = node->next;
+		while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
+		{
+			add_to_files_liste(cmd, node);
+			node = node->next->next;
+		}
 	}
 	return (NULL);
 }
@@ -95,7 +87,7 @@ char	**find_arg_norm_parent(t_node *node)
 		size = size->next;
 		count++;
 	}
-	arg = malloc(sizeof(char *) * count + 1);
+	arg = malloc(sizeof(char *) * (count + 1));
 	if (!arg)
 		return (NULL);
 	while (i < count)

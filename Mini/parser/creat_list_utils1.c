@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/08/31 16:56:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/05 16:51:05 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,17 @@ char	*find_content(char *line)
 {
 	int		lenght;
 	char	*special;
+	char	quote;
 
 	special = "|&()<>";
 	lenght = 0;
-	if (line[lenght] == '"')
+	if (line[lenght] == '"' || line[lenght] == 39)
 	{
-		lenght++;
-		while (line[lenght] && line[lenght] != '"')
+		quote = line[lenght++];
+		while (line[lenght] && line[lenght] != quote)
 			lenght++;
-		lenght++;
-		while (line[lenght] != '\0' && ispacce(line[lenght]) != 1)
+		if (line[lenght + 1])
 			lenght++;
-	}
-	else if (line[lenght] == 39)
-	{
-		lenght++;
-		while (line[lenght] && line[lenght] != 39)
-			lenght++;
-		lenght++;
 		while (line[lenght] != '\0' && ispacce(line[lenght]) != 1)
 			lenght++;
 	}
@@ -64,22 +57,9 @@ char	*find_content(char *line)
 		return (ft_substr(line, 0, find_content_norm(line)));
 	else
 	{
-		while (line[lenght])
-		{
-			if (line[lenght] == '"')
-			{
-				lenght++;
-				while (line[lenght] && line[lenght] != '"')
-					lenght++;
-				lenght++;
-			}
-			if (ft_strchr(special, line[lenght]) != NULL
-				|| ispacce(line[lenght]) == 1)
-				break ;
+		lenght += find_content_norm1(line);
+		while (ispacce(line[lenght]) == 1)
 			lenght++;
-		}
-		while (ispacce(*line) == 1)
-			line++;
 	}
 	return (ft_substr(line, 0, lenght));
 }

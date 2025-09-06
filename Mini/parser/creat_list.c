@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/04 22:24:56 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/06 04:55:54 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,25 +75,35 @@ char	*next_step(char *line)
 	else if (ft_strchr(special, *line) != NULL)
 		return (line + next_step_norm(line));
 	else
-	{
-		while (*line)
-		{
-			if (*line == '"' || *line == 39)
-			{
-				quote = *line++;
-				while (*line && *line != quote)
-					line++;
-				if (*(line + 1))
-					line++;
-			}
-			if (ft_strchr(special, *line) != NULL || ispacce(*line) == 1)
-				break ;
-			line++;
-		}
-	}
+		line += next_step_norm2(line);
 	while (*line && ispacce(*line) == 1)
 		line++;
 	return (line);
+}
+
+int	next_step_norm2(char *line)
+{
+	int		i;
+	char	quote;
+	char	*special;
+
+	special = "|&()<>";
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '"' || line[i] == 39)
+		{
+			quote = line[i++];
+			while (line[i] && line[i] != quote)
+				i++;
+			if (line[i])
+				i++;
+		}
+		if (ft_strchr(special, line[i]) != NULL || ispacce(line[i]) == 1)
+			break ;
+		i++;
+	}
+	return (i);
 }
 
 int	next_step_norm(char *line)

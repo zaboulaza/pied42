@@ -6,8 +6,6 @@ FINI
 
 A FAIRE
 
-1- il faut que je fasse une fonction un peu comme (next_step) mais pour faire avancer node dans token_third --> add_to_cmd_list
-2- il faut que je trouve bien comment faire mon find_cmd_type en pensant a mon comment je vais faire la suite
-3-
-
 ok"|"
+
+alksdj f fdjs | fl nacsdck | fkldsaj && (lkajsd f| cnsv xl,as) ||adsf<fds/>fdsf'adadsf == segfault
