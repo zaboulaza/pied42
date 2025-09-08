@@ -6,13 +6,13 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/06 04:55:54 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/08 15:26:33 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
 
-int	add_to_liste(t_node **node, char *line)
+int	add_to_liste(t_node **node, char *line, t_free *f)
 {
 	t_node	*new;
 	t_node	*tmp;
@@ -23,7 +23,7 @@ int	add_to_liste(t_node **node, char *line)
 			line++;
 		if (!*line)
 			return (0);
-		new = new_node(line);
+		new = new_node(line, f);
 		if (!new)
 			return (1);
 		if (!*node)
@@ -36,15 +36,16 @@ int	add_to_liste(t_node **node, char *line)
 			tmp->next = new;
 		}
 		line = next_step(line);
+		f->new = new;
 	}
-	list_size(*node);
-	return (0);
+	return (list_size(*node), 0);
 }
 
-t_node	*new_node(char *line)
+t_node	*new_node(char *line, t_free *f)
 {
 	t_node	*node;
 
+	(void)f;
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);

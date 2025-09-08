@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/06 14:55:13 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/08 15:51:20 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ typedef struct s_general
 
 typedef struct s_free
 {
+	char			*new_str_f;
+	char			*tmp_f;
+	char			**arg;
+	struct s_node	*new;
 }					t_free;
 
 // token
@@ -76,10 +80,10 @@ typedef struct s_cmd
 ////////////////////////////////////////////////////////////////////////////
 int					main(int ac, char **av, char **env);
 void				creat_struct(t_general *g, int ac, char **av);
-void				free_all(t_general *g);
+void				free_all(t_general *g, t_free *f);
 
 // ##############################  parser.c  ##############################
-int					parsing_general(t_general *g);
+int					parsing_general(t_general *g, t_free *f);
 
 // ##############################  token_first.c  #########################
 int					token_first(t_general *g);
@@ -89,8 +93,8 @@ int					bracket(t_general *g);
 int					esperluette(t_general *g);
 
 // ##############################  creat_list.c  ###########################
-int					add_to_liste(t_node **node, char *line);
-t_node				*new_node(char *line);
+int					add_to_liste(t_node **node, char *line, t_free *f);
+t_node				*new_node(char *line, t_free *f);
 char				*next_step(char *line);
 int					next_step_norm(char *line);
 int					next_step_norm2(char *line);
@@ -115,32 +119,34 @@ int					token_second_norme(t_node *tmp);
 
 // ##############################  token_third.c  ##########################
 
-int					token_third(t_general *g);
-int					add_to_cmd_liste(t_cmd **cmd, t_node *node);
-t_cmd				*new_cmd(t_node *node);
+int					token_third(t_general *g, t_free *f);
+int					add_to_cmd_liste(t_cmd **cmd, t_node *node, t_free *f);
+t_cmd				*new_cmd(t_node *node, t_free *f);
 t_node				*next_step_cmd(t_node *node);
 
 // token_third_utils.c
 t_node				*next_step_norm_cmd(t_node *node);
 int					find_cmd_type(t_node *node);
-char				**find_arg(t_cmd *cmd, t_node *node);
+char				**find_arg(t_cmd *cmd, t_node *node, t_free *f);
 char				*ft_strjoin_(char *s1, char const *s2);
 char				**find_arg_norm_parent(t_node *node);
 
 // token_third_utils2.c
 void				free_all_(char **tab);
 size_t				count_word_(char *s, char c);
-char				*malloc_word_(char *str, char c);
-char				**ft_split_(char *s, char c);
+char				*malloc_word_(char *str, char c, t_free *f);
+char				**ft_split_(char *s, char c, t_free *f);
 char				*quote_norm(char *line);
 // token_third_utils3.c
 int					add_to_files_liste(t_cmd *cmd, t_node *node);
 t_files				*new_files(t_node *node);
-char				**find_arg_norm(t_cmd *cmd, t_node *node);
+char				**find_arg_norm(t_cmd *cmd, t_node *node, t_free *f);
 
 // fonction de test
-void				print_list(t_node *node);
+// void				print_list(t_node *node);
 void				print_list_cmd(t_cmd *cmd);
+void				free_node(t_node *node);
+void				free_cmd(t_cmd *cmd);
 
 #endif
 
@@ -150,4 +156,4 @@ void				print_list_cmd(t_cmd *cmd);
 // -q --suppressions=./ignore_leak_readline ./MINI
 
 // ################################################################################################ #
-// sl | lksadj f? < dsf > df ds | ""fdsf sdf""fds fddf sdfafja"ajakhdf"sdkafjah (jsdahf | dfsad) good
+// sl | lksadj f? < dsf > df ds | ""fdsf sdf""fds fddf sdfafja"ajakhdf"sdkafjah | (jsdahf | dfsad) good

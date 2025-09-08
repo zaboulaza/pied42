@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/06 07:09:29 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/08 18:30:57 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	find_cmd_type(t_node *node)
 	return (0);
 }
 
-char	**find_arg(t_cmd *cmd, t_node *node)
+char	**find_arg(t_cmd *cmd, t_node *node, t_free *f)
 {
 	char	**arg;
 
@@ -55,7 +55,7 @@ char	**find_arg(t_cmd *cmd, t_node *node)
 		return (NULL);
 	else if (node->type == WORD)
 	{
-		arg = find_arg_norm(cmd, node);
+		arg = find_arg_norm(cmd, node, f);
 		return (arg);
 	}
 	else if (node->type == OPEN_PAREN)
@@ -92,7 +92,7 @@ char	**find_arg_norm_parent(t_node *node)
 		return (NULL);
 	while (i < count)
 	{
-		arg[i] = node->content;
+		arg[i] = ft_strdup(node->content);
 		node = node->next;
 		i++;
 	}

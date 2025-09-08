@@ -6,20 +6,20 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/06 07:10:15 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:11:31 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
 
-int	token_third(t_general *g)
+int	token_third(t_general *g, t_free *f)
 {
-	if (add_to_cmd_liste(&g->cmd, g->node) == 1)
+	if (add_to_cmd_liste(&g->cmd, g->node, f) == 1)
 		return (1);
 	return (0);
 }
 
-int	add_to_cmd_liste(t_cmd **cmd, t_node *node)
+int	add_to_cmd_liste(t_cmd **cmd, t_node *node, t_free *f)
 {
 	t_cmd	*new;
 	t_cmd	*tmp;
@@ -28,7 +28,7 @@ int	add_to_cmd_liste(t_cmd **cmd, t_node *node)
 		return (0);
 	while (node != NULL)
 	{
-		new = new_cmd(node);
+		new = new_cmd(node, f);
 		if (!new)
 			return (1);
 		if (!*cmd)
@@ -45,7 +45,7 @@ int	add_to_cmd_liste(t_cmd **cmd, t_node *node)
 	return (0);
 }
 
-t_cmd	*new_cmd(t_node *node)
+t_cmd	*new_cmd(t_node *node, t_free *f)
 {
 	t_cmd	*cmd;
 
@@ -54,7 +54,7 @@ t_cmd	*new_cmd(t_node *node)
 		return (NULL);
 	ft_bzero(cmd, sizeof(t_cmd));
 	cmd->type = find_cmd_type(node);
-	cmd->args = find_arg(cmd, node);
+	cmd->args = find_arg(cmd, node, f);
 	cmd->next = NULL;
 	return (cmd);
 }

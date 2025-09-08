@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:33:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/05/16 17:39:08 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:19:24 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_lstsize(t_list *lst)
 
 	if (lst == NULL)
 		return (0);
-	compt = 1;
+	compt = 0;
 	while (lst->next != 0)
 	{
 		lst = lst->next;

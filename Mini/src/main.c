@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/06 14:58:27 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/08 19:00:06 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ int	main(int ac, char **av, char **env)
 		g.one_line = readline("mini> ");
 		if (!g.one_line)
 		{
+			free_all(&g, g.free);
 			printf("exit\n");
 			break ;
 		}
 		if (*g.one_line)
 		{
-			if (parsing_general(&g) == 1)
+			if (parsing_general(&g, g.free) == 1)
 			{
-				free_all(&g);
+				free_all(&g, g.free);
 				return (1);
 			}
 			// print_list(g.node);
@@ -49,15 +50,91 @@ void	creat_struct(t_general *g, int ac, char **av)
 	g->free = ft_calloc(1, sizeof(t_free));
 }
 
-void	free_all(t_general *g)
+void	free_all(t_general *g, t_free *f)
 {
-	if (g->one_line)
-		free(g->one_line);
+	if (g)
+	{
+		if (g->one_line)
+		{
+			free(g->one_line);
+			g->one_line = NULL;
+		}
+		if (g->node)
+		{
+			free_node(g->node);
+			g->node = NULL;
+		}
+		if (g->cmd)
+		{
+			free_cmd(g->cmd);
+			g->cmd = NULL;
+		}
+	}
+	if (f)
+	{
+		if (f->new_str_f)
+		{
+			free(f->new_str_f);
+			f->new_str_f = NULL;
+		}
+		if (f->tmp_f)
+		{
+			free(f->tmp_f);
+			f->tmp_f = NULL;
+		}
+		if (f->arg)
+		{
+			free_all_(f->arg);
+			f->arg = NULL;
+		}
+		free(f);
+		f = NULL;
+	}
+}
+
+void	free_node(t_node *node)
+{
+	t_node	*tmp;
+
+	while (node)
+	{
+		tmp = node->next;
+		if (node->content)
+			free(node->content);
+		free(node);
+		node = tmp;
+	}
+}
+
+void	free_cmd(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	t_files	*file_tmp;
+	t_files	*file_next;
+
+	while (cmd)
+	{
+		if (cmd->args)
+			free_all_(cmd->args);
+		file_tmp = cmd->files;
+		while (file_tmp)
+		{
+			file_next = file_tmp->next;
+			if (file_tmp->path)
+				free(file_tmp->path);
+			free(file_tmp);
+			file_tmp = file_next;
+		}
+		tmp = cmd->next;
+		free(cmd);
+		cmd = tmp;
+	}
 }
 
 void	print_list_cmd(t_cmd *cmd)
 {
-	int	i;
+	int		i;
+	t_files	*tmp_files;
 
 	while (cmd != NULL)
 	{
@@ -73,14 +150,12 @@ void	print_list_cmd(t_cmd *cmd)
 					printf("{cmd} // arg = %s\n", cmd->args[i]);
 			}
 		}
-		if (cmd->files)
+		tmp_files = cmd->files;
+		while (tmp_files)
 		{
-			while (cmd->files)
-			{
-				printf("{files} // path = %s\n", cmd->files->path);
-				printf("{files} // mode = %d\n", cmd->files->mode);
-				cmd->files = cmd->files->next;
-			}
+			printf("{files} // path = %s\n", tmp_files->path);
+			printf("{files} // mode = %d\n", tmp_files->mode);
+			tmp_files = tmp_files->next;
 		}
 		printf("\n");
 		cmd = cmd->next;
@@ -91,7 +166,6 @@ void	print_list_cmd(t_cmd *cmd)
 // {
 // 	while (node != NULL)
 // 	{
-// 		printf("{LIST} id = %d\n", node->id);
 // 		printf("{LIST} type = %d\n", node->type);
 // 		printf("{LIST} content = %s\n", node->content);
 // 		printf("\n");

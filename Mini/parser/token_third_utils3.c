@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 23:48:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/06 06:32:41 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/08 15:08:23 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ t_files	*new_files(t_node *node)
 	return (file);
 }
 
-char	**find_arg_norm(t_cmd *cmd, t_node *node)
+char	**find_arg_norm(t_cmd *cmd, t_node *node, t_free *f)
 {
 	char	*tmp;
 	char	**arg;
 
+	// (void)f;
 	tmp = ft_strdup("");
 	while (node != NULL && node->type == WORD)
 	{
@@ -63,8 +64,9 @@ char	**find_arg_norm(t_cmd *cmd, t_node *node)
 			node = node->next->next;
 		}
 	}
-	arg = ft_split_(tmp, ' ');
+	arg = ft_split_(tmp, ' ', f);
 	if (!arg)
 		return (NULL);
+	free(tmp);
 	return (arg);
 }
