@@ -6,46 +6,46 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 11:27:41 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 23:36:53 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
 
-int	token_third(t_general *g, t_free *f)
+int	token_third(t_general *g, t_tmp **tmp)
 {
-	if (add_to_cmd_liste(&g->cmd, g->node, f) == 1)
+	if (add_to_cmd_liste(&g->cmd, g->node, tmp) == 1)
 		return (1);
 	return (0);
 }
 
-int	add_to_cmd_liste(t_cmd **cmd, t_node *node, t_free *f)
+int	add_to_cmd_liste(t_cmd **cmd, t_node *node, t_tmp **tmp)
 {
 	t_cmd	*new;
-	t_cmd	*tmp;
+	t_cmd	*tmp_;
 
 	if (!node)
 		return (0);
 	while (node != NULL)
 	{
-		new = new_cmd(node, f);
+		new = new_cmd(node, tmp);
 		if (!new)
 			return (1);
 		if (!*cmd)
 			*cmd = new;
 		else
 		{
-			tmp = *cmd;
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = new;
+			tmp_ = *cmd;
+			while (tmp_->next != NULL)
+				tmp_ = tmp_->next;
+			tmp_->next = new;
 		}
 		node = next_step_cmd(node);
 	}
 	return (0);
 }
 
-t_cmd	*new_cmd(t_node *node, t_free *f)
+t_cmd	*new_cmd(t_node *node, t_tmp **tmp)
 {
 	t_cmd	*cmd;
 
@@ -54,7 +54,7 @@ t_cmd	*new_cmd(t_node *node, t_free *f)
 		return (NULL);
 	ft_bzero(cmd, sizeof(t_cmd));
 	cmd->type = find_cmd_type(node);
-	cmd->args = find_arg(cmd, node, f);
+	cmd->args = find_arg(cmd, node, tmp);
 	cmd->next = NULL;
 	return (cmd);
 }
@@ -63,7 +63,7 @@ t_node	*next_step_cmd(t_node *node)
 {
 	if (node->type >= REDIR_IN && node->type <= HEREDOC)
 	{
-		while (node->type >= REDIR_IN && node->type <= HEREDOC)
+		while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
 			node = node->next->next;
 	}
 	else if (node->type == WORD)
@@ -81,8 +81,6 @@ t_node	*next_step_cmd(t_node *node)
 	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
 	{
 		node = node->next;
-		while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
-			node = node->next->next;
 	}
 	return (node);
 }

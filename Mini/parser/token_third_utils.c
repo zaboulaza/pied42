@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 11:37:25 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 23:36:22 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,44 +43,38 @@ int	find_cmd_type(t_node *node)
 		return (DOUBLE_PIPE);
 	else if (node->type == ESPERLUETTE)
 		return (ESPERLUETTE);
-	return (0);
+	return (100);
 }
 
-char	**find_arg(t_cmd *cmd, t_node *node, t_free *f)
+char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 {
 	char	**arg;
 
 	if (node->type >= REDIR_IN && node->type <= HEREDOC)
 	{
-		while (node->type >= REDIR_IN && node->type <= HEREDOC)
+		while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
 		{
-			// cree un noeud de t_tmp
+			add_to_tmp_liste(node, tmp);
 			node = node->next->next;
 		}
 	}
-	else if (cmd->type != CMD && cmd->type != SUBSHELL && cmd->type != PIPE
-		&& cmd->type != DOUBLE_PIPE && cmd->type != ESPERLUETTE)
+	else if (cmd->type != CMD && cmd->type != SUBSHELL)
 		return (NULL);
 	else if (node->type == WORD)
 	{
-		arg = find_arg_norm(cmd, node, f);
+		arg = find_arg_norm(cmd, node, tmp);
 		return (arg);
 	}
 	else if (node->type == OPEN_PAREN)
-		return (find_arg_norm_parent(node, cmd));
+		return (find_arg_norm_parent(node, cmd, tmp));
 	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
 	{
 		node = node->next;
-		while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
-		{
-			add_to_files_liste(cmd, node);
-			node = node->next->next;
-		}
 	}
 	return (NULL);
 }
 
-char	**find_arg_norm_parent(t_node *node, t_cmd *cmd)
+char	**find_arg_norm_parent(t_node *node, t_cmd *cmd, t_tmp **tmp)
 {
 	char	**arg;
 	t_node	*size;
@@ -107,7 +101,7 @@ char	**find_arg_norm_parent(t_node *node, t_cmd *cmd)
 	arg[count] = NULL;
 	while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
 	{
-		add_to_files_liste(cmd, node);
+		add_to_files_liste(cmd, node, tmp);
 		node = node->next->next;
 	}
 	return (arg);

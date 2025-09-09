@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 21:06:06 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/08 13:13:21 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 14:06:30 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ size_t	count_word_(char *s, char c)
 	return (count);
 }
 
-char	*malloc_word_(char *str, char c, t_free *f)
+char	*malloc_word_(char *str, char c)
 {
 	size_t	len;
 	char	*new_str;
 	char	quote;
 
-	(void)f;
 	len = 0;
 	while (*str == c)
 		str++;
@@ -77,7 +76,7 @@ char	*malloc_word_(char *str, char c, t_free *f)
 	return (ft_strlcpy(new_str, str, len + 1), new_str);
 }
 
-char	**ft_split_(char *s, char c, t_free *f)
+char	**ft_split_(char *s, char c)
 {
 	char	**tab_g;
 	size_t	i;
@@ -96,7 +95,7 @@ char	**ft_split_(char *s, char c, t_free *f)
 			s++;
 		if (*s)
 		{
-			word = malloc_word_(s, c, f);
+			word = malloc_word_(s, c);
 			if (!word)
 				return (free_all_(tab_g), NULL);
 			tab_g[i++] = word;

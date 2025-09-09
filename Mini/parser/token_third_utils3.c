@@ -6,18 +6,19 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 23:48:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 11:38:12 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 23:54:37 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
 
-int	add_to_files_liste(t_cmd *cmd, t_node *node)
+int	add_to_files_liste(t_cmd *cmd, t_node *node, t_tmp **tmp)
 {
 	t_files	*new;
-	t_files	*tmp;
+	t_files	*tmp_;
 
-	// verif si il y a un noeud dans t_tmp et agir en consequance.
+	// verif si il y a un noeud dans t_tmp_ et agir en consequance.
+	(void)tmp;
 	new = new_files(node);
 	if (!new)
 		return (1);
@@ -25,10 +26,10 @@ int	add_to_files_liste(t_cmd *cmd, t_node *node)
 		cmd->files = new;
 	else
 	{
-		tmp = cmd->files;
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new;
+		tmp_ = cmd->files;
+		while (tmp_->next != NULL)
+			tmp_ = tmp_->next;
+		tmp_->next = new;
 	}
 	return (0);
 }
@@ -47,27 +48,60 @@ t_files	*new_files(t_node *node)
 	return (file);
 }
 
-char	**find_arg_norm(t_cmd *cmd, t_node *node, t_free *f)
+char	**find_arg_norm(t_cmd *cmd, t_node *node, t_tmp **tmp)
 {
-	char	*tmp;
+	char	*tmp_;
 	char	**arg;
 
-	// (void)f;
-	tmp = ft_strdup("");
+	tmp_ = ft_strdup("");
 	while (node != NULL && node->type == WORD)
 	{
-		tmp = ft_strjoin_(tmp, node->content);
+		tmp_ = ft_strjoin_(tmp_, node->content);
 		node = node->next;
 		while (node != NULL && (node->type >= REDIR_IN
 				&& node->type <= HEREDOC))
 		{
-			add_to_files_liste(cmd, node);
+			add_to_files_liste(cmd, node, tmp);
 			node = node->next->next;
 		}
 	}
-	arg = ft_split_(tmp, ' ', f);
+	arg = ft_split_(tmp_, ' ');
 	if (!arg)
 		return (NULL);
-	free(tmp);
+	free(tmp_);
 	return (arg);
+}
+
+int	add_to_tmp_liste(t_node *node, t_tmp **tmp)
+{
+	t_tmp	*new;
+	t_tmp	*temp;
+
+	new = new_tmp(node);
+	if (!new)
+		return (1);
+	if (*tmp == NULL)
+		*tmp = new;
+	else
+	{
+		temp = *tmp;
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
+	}
+	return (0);
+} 
+
+t_tmp	*new_tmp(t_node *node)
+{
+	t_tmp	*file;
+
+	file = malloc(sizeof(t_tmp));
+	if (!file)
+		return (NULL);
+	ft_bzero(file, sizeof(t_tmp));
+	file->mode = node->type;
+	file->path = ft_strdup(node->next->content);
+	file->next = NULL;
+	return (file);
 }

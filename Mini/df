@@ -1,0 +1,11 @@
+df
+ignore_leak_readline
+libft
+Makefile
+MINI
+mini.h
+obj
+out
+parser
+src
+todo.txt

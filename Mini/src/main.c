@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/08 19:00:06 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 18:28:56 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ int	main(int ac, char **av, char **env)
 		g.one_line = readline("mini> ");
 		if (!g.one_line)
 		{
-			free_all(&g, g.free);
+			free_all(&g, &g.tmp, g.free);
 			printf("exit\n");
 			break ;
 		}
 		if (*g.one_line)
 		{
-			if (parsing_general(&g, g.free) == 1)
+			if (parsing_general(&g, &g.tmp, g.free) == 1)
 			{
-				free_all(&g, g.free);
+				free_all(&g, &g.tmp, g.free);
 				return (1);
 			}
 			// print_list(g.node);
-			print_list_cmd(g.cmd);
+			print_list_cmd(g.cmd, &g.tmp);
 		}
 	}
 	return (0);
@@ -50,8 +50,9 @@ void	creat_struct(t_general *g, int ac, char **av)
 	g->free = ft_calloc(1, sizeof(t_free));
 }
 
-void	free_all(t_general *g, t_free *f)
+void	free_all(t_general *g, t_tmp **tmp, t_free *f)
 {
+	(void)tmp;
 	if (g)
 	{
 		if (g->one_line)
@@ -131,11 +132,13 @@ void	free_cmd(t_cmd *cmd)
 	}
 }
 
-void	print_list_cmd(t_cmd *cmd)
+void	print_list_cmd(t_cmd *cmd, t_tmp **tmp)
 {
 	int		i;
 	t_files	*tmp_files;
+	t_tmp	*tmp_;
 
+	tmp_ = *tmp;
 	while (cmd != NULL)
 	{
 		printf("type = %d\n", cmd->type);
@@ -156,6 +159,15 @@ void	print_list_cmd(t_cmd *cmd)
 			printf("{files} // path = %s\n", tmp_files->path);
 			printf("{files} // mode = %d\n", tmp_files->mode);
 			tmp_files = tmp_files->next;
+		}
+		if (cmd->type == 100)
+		{
+			while (tmp_ != NULL)
+			{
+				printf("{files} // path = %s\n", tmp_->path);
+				printf("{files} // mode = %d\n", tmp_->mode);
+				tmp_ = tmp_->next;
+			}
 		}
 		printf("\n");
 		cmd = cmd->next;
