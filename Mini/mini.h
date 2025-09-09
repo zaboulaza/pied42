@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/08 15:51:20 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 11:35:45 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,6 @@
 # define CMD 10
 # define SUBSHELL 11
 
-typedef struct s_general
-{
-	int				ac;
-	char			**av;
-	char			*one_line;
-	struct s_node	*node;
-	struct s_cmd	*cmd;
-	struct s_free	*free;
-}					t_general;
-
 typedef struct s_free
 {
 	char			*new_str_f;
@@ -50,7 +40,6 @@ typedef struct s_free
 	struct s_node	*new;
 }					t_free;
 
-// token
 typedef struct s_node
 {
 	int				type;
@@ -59,7 +48,14 @@ typedef struct s_node
 	struct s_node	*next;
 }					t_node;
 
-// regroupement
+typedef struct s_tmp
+{
+	char			*path;
+	int				mode;
+	char			**heredoc_content;
+	struct s_tmp	*next;
+}					t_tmp;
+
 typedef struct s_files
 {
 	char			*path;
@@ -76,6 +72,15 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+typedef struct s_general
+{
+	int				ac;
+	char			**av;
+	char			*one_line;
+	struct s_node	*node;
+	struct s_cmd	*cmd;
+	struct s_free	*free;
+}					t_general;
 // main.c
 ////////////////////////////////////////////////////////////////////////////
 int					main(int ac, char **av, char **env);
@@ -129,7 +134,7 @@ t_node				*next_step_norm_cmd(t_node *node);
 int					find_cmd_type(t_node *node);
 char				**find_arg(t_cmd *cmd, t_node *node, t_free *f);
 char				*ft_strjoin_(char *s1, char const *s2);
-char				**find_arg_norm_parent(t_node *node);
+char				**find_arg_norm_parent(t_node *node, t_cmd *cmd);
 
 // token_third_utils2.c
 void				free_all_(char **tab);

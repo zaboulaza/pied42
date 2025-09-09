@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/08 12:11:31 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 11:27:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ t_cmd	*new_cmd(t_node *node, t_free *f)
 
 t_node	*next_step_cmd(t_node *node)
 {
-	if (node->type == WORD)
+	if (node->type >= REDIR_IN && node->type <= HEREDOC)
+	{
+		while (node->type >= REDIR_IN && node->type <= HEREDOC)
+			node = node->next->next;
+	}
+	else if (node->type == WORD)
 	{
 		while (node != NULL && node->type == WORD)
 		{

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 23:48:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/08 15:08:23 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 11:38:12 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	add_to_files_liste(t_cmd *cmd, t_node *node)
 	t_files	*new;
 	t_files	*tmp;
 
+	// verif si il y a un noeud dans t_tmp et agir en consequance.
 	new = new_files(node);
 	if (!new)
 		return (1);

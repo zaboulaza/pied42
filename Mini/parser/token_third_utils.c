@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/08 18:30:57 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/09 11:37:25 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node	*next_step_norm_cmd(t_node *node)
 		node = node->next;
 	}
 	while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
-		node = node->next;
+		node = node->next->next;
 	return (node);
 }
 
@@ -50,7 +50,15 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_free *f)
 {
 	char	**arg;
 
-	if (cmd->type != CMD && cmd->type != SUBSHELL && cmd->type != PIPE
+	if (node->type >= REDIR_IN && node->type <= HEREDOC)
+	{
+		while (node->type >= REDIR_IN && node->type <= HEREDOC)
+		{
+			// cree un noeud de t_tmp
+			node = node->next->next;
+		}
+	}
+	else if (cmd->type != CMD && cmd->type != SUBSHELL && cmd->type != PIPE
 		&& cmd->type != DOUBLE_PIPE && cmd->type != ESPERLUETTE)
 		return (NULL);
 	else if (node->type == WORD)
@@ -59,7 +67,7 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_free *f)
 		return (arg);
 	}
 	else if (node->type == OPEN_PAREN)
-		return (find_arg_norm_parent(node));
+		return (find_arg_norm_parent(node, cmd));
 	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
 	{
 		node = node->next;
@@ -72,7 +80,7 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_free *f)
 	return (NULL);
 }
 
-char	**find_arg_norm_parent(t_node *node)
+char	**find_arg_norm_parent(t_node *node, t_cmd *cmd)
 {
 	char	**arg;
 	t_node	*size;
@@ -97,6 +105,11 @@ char	**find_arg_norm_parent(t_node *node)
 		i++;
 	}
 	arg[count] = NULL;
+	while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
+	{
+		add_to_files_liste(cmd, node);
+		node = node->next->next;
+	}
 	return (arg);
 }
 
