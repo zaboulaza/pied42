@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 23:36:22 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/10 23:03:54 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 			add_to_tmp_liste(node, tmp);
 			node = node->next->next;
 		}
+		if (!node || (node->type >= PIPE && node->type <= ESPERLUETTE))
+		{
+			clear_tmp(tmp);
+			cmd->type = 10;
+			return (NULL);
+		}
 	}
 	else if (cmd->type != CMD && cmd->type != SUBSHELL)
 		return (NULL);
@@ -68,9 +74,7 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 	else if (node->type == OPEN_PAREN)
 		return (find_arg_norm_parent(node, cmd, tmp));
 	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
-	{
 		node = node->next;
-	}
 	return (NULL);
 }
 
@@ -105,6 +109,41 @@ char	**find_arg_norm_parent(t_node *node, t_cmd *cmd, t_tmp **tmp)
 		node = node->next->next;
 	}
 	return (arg);
+	// sa vas pas a la deuxieme parent 
+}
+
+char	**find_arg_norm_parent(t_node *node, t_cmd *cmd, t_tmp **tmp)
+{
+	char	**arg;
+	t_node	*size;
+	int		count;
+	int		i;
+
+	i = 0;
+	count = 1;
+	size = node;
+	while (size && size->type != CLOSE_PAREN)
+	{
+		size = size->next;
+		count++;
+	}
+	arg = malloc(sizeof(char *) * (count + 1));
+	if (!arg)
+		return (NULL);
+	while (i < count)
+	{
+		arg[i] = ft_strdup(node->content);
+		node = node->next;
+		i++;
+	}
+	arg[count] = NULL;
+	while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
+	{
+		add_to_files_liste(cmd, node, tmp);
+		node = node->next->next;
+	}
+	return (arg);
+	// sa vas pas a la deuxieme parent 
 }
 
 char	*ft_strjoin_(char *s1, char const *s2)

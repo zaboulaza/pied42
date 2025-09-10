@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 18:28:56 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/10 21:53:52 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int ac, char **av, char **env)
 		}
 		if (*g.one_line)
 		{
-			if (parsing_general(&g, &g.tmp, g.free) == 1)
+			if (parsing_general(&g, &g.tmp) == 1)
 			{
 				free_all(&g, &g.tmp, g.free);
 				return (1);
@@ -132,6 +132,23 @@ void	free_cmd(t_cmd *cmd)
 	}
 }
 
+void	clear_tmp(t_tmp **tmp)
+{
+	t_tmp	*cur;
+	t_tmp	*next;
+
+	cur = *tmp;
+	while (cur)
+	{
+		next = cur->next;
+		free(cur->path);
+		free(cur);
+		cur = next;
+	}
+	*tmp = NULL;
+}
+
+
 void	print_list_cmd(t_cmd *cmd, t_tmp **tmp)
 {
 	int		i;
@@ -183,3 +200,4 @@ void	print_list_cmd(t_cmd *cmd, t_tmp **tmp)
 // 		printf("\n");
 // 		node = node->next;
 // 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:42:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 14:36:32 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/10 22:49:20 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	add_to_liste(t_node **node, char *line, t_free *f)
 		line = next_step(line);
 		f->new = new;
 	}
-	return (list_size(*node), 0);
+	list_size(*node);
+	return (0);
 }
 
 t_node	*new_node(char *line, t_free *f)

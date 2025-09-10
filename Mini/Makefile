@@ -6,7 +6,7 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 12:55:13 by nsmail            #+#    #+#              #
-#    Updated: 2025/09/05 14:12:34 by nsmail           ###   ########.fr        #
+#    Updated: 2025/09/10 15:56:36 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS = src/main.c \
        parser/token_third_utils.c \
        parser/token_third_utils2.c \
        parser/token_third_utils3.c \
+       parser/token_third_utils4.c \
        parser/token_second_utils.c \
        parser/creat_list.c \
        parser/creat_list_utils1.c \

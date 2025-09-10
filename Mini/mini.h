@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 22:39:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/10 23:12:39 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void				creat_struct(t_general *g, int ac, char **av);
 void				free_all(t_general *g, t_tmp **tmp, t_free *f);
 
 // ##############################  parser.c  ##############################
-int					parsing_general(t_general *g, t_tmp **tmp, t_free *f);
+int					parsing_general(t_general *g, t_tmp **tmp);
 
 // ##############################  token_first.c  #########################
 int					token_first(t_general *g);
@@ -109,7 +109,7 @@ int					find_type(char *line);
 int					ispacce(char c);
 char				*find_content(char *line);
 int					find_content_norm(char *line);
-void				list_size(t_node *node);
+int					list_size(t_node *node);
 // creat_list_urils2.c
 int					find_content_norm1(char *line);
 
@@ -150,15 +150,17 @@ t_files				*new_files(t_node *node);
 char				**find_arg_norm(t_cmd *cmd, t_node *node, t_tmp **tmp);
 int					add_to_tmp_liste(t_node *node, t_tmp **tmp);
 t_tmp				*new_tmp(t_node *node);
-void				move_tmp_to_files(t_cmd *cmd, t_tmp **tmp);
+// token_third_utils4.c
+void				add_tmp_to_list(t_cmd *cmd, t_tmp **tmp);
+void				remove_invalid_cmds(t_cmd **cmd_list);
 
 // fonction de test
 // void				print_list(t_node *node);
 void				print_list_cmd(t_cmd *cmd, t_tmp **tmp);
 void				free_node(t_node *node);
 void				free_cmd(t_cmd *cmd);
-
 void				clear_tmp(t_tmp **tmp);
+
 #endif
 
 // garbege colector
@@ -167,4 +169,6 @@ void				clear_tmp(t_tmp **tmp);
 // -q --suppressions=./ignore_leak_readline ./MINI
 
 // ################################################################################################ #
-// sl | lksadj f? < dsf > df ds | ""fdsf sdf""fds fddf sdfafja"ajakhdf"sdkafjah | (jsdahf | dfsad) good
+// sl | lksadj ls < dsf > df ds | ""fdsf sdf""fds sdfafja"ajakhdf"sdkafjah | < out | > in cat > fd
+	// -e | (jsdahf | dfsad)
+// ((date) && (whoami))

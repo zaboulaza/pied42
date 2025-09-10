@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 19:34:07 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/05 23:57:46 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/10 21:48:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	team_and_or(t_node *tmp)
 
 int	team_open_parent(t_node *tmp)
 {
-	if (tmp->next == NULL)
-		return (1);
 	if (tmp->next != NULL)
 	{
 		if (tmp->next->type != WORD && tmp->next->type != OPEN_PAREN)
@@ -54,8 +52,6 @@ int	team_open_parent(t_node *tmp)
 
 int	team_close_parent(t_node *tmp)
 {
-	if (tmp->id == 0)
-		return (1);
 	if (tmp->next != NULL)
 	{
 		if (tmp->next->type == WORD)
@@ -69,7 +65,7 @@ int	team_word(t_node *tmp)
 	if (tmp->next != NULL)
 	{
 		if (tmp->next->type == OPEN_PAREN)
-			return (1);
+			return (0);
 	}
 	return (0);
 }

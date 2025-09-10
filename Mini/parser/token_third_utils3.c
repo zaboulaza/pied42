@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 23:48:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 23:54:37 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/10 17:27:49 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	add_to_files_liste(t_cmd *cmd, t_node *node, t_tmp **tmp)
 	t_files	*new;
 	t_files	*tmp_;
 
-	// verif si il y a un noeud dans t_tmp_ et agir en consequance.
 	(void)tmp;
 	new = new_files(node);
 	if (!new)
@@ -58,8 +57,12 @@ char	**find_arg_norm(t_cmd *cmd, t_node *node, t_tmp **tmp)
 	{
 		tmp_ = ft_strjoin_(tmp_, node->content);
 		node = node->next;
-		while (node != NULL && (node->type >= REDIR_IN
-				&& node->type <= HEREDOC))
+		if (tmp)
+		{
+			add_tmp_to_list(cmd, tmp);
+			cmd->type = 10;
+		}
+		while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
 		{
 			add_to_files_liste(cmd, node, tmp);
 			node = node->next->next;
@@ -90,7 +93,7 @@ int	add_to_tmp_liste(t_node *node, t_tmp **tmp)
 		temp->next = new;
 	}
 	return (0);
-} 
+}
 
 t_tmp	*new_tmp(t_node *node)
 {

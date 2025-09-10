@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/08 15:14:33 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/10 21:46:48 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ispacce(char c)
 	return (0);
 }
 
-void	list_size(t_node *node)
+int	list_size(t_node *node)
 {
 	int	i;
 
@@ -100,4 +100,5 @@ void	list_size(t_node *node)
 		i++;
 		node = node->next;
 	}
+	return (0);
 }

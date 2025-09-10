@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/09 23:36:53 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/10 21:23:03 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	token_third(t_general *g, t_tmp **tmp)
 {
 	if (add_to_cmd_liste(&g->cmd, g->node, tmp) == 1)
 		return (1);
+	remove_invalid_cmds(&g->cmd);
 	return (0);
 }
 
@@ -33,6 +34,7 @@ int	add_to_cmd_liste(t_cmd **cmd, t_node *node, t_tmp **tmp)
 			return (1);
 		if (!*cmd)
 			*cmd = new;
+			
 		else
 		{
 			tmp_ = *cmd;
