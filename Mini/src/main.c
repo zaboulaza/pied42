@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/10 21:53:52 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/12 19:16:01 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av, char **env)
 				return (1);
 			}
 			// print_list(g.node);
-			print_list_cmd(g.cmd, &g.tmp);
+			print_list_cmd(g.cmd);
 		}
 	}
 	return (0);
@@ -149,42 +149,41 @@ void	clear_tmp(t_tmp **tmp)
 }
 
 
-void	print_list_cmd(t_cmd *cmd, t_tmp **tmp)
+void	print_list_cmd(t_cmd *cmd)
 {
 	int		i;
 	t_files	*tmp_files;
-	t_tmp	*tmp_;
+	int		j;
 
-	tmp_ = *tmp;
 	while (cmd != NULL)
 	{
 		printf("type = %d\n", cmd->type);
 		i = 0;
-		if (cmd->args)
+		if (cmd->args != NULL)
 		{
-			while (cmd->args[i])
+			while (cmd->args[i] != NULL)
 			{
 				printf("{cmd} // arg = %s\n", cmd->args[i]);
 				i++;
-				if (!cmd->args[i])
-					printf("{cmd} // arg = %s\n", cmd->args[i]);
 			}
 		}
 		tmp_files = cmd->files;
-		while (tmp_files)
+		while (tmp_files != NULL)
 		{
 			printf("{files} // path = %s\n", tmp_files->path);
 			printf("{files} // mode = %d\n", tmp_files->mode);
-			tmp_files = tmp_files->next;
-		}
-		if (cmd->type == 100)
-		{
-			while (tmp_ != NULL)
+			if (tmp_files->heredoc_content != NULL)
 			{
-				printf("{files} // path = %s\n", tmp_->path);
-				printf("{files} // mode = %d\n", tmp_->mode);
-				tmp_ = tmp_->next;
+				j = 0;
+				printf("{heredoc} content:\n");
+				while (tmp_files->heredoc_content[j] != NULL)
+				{
+					printf("  [%d] %s\n", j, tmp_files->heredoc_content[j]);
+					j++;
+				}
 			}
+			
+			tmp_files = tmp_files->next;
 		}
 		printf("\n");
 		cmd = cmd->next;

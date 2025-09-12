@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 15:55:59 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/12 09:53:51 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/12 21:56:27 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,84 @@ int	find_arg_norm_parent2(t_node *node)
 	int		count;
 	int		counted;
 
-	count = 1;
-	counted = 1;
+	count = 0;
+	counted = 0;
 	size = node;
-	while ((size && size->type != CLOSE_PAREN)&& !(counted == 0))
+	while (size)
 	{
-		printf("size->type = %d\n", size->type);
 		if (size->type == OPEN_PAREN)
 			counted++;
 		else if (size->type == CLOSE_PAREN)
 			counted--;
-		printf("counted = %d\n", counted);
-		size = size->next;
 		count++;
+		if (counted == 0)
+			break ;
+		size = size->next;
 	}
 	return (count);
 }
+
+char	**heredoc_content(t_node *node)
+{
+	char	*all_content;
+	char	*line;
+	char	**result;
+
+	all_content = ft_strdup("");
+	if (!all_content)
+		return (NULL);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+		{
+			printf("not found end-of file\n");
+			break ;
+		}
+		printf("node->next->content = %s\n", node->next->content);
+		printf("line = %s\n", line);
+		if (ft_strncmp(line, node->next->content) == 0)
+		{
+			printf("found end-of file\n");
+			free(line);
+			break ;
+		}
+		all_content = ft_strjoin__(all_content, line);
+		if (!all_content)
+			return (NULL);
+	}
+	result = ft_split(all_content, '\n');
+	if (result)
+	{
+		printf("heredoc content:\n");
+	}
+	free(all_content);
+	return (result);
+}
+
+
+char	*ft_strjoin__(char *s1, char const *s2)
+{
+	size_t	tailleg;
+	int		i;
+	size_t	j;
+	char	*s3;
+
+	if (!s1)
+		return (NULL);
+	tailleg = ft_strlen(s1) + ft_strlen(s2);
+	i = -1;
+	s3 = malloc(tailleg + 2);
+	if (!s3)
+		return (free(s1), NULL);
+	while (s1[++i])
+		s3[i] = s1[i];
+	j = 0;
+	while (s2[j])
+		s3[i++] = s2[j++];
+	s3[i] = '\n';
+	s3[i + 1] = '\0';
+	free(s1);
+	return (s3);
+}
+
