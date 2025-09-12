@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 15:55:59 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/10 21:11:52 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/12 09:53:51 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,27 @@ void	remove_invalid_cmds(t_cmd **cmd_list)
 			current = next;
 		}
 	}
+}
+
+int	find_arg_norm_parent2(t_node *node)
+{
+	t_node	*size;
+	int		count;
+	int		counted;
+
+	count = 1;
+	counted = 1;
+	size = node;
+	while ((size && size->type != CLOSE_PAREN)&& !(counted == 0))
+	{
+		printf("size->type = %d\n", size->type);
+		if (size->type == OPEN_PAREN)
+			counted++;
+		else if (size->type == CLOSE_PAREN)
+			counted--;
+		printf("counted = %d\n", counted);
+		size = size->next;
+		count++;
+	}
+	return (count);
 }

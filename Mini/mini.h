@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/10 23:12:39 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/12 09:42:19 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ t_tmp				*new_tmp(t_node *node);
 // token_third_utils4.c
 void				add_tmp_to_list(t_cmd *cmd, t_tmp **tmp);
 void				remove_invalid_cmds(t_cmd **cmd_list);
+int					find_arg_norm_parent2(t_node *node);
 
 // fonction de test
 // void				print_list(t_node *node);
