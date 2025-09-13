@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_list_utils1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/10 21:46:48 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/13 16:40:43 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*find_content(char *line)
 	int		lenght;
 	char	*special;
 	char	quote;
+	char	*result;
+	char	*trimmed;
 
 	special = "|&()<>";
 	lenght = 0;
@@ -58,8 +60,10 @@ char	*find_content(char *line)
 	else
 	{
 		lenght += find_content_norm1(line);
-		while (ispacce(line[lenght]) == 1)
-			lenght++;
+		result = ft_substr(line, 0, lenght);
+		trimmed = ft_strtrim(result, " \t\n\r\v\f");
+		free(result);
+		return (trimmed);
 	}
 	return (ft_substr(line, 0, lenght));
 }
