@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils4.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 15:55:59 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/12 21:56:27 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/13 18:38:38 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	add_tmp_to_list(t_cmd *cmd, t_tmp **tmp)
 		ft_bzero(new, sizeof(t_files));
 		new->mode = tmp_->mode;
 		new->path = ft_strdup(tmp_->path);
+		if (tmp_->mode == HEREDOC)
+			new->heredoc_content = cpy_char_tab(tmp_->heredoc_content);
 		new->next = NULL;
 		if (cmd->files == NULL)
 			cmd->files = new;
@@ -91,7 +93,7 @@ int	find_arg_norm_parent2(t_node *node)
 	return (count);
 }
 
-char	**heredoc_content(t_node *node)
+char	**heredoc_content(char *node)
 {
 	char	*all_content;
 	char	*line;
@@ -108,11 +110,8 @@ char	**heredoc_content(t_node *node)
 			printf("not found end-of file\n");
 			break ;
 		}
-		printf("node->next->content = %s\n", node->next->content);
-		printf("line = %s\n", line);
-		if (ft_strncmp(line, node->next->content) == 0)
+		if (ft_strncmp(line, node) == 0)
 		{
-			printf("found end-of file\n");
 			free(line);
 			break ;
 		}
@@ -121,14 +120,9 @@ char	**heredoc_content(t_node *node)
 			return (NULL);
 	}
 	result = ft_split(all_content, '\n');
-	if (result)
-	{
-		printf("heredoc content:\n");
-	}
 	free(all_content);
 	return (result);
 }
-
 
 char	*ft_strjoin__(char *s1, char const *s2)
 {
@@ -154,4 +148,3 @@ char	*ft_strjoin__(char *s1, char const *s2)
 	free(s1);
 	return (s3);
 }
-

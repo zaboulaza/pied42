@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils3.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 23:48:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/12 21:45:12 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/13 18:38:58 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_files	*new_files(t_node *node)
 	file->path = ft_strdup(node->next->content);
 	printf("node->type = %d\n", node->type);	
 	if (node->type == HEREDOC)
-		file->heredoc_content = heredoc_content(node);
+		file->heredoc_content = heredoc_content(node->next->content);
 	file->next = NULL;
 	return (file);
 }
@@ -108,12 +108,8 @@ t_tmp	*new_tmp(t_node *node)
 	ft_bzero(file, sizeof(t_tmp));
 	file->mode = node->type;
 	file->path = ft_strdup(node->next->content);
-	printf("node->type = %d\n", node->type);
 	if (node->type == HEREDOC)
-	{
-		printf("heredoc detected\n");
-		file->heredoc_content = heredoc_content(node);
-	}
+		file->heredoc_content = heredoc_content(node->next->content);
 	file->next = NULL;
 	return (file);
 }

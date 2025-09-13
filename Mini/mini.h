@@ -6,7 +6,7 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/13 15:48:21 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/13 18:49:56 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,10 @@ t_tmp				*new_tmp(t_node *node);
 void				add_tmp_to_list(t_cmd *cmd, t_tmp **tmp);
 void				remove_invalid_cmds(t_cmd **cmd_list);
 int					find_arg_norm_parent2(t_node *node);
-char				**heredoc_content(t_node *node);
+char				**heredoc_content(char *node);
 char				*ft_strjoin__(char *s1, char const *s2);
+// token_third_utils5.c
+char				**cpy_char_tab(char **tab);
 
 // fonction de test
 // void				print_list(t_node *node);
@@ -176,4 +178,4 @@ void				clear_tmp(t_tmp **tmp);
 // -e | (jsdahf | dfsad)
 // ((date) && (whoami))
 
-// token third 4 et 3
+// need to do heredoc solo like : << EOF << EOF2 << EOF3 

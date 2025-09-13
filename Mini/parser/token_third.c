@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/10 21:23:03 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/13 16:55:42 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	add_to_cmd_liste(t_cmd **cmd, t_node *node, t_tmp **tmp)
 			return (1);
 		if (!*cmd)
 			*cmd = new;
-			
 		else
 		{
 			tmp_ = *cmd;
