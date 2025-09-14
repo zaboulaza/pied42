@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/13 18:49:56 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/14 22:36:23 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int					ispacce(char c);
 char				*find_content(char *line);
 int					find_content_norm(char *line);
 int					list_size(t_node *node);
-// creat_list_urils2.c
+// creat_list_urils2.cPIPE
 int					find_content_norm1(char *line);
 
 // ##############################  token_second.c  ##########################
@@ -158,6 +158,9 @@ char				**heredoc_content(char *node);
 char				*ft_strjoin__(char *s1, char const *s2);
 // token_third_utils5.c
 char				**cpy_char_tab(char **tab);
+// last_verif_parent.c
+int					last_verif_parent(t_cmd *cmd);
+
 
 // fonction de test
 // void				print_list(t_node *node);

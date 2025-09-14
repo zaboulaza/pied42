@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/13 18:25:48 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/14 20:48:36 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,51 @@ int	find_cmd_type(t_node *node)
 	return (100);
 }
 
+// char	**next_command(t_node **original_node)
+// {
+// 	t_cmd *new_cmd = empty_command();
+// 	char	**arg;
+// 	t_node	*current_node = *original_node;
+
+// 	while (/* current_node != SEPARATOR && current_node != NULL */)
+// 	{
+// 		if (/* current_node == WORD */)
+// 		{
+// 			if (/* new_cmd->type == SUBSHELL */)
+// 				// return ERROR
+// 			if (/* new_cmd->type == UNDEFINED */)
+// 				// new_cmd->type = COMMAND
+			
+// 			// add_back(arg, node->content)
+// 		}
+// 		else if (/* current_node == SUBSHELL */)
+// 		{
+// 			if (/* new_cmd->type != UNDEFINED */)
+// 				// return ERROR
+
+// 			// new_cmd->type = SUBSHELL
+
+// 			// arg[0] = PARENTHESIS CONTENT
+// 		}
+// 		else if (/* current_node == REDIRECTION */)
+// 		{
+// 			// t_files new_redir = new_redir()
+// 			// add_back(new_cmd->files, new_redir)
+// 		}
+// 	}
+
+// 	*original_node = current_node;
+
+// 	if (/* new_cmd->type == UNDEFINED && new_cmd->files == NULL */)
+// 		// return ERROR
+
+// 	return (new_cmd);
+// }
+
 char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 {
 	char	**arg;
+	t_tmp	*cur;
 
 	if (node->type >= REDIR_IN && node->type <= HEREDOC)
 	{
@@ -56,12 +98,21 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 		{
 			add_to_tmp_liste(node, tmp);
 			node = node->next->next;
+			cur = *tmp;
 		}
 		if (!node || (node->type >= PIPE && node->type <= ESPERLUETTE))
 		{
-			clear_tmp(tmp);
-			cmd->type = 10;
-			return (NULL);
+			if (cur->heredoc_content == NULL)
+			{
+				clear_tmp(tmp);
+				cmd->type = 10;
+				return (NULL);
+			}
+			else
+			{
+				add_tmp_to_list(cmd, tmp);
+				cmd->type = 10;
+			}
 		}
 	}
 	else if (cmd->type != CMD && cmd->type != SUBSHELL)

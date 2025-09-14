@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   last_verif_parent.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 13:35:38 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/14 22:37:34 by nsmail           ###   ########.fr       */
+/*   Created: 2025/09/14 20:58:24 by nsmail            #+#    #+#             */
+/*   Updated: 2025/09/14 22:41:39 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
 
-int	parsing_general(t_general *g, t_tmp **tmp)
+int	last_verif_parent(t_cmd *cmd)
 {
-	if (token_first(g) == 1)
-		return (1);
-	if (add_to_liste(&g->node, g->one_line, g->free) == 1)
-		return (1);
-	if (token_second(&g->node) == 1)
-		return (1);
-	if (token_third(g, tmp) == 1)
-		return (1);
-	if (last_verif_parent(g->cmd) == 1)
-		return (1);
+	t_cmd	*cmd_;
+
+	cmd_ = cmd;
+	while (cmd_)
+	{
+		if (cmd_->next && cmd_->type == CMD && cmd_->next->type == SUBSHELL)
+		{
+			printf("error: CMD cannot be followed by SUBSHELL\n");
+			return (1);
+		}
+		else if (cmd_->next && cmd_->type == SUBSHELL
+			&& cmd_->next->type == CMD)
+		{
+			printf("error: SUBSHELL cannot be followed by CMD\n");
+			return (1);
+		}
+		cmd_ = cmd_->next;
+	}
 	return (0);
 }

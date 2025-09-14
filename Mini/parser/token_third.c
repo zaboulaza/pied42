@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/13 16:55:42 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/14 20:48:23 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,3 +85,4 @@ t_node	*next_step_cmd(t_node *node)
 	}
 	return (node);
 }
+ 
