@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/14 20:48:36 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/15 22:35:40 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	find_cmd_type(t_node *node)
 // 				// return ERROR
 // 			if (/* new_cmd->type == UNDEFINED */)
 // 				// new_cmd->type = COMMAND
-			
+
 // 			// add_back(arg, node->content)
 // 		}
 // 		else if (/* current_node == SUBSHELL */)
@@ -101,19 +101,7 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 			cur = *tmp;
 		}
 		if (!node || (node->type >= PIPE && node->type <= ESPERLUETTE))
-		{
-			if (cur->heredoc_content == NULL)
-			{
-				clear_tmp(tmp);
-				cmd->type = 10;
-				return (NULL);
-			}
-			else
-			{
-				add_tmp_to_list(cmd, tmp);
-				cmd->type = 10;
-			}
-		}
+			find_arg_norm3(cmd, tmp, cur);
 	}
 	else if (cmd->type != CMD && cmd->type != SUBSHELL)
 		return (NULL);
@@ -124,8 +112,6 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 	}
 	else if (cmd->type == SUBSHELL)
 		return (find_arg_norm_parent(node, cmd, tmp));
-	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
-		node = node->next;
 	return (NULL);
 }
 
@@ -133,25 +119,23 @@ char	**find_arg_norm_parent(t_node *node, t_cmd *cmd, t_tmp **tmp)
 {
 	char	**arg;
 	int		count;
-	int		i;
 
-	i = 0;
 	count = find_arg_norm_parent2(node);
-	arg = malloc(sizeof(char *) * (count + 1));
-	if (!arg)
-		return (NULL);
+	arg = malloc(sizeof(char *) * 2);
+	arg[0] = ft_strdup("");
 	if (tmp)
 	{
 		add_tmp_to_list(cmd, tmp);
+		clear_tmp(tmp);
 		cmd->type = 11;
 	}
-	while (node && (i < count))
+	while (node && (count > 0))
 	{
-		arg[i] = ft_strdup(node->content);
+		arg[0] = ft_strjoin_(arg[0], node->content);
 		node = node->next;
-		i++;
+		count--;
 	}
-	arg[i] = NULL;
+	arg[1] = NULL;
 	while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
 	{
 		add_to_files_liste(cmd, node, tmp);

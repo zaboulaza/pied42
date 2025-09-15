@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_second_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 19:34:07 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/14 18:33:02 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/15 22:15:44 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	team_redir(t_node *tmp)
 
 int	team_and_or(t_node *tmp)
 {
-	printf("tmp->ty = %d\n", tmp->next->type);
 	if (tmp->id == 0)
 		return (1);
 	if (tmp->next == NULL)

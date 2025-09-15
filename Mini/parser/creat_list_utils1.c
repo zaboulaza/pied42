@@ -6,7 +6,7 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/13 16:40:43 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/15 21:45:19 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,13 @@ char	*find_content(char *line)
 {
 	int		lenght;
 	char	*special;
-	char	quote;
 	char	*result;
 	char	*trimmed;
 
 	special = "|&()<>";
 	lenght = 0;
 	if (line[lenght] == '"' || line[lenght] == 39)
-	{
-		quote = line[lenght++];
-		while (line[lenght] && line[lenght] != quote)
-			lenght++;
-		if (line[lenght + 1])
-			lenght++;
-		while (line[lenght] != '\0' && ispacce(line[lenght]) != 1)
-			lenght++;
-	}
+		lenght += find_content_norm1(line);
 	else if (ft_strchr(special, *line) != NULL)
 		return (ft_substr(line, 0, find_content_norm(line)));
 	else

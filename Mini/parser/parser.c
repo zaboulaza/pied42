@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:35:38 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/14 22:37:34 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/15 21:29:19 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	parsing_general(t_general *g, t_tmp **tmp)
 {
 	if (token_first(g) == 1)
 		return (1);
-	if (add_to_liste(&g->node, g->one_line, g->free) == 1)
+	if (add_to_liste(&g->node, g->one_line) == 1)
 		return (1);
 	if (token_second(&g->node) == 1)
 		return (1);

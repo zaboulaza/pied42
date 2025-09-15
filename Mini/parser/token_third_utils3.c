@@ -6,7 +6,7 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 23:48:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/13 18:38:58 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/15 22:40:04 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_files	*new_files(t_node *node)
 	ft_bzero(file, sizeof(t_files));
 	file->mode = node->type;
 	file->path = ft_strdup(node->next->content);
-	printf("node->type = %d\n", node->type);	
+	printf("node->type = %d\n", node->type);
 	if (node->type == HEREDOC)
 		file->heredoc_content = heredoc_content(node->next->content);
 	file->next = NULL;
@@ -64,6 +64,7 @@ char	**find_arg_norm(t_cmd *cmd, t_node *node, t_tmp **tmp)
 		{
 			add_tmp_to_list(cmd, tmp);
 			cmd->type = 10;
+			clear_tmp(tmp);
 		}
 		while (node && (node->type >= REDIR_IN && node->type <= HEREDOC))
 		{

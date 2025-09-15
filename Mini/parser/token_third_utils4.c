@@ -6,7 +6,7 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 15:55:59 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/13 18:38:38 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/15 22:38:14 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	add_tmp_to_list(t_cmd *cmd, t_tmp **tmp)
 		}
 		tmp_ = tmp_->next;
 	}
-	clear_tmp(tmp);
 }
 
 void	remove_invalid_cmds(t_cmd **cmd_list)
@@ -100,8 +99,6 @@ char	**heredoc_content(char *node)
 	char	**result;
 
 	all_content = ft_strdup("");
-	if (!all_content)
-		return (NULL);
 	while (1)
 	{
 		line = readline("> ");

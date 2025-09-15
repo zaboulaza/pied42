@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/14 22:36:23 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/15 22:19:51 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int					bracket(t_general *g);
 int					esperluette(t_general *g);
 
 // ##############################  creat_list.c  ###########################
-int					add_to_liste(t_node **node, char *line, t_free *f);
-t_node				*new_node(char *line, t_free *f);
+int					add_to_liste(t_node **node, char *line);
+t_node				*new_node(char *line);
 char				*next_step(char *line);
 int					next_step_norm(char *line);
 int					next_step_norm2(char *line);
@@ -158,9 +158,9 @@ char				**heredoc_content(char *node);
 char				*ft_strjoin__(char *s1, char const *s2);
 // token_third_utils5.c
 char				**cpy_char_tab(char **tab);
+void				find_arg_norm3(t_cmd *cmd, t_tmp **tmp, t_tmp *cur);
 // last_verif_parent.c
 int					last_verif_parent(t_cmd *cmd);
-
 
 // fonction de test
 // void				print_list(t_node *node);
@@ -181,4 +181,4 @@ void				clear_tmp(t_tmp **tmp);
 // -e | (jsdahf | dfsad)
 // ((date) && (whoami))
 
-// need to do heredoc solo like : << EOF << EOF2 << EOF3 
+// need to do heredoc solo like : << EOF << EOF2 << EOF3

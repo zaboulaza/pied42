@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_second.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:38:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/14 20:53:30 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/15 21:46:19 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,5 @@ int	token_second_norme(t_node *tmp)
 		if (team_close_parent(tmp) == 1)
 			return ((printf("type after close_parent not good\n")), 1);
 	}
-	// if (tmp->type == WORD)
-	// {
-	// 	if (team_word(tmp) == 1)
-	// 		return ((printf("type after word not good\n")), 1);
-	// }
 	return (0);
 }
