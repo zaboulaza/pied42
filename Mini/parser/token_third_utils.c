@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/15 22:35:40 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	find_cmd_type(t_node *node)
 		return (SUBSHELL);
 	else if (node->type == PIPE)
 		return (PIPE);
-	else if (node->type == DOUBLE_PIPE)
-		return (DOUBLE_PIPE);
-	else if (node->type == ESPERLUETTE)
-		return (ESPERLUETTE);
+	else if (node->type == OR)
+		return (OR);
+	else if (node->type == AND)
+		return (AND);
 	return (100);
 }
 
@@ -100,7 +100,7 @@ char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 			node = node->next->next;
 			cur = *tmp;
 		}
-		if (!node || (node->type >= PIPE && node->type <= ESPERLUETTE))
+		if (!node || (node->type >= PIPE && node->type <= AND))
 			find_arg_norm3(cmd, tmp, cur);
 	}
 	else if (cmd->type != CMD && cmd->type != SUBSHELL)

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/17 16:05:40 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 # include <limits.h>
 # include <readline/readline.h>
 # include <stdio.h>
+# include <stdbool.h>
 
 # define WORD 0
 # define PIPE 1
-# define DOUBLE_PIPE 2
-# define ESPERLUETTE 3
+# define OR 2
+# define AND 3
 # define OPEN_PAREN 4
 # define CLOSE_PAREN 5
 # define REDIR_IN 6
@@ -98,7 +99,7 @@ int					token_first(t_general *g);
 // tokenizer_utils1.c
 int					quote(t_general *g);
 int					bracket(t_general *g);
-int					esperluette(t_general *g);
+int					AND(t_general *g);
 
 // ##############################  creat_list.c  ###########################
 int					add_to_liste(t_node **node, char *line);

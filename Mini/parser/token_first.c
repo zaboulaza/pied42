@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:04:26 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/06 06:20:52 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	token_first(t_general *g)
 		printf("parents not good\n");
 		return (1);
 	}
-	else if (esperluette(g) == 1)
+	else if (AND(g) == 1)
 	{
-		printf("esperluette not good\n");
+		printf("AND not good\n");
 		return (1);
 	}
 	return (0);
@@ -83,7 +83,7 @@ int	bracket(t_general *g)
 	return (count != 0);
 }
 
-int	esperluette(t_general *g)
+int	AND(t_general *g)
 {
 	int		i;
 	char	quote;

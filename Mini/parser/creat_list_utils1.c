@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_list_utils1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/15 21:45:19 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	find_type(char *line)
 	if (*line == '|' && *(line + 1) != '|')
 		return (PIPE);
 	if (*line == '|' && *(line + 1) == '|')
-		return (DOUBLE_PIPE);
+		return (OR);
 	if (*line == '&' && *(line + 1) == '&')
-		return (ESPERLUETTE);
+		return (AND);
 	if (*line == '(')
 		return (OPEN_PAREN);
 	if (*line == ')')

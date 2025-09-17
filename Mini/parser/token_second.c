@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_second.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 17:38:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/15 21:46:19 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	token_second(t_node **node)
 			if (team_redir(tmp) == 1)
 				return ((printf("type after redir not good\n")), 1);
 		}
-		else if (tmp->type >= PIPE && tmp->type <= ESPERLUETTE)
+		else if (tmp->type >= PIPE && tmp->type <= AND)
 		{
 			if (team_and_or(tmp) == 0)
 				return ((printf("type after and / or not good\n")), 1);

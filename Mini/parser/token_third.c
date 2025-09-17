@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/14 20:48:23 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_node	*next_step_cmd(t_node *node)
 	}
 	else if (node->type == OPEN_PAREN)
 		node = next_step_norm_cmd(node);
-	else if (node->type >= PIPE && node->type <= ESPERLUETTE)
+	else if (node->type >= PIPE && node->type <= AND)
 	{
 		node = node->next;
 	}
