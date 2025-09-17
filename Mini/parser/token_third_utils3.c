@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_third_utils3.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 23:48:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/15 22:40:04 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/17 15:31:21 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_files	*new_files(t_node *node)
 	ft_bzero(file, sizeof(t_files));
 	file->mode = node->type;
 	file->path = ft_strdup(node->next->content);
-	printf("node->type = %d\n", node->type);
 	if (node->type == HEREDOC)
 		file->heredoc_content = heredoc_content(node->next->content);
 	file->next = NULL;

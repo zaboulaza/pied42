@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/15 22:19:51 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/17 16:05:40 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_cmd
 	int				type;
 	char			**args;
 	t_files			*files;
+	struct s_cmd	*right;
+	struct s_cmd	*left;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -161,6 +163,11 @@ char				**cpy_char_tab(char **tab);
 void				find_arg_norm3(t_cmd *cmd, t_tmp **tmp, t_tmp *cur);
 // last_verif_parent.c
 int					last_verif_parent(t_cmd *cmd);
+// ##############################  token_third.c  ##########################
+
+// creat_ast.c
+t_cmd				*creat_ast(t_cmd *cmd);
+
 
 // fonction de test
 // void				print_list(t_node *node);
@@ -182,3 +189,4 @@ void				clear_tmp(t_tmp **tmp);
 // ((date) && (whoami))
 
 // need to do heredoc solo like : << EOF << EOF2 << EOF3
+//'' read of size

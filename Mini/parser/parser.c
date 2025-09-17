@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:35:38 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/15 21:29:19 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/17 16:04:26 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	parsing_general(t_general *g, t_tmp **tmp)
 	if (token_third(g, tmp) == 1)
 		return (1);
 	if (last_verif_parent(g->cmd) == 1)
+		return (1);
+	if (creat_ast(g->cmd) == NULL)
 		return (1);
 	return (0);
 }
