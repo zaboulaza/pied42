@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/18 13:12:41 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "libft/libft.h"
 # include <limits.h>
 # include <readline/readline.h>
-# include <stdio.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 # define WORD 0
 # define PIPE 1
@@ -99,7 +99,7 @@ int					token_first(t_general *g);
 // tokenizer_utils1.c
 int					quote(t_general *g);
 int					bracket(t_general *g);
-int					AND(t_general *g);
+int and (t_general * g);
 
 // ##############################  creat_list.c  ###########################
 int					add_to_liste(t_node **node, char *line);
@@ -167,15 +167,18 @@ int					last_verif_parent(t_cmd *cmd);
 // ##############################  token_third.c  ##########################
 
 // creat_ast.c
-t_cmd				*creat_ast(t_cmd *cmd);
-
-
+t_cmd				*init_ast(t_cmd *cmd, bool mini_ast_pipe);
+int					priorite(t_cmd *operateur);
+t_cmd				*creat_ast_exemple(t_cmd *operateur, bool mini_ast_pipe);
+t_cmd				*next_operateur_and_or(t_cmd *next_cmd);
 // fonction de test
 // void				print_list(t_node *node);
 void				print_list_cmd(t_cmd *cmd);
 void				free_node(t_node *node);
 void				free_cmd(t_cmd *cmd);
 void				clear_tmp(t_tmp **tmp);
+void				print_ast(t_cmd *node, int depth);
+void				print_indent(int depth);
 
 #endif
 

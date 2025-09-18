@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/15 22:19:46 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/18 13:15:24 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int ac, char **av, char **env)
 				return (1);
 			}
 			// print_list(g.node);
-			print_list_cmd(g.cmd);
+			print_ast(init_ast(g.cmd, false), 0);
+			// print_list_cmd(g.cmd);
 		}
 	}
 	return (0);
@@ -189,6 +190,51 @@ void	print_list_cmd(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 }
+
+void    print_indent(int depth)
+{
+    for (int i = 0; i < depth; i++)
+        printf("    "); // indentation (4 espaces)
+}
+
+void    print_ast(t_cmd *node, int depth)
+{
+    if (!node)
+        return;
+
+    // Indentation + affichage du type
+    print_indent(depth);
+    if (node->type == PIPE)
+        printf("PIPE\n");
+    else if (node->type == AND)
+        printf("AND\n");
+    else if (node->type == OR)
+        printf("OR\n");
+    else if (node->type == CMD)
+    {
+        printf("CMD");
+        if (node->args && node->args[0])
+            printf(" (%s)", node->args[0]); // affiche la commande
+        printf("\n");
+    }
+    else
+        printf("UNKNOWN(%d)\n", node->type);
+
+    // Appel récursif sur left et right
+    if (node->left)
+    {
+        print_indent(depth);
+        printf("├── left:\n");
+        print_ast(node->left, depth + 1);
+    }
+    if (node->right)
+    {
+        print_indent(depth);
+        printf("└── right:\n");
+        print_ast(node->right, depth + 1);
+    }
+}
+
 
 // void	print_list(t_node *node)
 // {
