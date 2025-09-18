@@ -6,7 +6,7 @@
 #    By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 12:55:13 by nsmail            #+#    #+#              #
-#    Updated: 2025/09/18 12:32:08 by nsmail           ###   ########.fr        #
+#    Updated: 2025/09/18 16:38:07 by nsmail           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME        = MINI
 
 # Fichiers source
 SRCS = src/main.c \
+       src/print_ast.c \
        parser/parser.c \
        parser/token_first.c \
        parser/token_second.c \

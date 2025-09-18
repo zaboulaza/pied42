@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:24:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/18 13:27:15 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/18 17:08:12 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_cmd	*creat_ast_exemple(t_cmd *operateur, bool mini_ast_pipe)
 	else
 		operateur->right = next_commande;
 	next_operateur->left = operateur;
-	return (creat_ast_exemple(next_operateur, false));
+	return (creat_ast_exemple(next_operateur, mini_ast_pipe));
 }
 
 int	priorite(t_cmd *operateur)

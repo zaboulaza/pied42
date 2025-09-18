@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/18 13:12:41 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/18 16:50:11 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include <limits.h>
 # include <readline/readline.h>
+# include<readline/history.h>
 # include <stdbool.h>
 # include <stdio.h>
 

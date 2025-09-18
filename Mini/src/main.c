@@ -6,11 +6,15 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/18 13:15:24 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/18 16:49:44 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
+#include <stdio.h>
+
+
+void	print_AST_test(t_cmd *command);
 
 int	main(int ac, char **av, char **env)
 {
@@ -20,6 +24,8 @@ int	main(int ac, char **av, char **env)
 	creat_struct(&g, ac, av);
 	while (1)
 	{
+		g.node = NULL;
+		g.cmd = NULL;
 		g.one_line = readline("mini> ");
 		if (!g.one_line)
 		{
@@ -27,6 +33,7 @@ int	main(int ac, char **av, char **env)
 			printf("exit\n");
 			break ;
 		}
+		add_history(g.one_line);
 		if (*g.one_line)
 		{
 			if (parsing_general(&g, &g.tmp) == 1)
@@ -35,7 +42,8 @@ int	main(int ac, char **av, char **env)
 				return (1);
 			}
 			// print_list(g.node);
-			print_ast(init_ast(g.cmd, false), 0);
+			// print_ast(init_ast(g.cmd, false), 0);
+			print_AST_test(init_ast(g.cmd, false));
 			// print_list_cmd(g.cmd);
 		}
 	}
