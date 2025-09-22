@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 19:34:07 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/17 15:35:16 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/22 20:19:44 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	team_redir(t_node *tmp)
 int	team_and_or(t_node *tmp)
 {
 	if (tmp->id == 0)
-		return (1);
+		return (0);
 	if (tmp->next == NULL)
-		return (1);
+		return (0);
 	if (tmp->next != NULL)
 	{
 		if (tmp->next->type != WORD && tmp->next->type != OPEN_PAREN

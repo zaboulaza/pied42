@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/18 16:50:11 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/22 19:24:45 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "libft/libft.h"
 # include <limits.h>
+# include <readline/history.h>
 # include <readline/readline.h>
-# include<readline/history.h>
 # include <stdbool.h>
 # include <stdio.h>
 
@@ -81,6 +81,7 @@ typedef struct s_general
 	int				ac;
 	char			**av;
 	char			*one_line;
+	char			**env;
 	struct s_node	*node;
 	struct s_cmd	*cmd;
 	struct s_free	*free;
@@ -89,7 +90,7 @@ typedef struct s_general
 // main.c
 ////////////////////////////////////////////////////////////////////////////
 int					main(int ac, char **av, char **env);
-void				creat_struct(t_general *g, int ac, char **av);
+void				creat_struct(t_general *g, int ac, char **av, char **env);
 void				free_all(t_general *g, t_tmp **tmp, t_free *f);
 
 // ##############################  parser.c  ##############################
@@ -172,6 +173,16 @@ t_cmd				*init_ast(t_cmd *cmd, bool mini_ast_pipe);
 int					priorite(t_cmd *operateur);
 t_cmd				*creat_ast_exemple(t_cmd *operateur, bool mini_ast_pipe);
 t_cmd				*next_operateur_and_or(t_cmd *next_cmd);
+
+// ##############################  exec  ##########################
+// ##############################  exec  ##########################
+// ##############################  exec  ##########################
+
+// exec_ast.c
+int					exec_ast(t_cmd *cmd);
+
+// ##############################  test->need to remove  ##########################
+// ##############################  test->need to remove  ##########################
 // fonction de test
 // void				print_list(t_node *node);
 void				print_list_cmd(t_cmd *cmd);

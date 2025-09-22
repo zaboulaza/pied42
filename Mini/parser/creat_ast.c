@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 15:24:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/18 17:08:12 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/22 15:43:10 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_cmd	*creat_ast_exemple(t_cmd *operateur, bool mini_ast_pipe)
 		// mini_ast fini et find next AND / OR / NULL
 		if (next_operateur == NULL)
 			return (operateur);
-		// ast fini
+		// ast
 	}
 	else
 		operateur->right = next_commande;
@@ -101,3 +101,4 @@ t_cmd	*next_operateur_and_or(t_cmd *next_cmd)
 
 //     return (creat_ast_exemple(next_operateur));
 // }
+

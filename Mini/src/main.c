@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/18 16:49:44 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/22 20:21:08 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_general	g;
 
-	(void)env;
-	creat_struct(&g, ac, av);
+	creat_struct(&g, ac, av, env);
 	while (1)
 	{
 		g.node = NULL;
@@ -41,6 +40,10 @@ int	main(int ac, char **av, char **env)
 				free_all(&g, &g.tmp, g.free);
 				return (1);
 			}
+			// if (exec_ast(init_ast(g.cmd, false)) == 1)
+			// {
+				
+			// }
 			// print_list(g.node);
 			// print_ast(init_ast(g.cmd, false), 0);
 			print_AST_test(init_ast(g.cmd, false));
@@ -50,11 +53,12 @@ int	main(int ac, char **av, char **env)
 	return (0);
 }
 
-void	creat_struct(t_general *g, int ac, char **av)
+void	creat_struct(t_general *g, int ac, char **av, char **env)
 {
 	ft_memset(g, 0, sizeof(t_general));
 	g->ac = ac;
 	g->av = av;
+	g->env = env;
 	g->node = NULL;
 	g->free = ft_calloc(1, sizeof(t_free));
 }
@@ -158,46 +162,46 @@ void	clear_tmp(t_tmp **tmp)
 }
 
 
-void	print_list_cmd(t_cmd *cmd)
-{
-	int		i;
-	t_files	*tmp_files;
-	int		j;
+// void	print_list_cmd(t_cmd *cmd)
+// {
+// 	int		i;
+// 	t_files	*tmp_files;
+// 	int		j;
 
-	while (cmd != NULL)
-	{
-		printf("type = %d\n", cmd->type);
-		i = 0;
-		if (cmd->args != NULL)
-		{
-			while (cmd->args[i] != NULL)
-			{
-				printf("{cmd} // arg = %s\n", cmd->args[i]);
-				i++;
-			}
-		}
-		tmp_files = cmd->files;
-		while (tmp_files != NULL)
-		{
-			printf("{files} // path = %s\n", tmp_files->path);
-			printf("{files} // mode = %d\n", tmp_files->mode);
-			if (tmp_files->heredoc_content != NULL)
-			{
-				j = 0;
-				printf("{heredoc} content:\n");
-				while (tmp_files->heredoc_content[j] != NULL)
-				{
-					printf("  [%d] %s\n", j, tmp_files->heredoc_content[j]);
-					j++;
-				}
-			}
+// 	while (cmd != NULL)
+// 	{
+// 		printf("type = %d\n", cmd->type);
+// 		i = 0;
+// 		if (cmd->args != NULL)
+// 		{
+// 			while (cmd->args[i] != NULL)
+// 			{
+// 				printf("{cmd} // arg = %s\n", cmd->args[i]);
+// 				i++;
+// 			}
+// 		}
+// 		tmp_files = cmd->files;
+// 		while (tmp_files != NULL)
+// 		{
+// 			printf("{files} // path = %s\n", tmp_files->path);
+// 			printf("{files} // mode = %d\n", tmp_files->mode);
+// 			if (tmp_files->heredoc_content != NULL)
+// 			{
+// 				j = 0;
+// 				printf("{heredoc} content:\n");
+// 				while (tmp_files->heredoc_content[j] != NULL)
+// 				{
+// 					printf("  [%d] %s\n", j, tmp_files->heredoc_content[j]);
+// 					j++;
+// 				}
+// 			}
 			
-			tmp_files = tmp_files->next;
-		}
-		printf("\n");
-		cmd = cmd->next;
-	}
-}
+// 			tmp_files = tmp_files->next;
+// 		}
+// 		printf("\n");
+// 		cmd = cmd->next;
+// 	}
+// }
 
 void    print_indent(int depth)
 {
