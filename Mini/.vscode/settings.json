@@ -3,7 +3,8 @@
         "libft.h": "c",
         "mini.h": "c",
         "readline.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "types.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

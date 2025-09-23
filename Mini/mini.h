@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/22 19:24:45 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/23 14:41:29 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <readline/readline.h>
 # include <stdbool.h>
 # include <stdio.h>
+#include <fcntl.h>
+#include <sys/types.h>
 
 # define WORD 0
 # define PIPE 1
