@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/22 20:21:08 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/24 16:47:13 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	main(int ac, char **av, char **env)
 				free_all(&g, &g.tmp, g.free);
 				return (1);
 			}
-			// if (exec_ast(init_ast(g.cmd, false)) == 1)
-			// {
-				
-			// }
+			if (exec(g.cmd, &g) == 1)
+			{
+				return (1);
+			}
 			// print_list(g.node);
 			// print_ast(init_ast(g.cmd, false), 0);
-			print_AST_test(init_ast(g.cmd, false));
+			// print_AST_test(init_ast(g.cmd, false));
 			// print_list_cmd(g.cmd);
 		}
 	}
@@ -162,90 +162,90 @@ void	clear_tmp(t_tmp **tmp)
 }
 
 
-// void	print_list_cmd(t_cmd *cmd)
-// {
-// 	int		i;
-// 	t_files	*tmp_files;
-// 	int		j;
+void	print_list_cmd(t_cmd *cmd)
+{
+	int		i;
+	t_files	*tmp_files;
+	int		j;
 
-// 	while (cmd != NULL)
-// 	{
-// 		printf("type = %d\n", cmd->type);
-// 		i = 0;
-// 		if (cmd->args != NULL)
-// 		{
-// 			while (cmd->args[i] != NULL)
-// 			{
-// 				printf("{cmd} // arg = %s\n", cmd->args[i]);
-// 				i++;
-// 			}
-// 		}
-// 		tmp_files = cmd->files;
-// 		while (tmp_files != NULL)
-// 		{
-// 			printf("{files} // path = %s\n", tmp_files->path);
-// 			printf("{files} // mode = %d\n", tmp_files->mode);
-// 			if (tmp_files->heredoc_content != NULL)
-// 			{
-// 				j = 0;
-// 				printf("{heredoc} content:\n");
-// 				while (tmp_files->heredoc_content[j] != NULL)
-// 				{
-// 					printf("  [%d] %s\n", j, tmp_files->heredoc_content[j]);
-// 					j++;
-// 				}
-// 			}
+	while (cmd != NULL)
+	{
+		printf("type = %d\n", cmd->type);
+		i = 0;
+		if (cmd->args != NULL)
+		{
+			while (cmd->args[i] != NULL)
+			{
+				printf("{cmd} // arg = %s\n", cmd->args[i]);
+				i++;
+			}
+		}
+		tmp_files = cmd->files;
+		while (tmp_files != NULL)
+		{
+			printf("{files} // path = %s\n", tmp_files->path);
+			printf("{files} // mode = %d\n", tmp_files->mode);
+			if (tmp_files->heredoc_content != NULL)
+			{
+				j = 0;
+				printf("{heredoc} content:\n");
+				while (tmp_files->heredoc_content[j] != NULL)
+				{
+					printf("  [%d] %s\n", j, tmp_files->heredoc_content[j]);
+					j++;
+				}
+			}
 			
-// 			tmp_files = tmp_files->next;
-// 		}
-// 		printf("\n");
-// 		cmd = cmd->next;
-// 	}
+			tmp_files = tmp_files->next;
+		}
+		printf("\n");
+		cmd = cmd->next;
+	}
+}
+
+// void    print_indent(int depth)
+// {
+//     for (int i = 0; i < depth; i++)
+//         printf("    "); // indentation (4 espaces)
 // }
 
-void    print_indent(int depth)
-{
-    for (int i = 0; i < depth; i++)
-        printf("    "); // indentation (4 espaces)
-}
+// void    print_ast(t_cmd *node, int depth)
+// {
+//     if (!node)
+//         return;
 
-void    print_ast(t_cmd *node, int depth)
-{
-    if (!node)
-        return;
+//     // Indentation + affichage du type
+//     print_indent(depth);
+//     if (node->type == PIPE)
+//         printf("PIPE\n");
+//     else if (node->type == AND)
+//         printf("AND\n");
+//     else if (node->type == OR)
+//         printf("OR\n");
+//     else if (node->type == CMD)
+//     {
+//         printf("CMD");
+//         if (node->args && node->args[0])
+//             printf(" (%s)", node->args[0]); // affiche la commande
+//         printf("\n");
+//     }
+//     else
+//         printf("UNKNOWN(%d)\n", node->type);
 
-    // Indentation + affichage du type
-    print_indent(depth);
-    if (node->type == PIPE)
-        printf("PIPE\n");
-    else if (node->type == AND)
-        printf("AND\n");
-    else if (node->type == OR)
-        printf("OR\n");
-    else if (node->type == CMD)
-    {
-        printf("CMD");
-        if (node->args && node->args[0])
-            printf(" (%s)", node->args[0]); // affiche la commande
-        printf("\n");
-    }
-    else
-        printf("UNKNOWN(%d)\n", node->type);
-
-    // Appel récursif sur left et right
-    if (node->left)
-    {
-        print_indent(depth);
-        printf("├── left:\n");
-        print_ast(node->left, depth + 1);
-    }
-    if (node->right)
-    {
-        print_indent(depth);
-        printf("└── right:\n");
-        print_ast(node->right, depth + 1);
-    }
-}
+//     // Appel récursif sur left et right
+//     if (node->left)
+//     {
+//         print_indent(depth);
+//         printf("├── left:\n");
+//         print_ast(node->left, depth + 1);
+//     }
+//     if (node->right)
+//     {
+//         print_indent(depth);
+//         printf("└── right:\n");
+//         print_ast(node->right, depth + 1);
+//     }
+// }
 
 
 // void	print_list(t_node *node)

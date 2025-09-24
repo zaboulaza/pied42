@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/23 14:41:29 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/24 19:35:23 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 # define MINI_H
 
 # include "libft/libft.h"
+# include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
 # include <stdio.h>
-#include <fcntl.h>
-#include <sys/types.h>
+# include <sys/resource.h>
+# include <sys/types.h>
+#include <sys/wait.h>
 
 # define WORD 0
 # define PIPE 1
@@ -84,6 +86,7 @@ typedef struct s_general
 	char			**av;
 	char			*one_line;
 	char			**env;
+	char			**path;
 	struct s_node	*node;
 	struct s_cmd	*cmd;
 	struct s_free	*free;
@@ -180,8 +183,16 @@ t_cmd				*next_operateur_and_or(t_cmd *next_cmd);
 // ##############################  exec  ##########################
 // ##############################  exec  ##########################
 
+// exec.c
+int					exec(t_cmd *cmd, t_general *g);
+
+// get_path.c
+void				get_path(t_general *g);
+
 // exec_ast.c
-int					exec_ast(t_cmd *cmd);
+int					exec_ast(t_cmd *cmd, t_general *g);
+int					waitepid_and_satus(pid_t pipes);
+int					exec_cmd(t_cmd *cmd, t_general *g);
 
 // ##############################  test->need to remove  ##########################
 // ##############################  test->need to remove  ##########################
