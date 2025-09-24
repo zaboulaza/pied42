@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/24 19:35:23 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/24 22:07:46 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,3 +219,5 @@ void				print_indent(int depth);
 
 // need to do heredoc solo like : << EOF << EOF2 << EOF3
 //'' read of size
+
+// ls | -la mdr le test il pete un cable 
