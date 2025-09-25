@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:17:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 15:03:48 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ char	*find_content(char *line)
 		lenght += find_content_norm1(line);
 		result = ft_substr(line, 0, lenght);
 		trimmed = ft_strtrim(result, " \t\n\r\v\f");
-		free(result);
-		return (trimmed);
+		if (trimmed == result)
+			return (result);
+		else
+		{
+			free(result);
+			return (trimmed);
+		}
 	}
 	return (ft_substr(line, 0, lenght));
 }

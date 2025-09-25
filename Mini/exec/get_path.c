@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:29:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/24 22:45:16 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 13:03:21 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	get_path(t_general *g)
 			path_one_line = g->env[i];
 		i++;
 	}
-	path_one_line = ft_substr(path_one_line, 5, ft_strlen(path_one_line));
+	path_one_line = ft_substr(path_one_line, 5, ft_strlen(path_one_line) - 5);
 	path = ft_split(path_one_line, ':');
 	i = 0;
 	while (path[i])

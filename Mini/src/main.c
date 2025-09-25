@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/24 16:47:13 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 15:08:55 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int ac, char **av, char **env)
 			}
 			if (exec(g.cmd, &g) == 1)
 			{
+				free_all(&g, &g.tmp, g.free);
 				return (1);
 			}
 			// print_list(g.node);
