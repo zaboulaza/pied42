@@ -6,13 +6,12 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/25 15:08:55 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 23:39:34 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini.h"
 #include <stdio.h>
-
 
 void	print_AST_test(t_cmd *command);
 
@@ -49,6 +48,7 @@ int	main(int ac, char **av, char **env)
 			// print_ast(init_ast(g.cmd, false), 0);
 			// print_AST_test(init_ast(g.cmd, false));
 			// print_list_cmd(g.cmd);
+			// free_all(&g, &g.tmp, g.free);
 		}
 	}
 	return (0);
@@ -102,7 +102,8 @@ void	free_all(t_general *g, t_tmp **tmp, t_free *f)
 			free_all_(f->arg);
 			f->arg = NULL;
 		}
-		free(f);
+		if (f)
+			free(f);
 		f = NULL;
 	}
 }
@@ -114,8 +115,7 @@ void	free_node(t_node *node)
 	while (node)
 	{
 		tmp = node->next;
-		if (node->content)
-			free(node->content);
+		free(node->content);
 		free(node);
 		node = tmp;
 	}
@@ -162,7 +162,6 @@ void	clear_tmp(t_tmp **tmp)
 	*tmp = NULL;
 }
 
-
 void	print_list_cmd(t_cmd *cmd)
 {
 	int		i;
@@ -196,7 +195,6 @@ void	print_list_cmd(t_cmd *cmd)
 					j++;
 				}
 			}
-			
 			tmp_files = tmp_files->next;
 		}
 		printf("\n");
@@ -213,7 +211,7 @@ void	print_list_cmd(t_cmd *cmd)
 // void    print_ast(t_cmd *node, int depth)
 // {
 //     if (!node)
-//         return;
+//         return ;
 
 //     // Indentation + affichage du type
 //     print_indent(depth);
@@ -247,7 +245,6 @@ void	print_list_cmd(t_cmd *cmd)
 //         print_ast(node->right, depth + 1);
 //     }
 // }
-
 
 // void	print_list(t_node *node)
 // {

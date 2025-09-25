@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:56:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/26 00:02:08 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	add_to_cmd_liste(t_cmd **cmd, t_node *node, t_tmp **tmp)
 				tmp_ = tmp_->next;
 			tmp_->next = new;
 		}
+		// *cmd = tmp_;
 		node = next_step_cmd(node);
 	}
 	return (0);

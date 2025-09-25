@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 15:52:52 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/24 18:20:57 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 21:05:31 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,17 @@
 int exec(t_cmd *cmd, t_general *g)
 {
     get_path(g);
-    if (exec_ast(init_ast(cmd, false), g) == 1)
+    if (cmd->type == CMD) {
+        if (/* built-in */ 0 ) {
+            
+        } else {
+            int pid = fork();
+            if (pid == 0)
+                exit(exec_ast(init_ast(cmd, false), g));
+            wait(NULL);
+        }
+    }
+    else if (exec_ast(init_ast(cmd, false), g) == 1)
     {
         return (1);
     }

@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/24 22:07:46 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 22:21:33 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ t_node				*next_step_cmd(t_node *node);
 t_node				*next_step_norm_cmd(t_node *node);
 int					find_cmd_type(t_node *node);
 char				**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp);
-char				*ft_strjoin_(char *s1, char const *s2);
+char				*ft_strjoin_(char *s1, char *s2);
 char				**find_arg_norm_parent(t_node *node, t_cmd *cmd,
 						t_tmp **tmp);
 

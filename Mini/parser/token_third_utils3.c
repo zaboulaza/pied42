@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 23:48:31 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/17 15:31:21 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 23:43:00 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	**find_arg_norm(t_cmd *cmd, t_node *node, t_tmp **tmp)
 	}
 	arg = ft_split_(tmp_, ' ');
 	if (!arg)
-		return (NULL);
+		return (free(tmp_), NULL);
 	free(tmp_);
 	return (arg);
 }

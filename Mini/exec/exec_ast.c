@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:31:30 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/25 14:53:43 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 21:49:03 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ int	exec_ast(t_cmd *cmd, t_general *g)
             close(pipefd[0]);
             dup2(pipefd[1], 1);
             close(pipefd[1]);
-            exec_ast(cmd->left, g);
-            exit(1);
+            exit(exec_ast(cmd->left, g));
         }
         pid2 = fork();
         if (pid2 == 0)
@@ -115,8 +114,7 @@ int	exec_ast(t_cmd *cmd, t_general *g)
             close(pipefd[1]);
             dup2(pipefd[0], 0);
             close(pipefd[0]);
-            exec_ast(cmd->right, g);
-            exit(1);
+            exit(exec_ast(cmd->right, g));
         }
         close(pipefd[0]);
         close(pipefd[1]);
@@ -157,7 +155,6 @@ int	exec_cmd(t_cmd *cmd, t_general *g)
         i++;
     }
     perror("execve");
-    exit(1);
     // while (g->path[i])
     // {
     //     printf("%s\n", g->path[i]);

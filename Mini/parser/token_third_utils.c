@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:14:29 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/17 21:26:41 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/25 23:45:42 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,47 +45,6 @@ int	find_cmd_type(t_node *node)
 		return (AND);
 	return (100);
 }
-
-// char	**next_command(t_node **original_node)
-// {
-// 	t_cmd *new_cmd = empty_command();
-// 	char	**arg;
-// 	t_node	*current_node = *original_node;
-
-// 	while (/* current_node != SEPARATOR && current_node != NULL */)
-// 	{
-// 		if (/* current_node == WORD */)
-// 		{
-// 			if (/* new_cmd->type == SUBSHELL */)
-// 				// return ERROR
-// 			if (/* new_cmd->type == UNDEFINED */)
-// 				// new_cmd->type = COMMAND
-
-// 			// add_back(arg, node->content)
-// 		}
-// 		else if (/* current_node == SUBSHELL */)
-// 		{
-// 			if (/* new_cmd->type != UNDEFINED */)
-// 				// return ERROR
-
-// 			// new_cmd->type = SUBSHELL
-
-// 			// arg[0] = PARENTHESIS CONTENT
-// 		}
-// 		else if (/* current_node == REDIRECTION */)
-// 		{
-// 			// t_files new_redir = new_redir()
-// 			// add_back(new_cmd->files, new_redir)
-// 		}
-// 	}
-
-// 	*original_node = current_node;
-
-// 	if (/* new_cmd->type == UNDEFINED && new_cmd->files == NULL */)
-// 		// return ERROR
-
-// 	return (new_cmd);
-// }
 
 char	**find_arg(t_cmd *cmd, t_node *node, t_tmp **tmp)
 {
@@ -144,7 +103,7 @@ char	**find_arg_norm_parent(t_node *node, t_cmd *cmd, t_tmp **tmp)
 	return (arg);
 }
 
-char	*ft_strjoin_(char *s1, char const *s2)
+char	*ft_strjoin_(char *s1, char *s2)
 {
 	size_t	tailleg;
 	int		i;
