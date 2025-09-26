@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/25 23:39:34 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/26 17:17:08 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int ac, char **av, char **env)
 			// print_AST_test(init_ast(g.cmd, false));
 			// print_list_cmd(g.cmd);
 			// free_all(&g, &g.tmp, g.free);
+			free_all(&g, &g.tmp, g.free);
 		}
 	}
 	return (0);
@@ -83,6 +84,11 @@ void	free_all(t_general *g, t_tmp **tmp, t_free *f)
 		{
 			free_cmd(g->cmd);
 			g->cmd = NULL;
+		}
+		if (g->path)
+		{
+			free_all_(g->path);
+			g->path = NULL;
 		}
 	}
 	if (f)
@@ -162,45 +168,45 @@ void	clear_tmp(t_tmp **tmp)
 	*tmp = NULL;
 }
 
-void	print_list_cmd(t_cmd *cmd)
-{
-	int		i;
-	t_files	*tmp_files;
-	int		j;
+// void	print_list_cmd(t_cmd *cmd)
+// {
+// 	int		i;
+// 	t_files	*tmp_files;
+// 	int		j;
 
-	while (cmd != NULL)
-	{
-		printf("type = %d\n", cmd->type);
-		i = 0;
-		if (cmd->args != NULL)
-		{
-			while (cmd->args[i] != NULL)
-			{
-				printf("{cmd} // arg = %s\n", cmd->args[i]);
-				i++;
-			}
-		}
-		tmp_files = cmd->files;
-		while (tmp_files != NULL)
-		{
-			printf("{files} // path = %s\n", tmp_files->path);
-			printf("{files} // mode = %d\n", tmp_files->mode);
-			if (tmp_files->heredoc_content != NULL)
-			{
-				j = 0;
-				printf("{heredoc} content:\n");
-				while (tmp_files->heredoc_content[j] != NULL)
-				{
-					printf("  [%d] %s\n", j, tmp_files->heredoc_content[j]);
-					j++;
-				}
-			}
-			tmp_files = tmp_files->next;
-		}
-		printf("\n");
-		cmd = cmd->next;
-	}
-}
+// 	while (cmd != NULL)
+// 	{
+// 		printf("type = %d\n", cmd->type);
+// 		i = 0;
+// 		if (cmd->args != NULL)
+// 		{
+// 			while (cmd->args[i] != NULL)
+// 			{
+// 				printf("{cmd} // arg = %s\n", cmd->args[i]);
+// 				i++;
+// 			}
+// 		}
+// 		tmp_files = cmd->files;
+// 		while (tmp_files != NULL)
+// 		{
+// 			printf("{files} // path = %s\n", tmp_files->path);
+// 			printf("{files} // mode = %d\n", tmp_files->mode);
+// 			if (tmp_files->heredoc_content != NULL)
+// 			{
+// 				j = 0;
+// 				printf("{heredoc} content:\n");
+// 				while (tmp_files->heredoc_content[j] != NULL)
+// 				{
+// 					printf("  [%d] %s\n", j, tmp_files->heredoc_content[j]);
+// 					j++;
+// 				}
+// 			}
+// 			tmp_files = tmp_files->next;
+// 		}
+// 		printf("\n");
+// 		cmd = cmd->next;
+// 	}
+// }
 
 // void    print_indent(int depth)
 // {

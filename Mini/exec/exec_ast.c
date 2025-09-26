@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:31:30 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/25 21:49:03 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/26 17:27:45 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	exec_ast(t_cmd *cmd, t_general *g)
         if (pid1 == 0)
         {
             exec_ast(cmd->left, g);
+            free_all(g, &g->tmp, g->free);
+            exit(0);
         }
         if (waitepid_and_satus(pid1) /* == err */)
         {
@@ -37,6 +39,8 @@ int	exec_ast(t_cmd *cmd, t_general *g)
         if (pid2 == 0)
         {
             exec_ast(cmd->right, g);
+            free_all(g, &g->tmp, g->free);
+            exit(0);
         }
         if (waitepid_and_satus(pid2) /* == err */)
         {
@@ -62,6 +66,8 @@ int	exec_ast(t_cmd *cmd, t_general *g)
         if (pid1 == 0)
         {
             exec_ast(cmd->left, g);
+            free_all(g, &g->tmp, g->free);
+            exit(0);
         }
         if (waitepid_and_satus(pid1) /* == err */)
         {
@@ -69,6 +75,8 @@ int	exec_ast(t_cmd *cmd, t_general *g)
             if (pid2 == 0)
             {
                 exec_ast(cmd->right, g);
+                free_all(g, &g->tmp, g->free);
+                exit(0);
             }
             if (waitepid_and_satus(pid2) /* == err */)
             {
@@ -106,7 +114,9 @@ int	exec_ast(t_cmd *cmd, t_general *g)
             close(pipefd[0]);
             dup2(pipefd[1], 1);
             close(pipefd[1]);
-            exit(exec_ast(cmd->left, g));
+            exec_ast(cmd->left, g);
+            free_all(g, &g->tmp, g->free);
+            exit(1);
         }
         pid2 = fork();
         if (pid2 == 0)
@@ -114,7 +124,9 @@ int	exec_ast(t_cmd *cmd, t_general *g)
             close(pipefd[1]);
             dup2(pipefd[0], 0);
             close(pipefd[0]);
-            exit(exec_ast(cmd->right, g));
+            exec_ast(cmd->right, g);
+            free_all(g, &g->tmp, g->free);
+            exit(1);
         }
         close(pipefd[0]);
         close(pipefd[1]);

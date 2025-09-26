@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:29:54 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/25 13:03:21 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/26 17:08:35 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	get_path(t_general *g)
 	}
 	path_one_line = ft_substr(path_one_line, 5, ft_strlen(path_one_line) - 5);
 	path = ft_split(path_one_line, ':');
+	free(path_one_line);
 	i = 0;
 	while (path[i])
 	{

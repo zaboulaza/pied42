@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:14:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/25 22:21:33 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/09/26 17:21:17 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,3 +221,4 @@ void				print_indent(int depth);
 //'' read of size
 
 // ls | -la mdr le test il pete un cable 
+// regarde si tu leak pas dans les enfants c'est possible 
