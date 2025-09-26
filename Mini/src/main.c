@@ -6,7 +6,7 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/26 17:17:08 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/26 23:18:01 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int ac, char **av, char **env)
 		g.one_line = readline("mini> ");
 		if (!g.one_line)
 		{
-			free_all(&g, &g.tmp, g.free);
+			// free_all(&g, &g.tmp, g.free);
 			printf("exit\n");
 			break ;
 		}
@@ -37,11 +37,13 @@ int	main(int ac, char **av, char **env)
 			if (parsing_general(&g, &g.tmp) == 1)
 			{
 				free_all(&g, &g.tmp, g.free);
+				printf("ftg\n");
 				return (1);
 			}
 			if (exec(g.cmd, &g) == 1)
 			{
 				free_all(&g, &g.tmp, g.free);
+				printf("chut\n");
 				return (1);
 			}
 			// print_list(g.node);
@@ -49,9 +51,9 @@ int	main(int ac, char **av, char **env)
 			// print_AST_test(init_ast(g.cmd, false));
 			// print_list_cmd(g.cmd);
 			// free_all(&g, &g.tmp, g.free);
-			free_all(&g, &g.tmp, g.free);
 		}
 	}
+	free_all(&g, &g.tmp, g.free);
 	return (0);
 }
 

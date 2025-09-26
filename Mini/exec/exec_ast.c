@@ -6,7 +6,7 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:31:30 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/26 17:27:45 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/26 23:24:01 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	exec_ast(t_cmd *cmd, t_general *g)
         if (pid1 == 0)
         {
             exec_ast(cmd->left, g);
-            free_all(g, &g->tmp, g->free);
+            // free_all(g, &g->tmp, g->free);
             exit(0);
         }
         if (waitepid_and_satus(pid1) /* == err */)
@@ -39,7 +39,7 @@ int	exec_ast(t_cmd *cmd, t_general *g)
         if (pid2 == 0)
         {
             exec_ast(cmd->right, g);
-            free_all(g, &g->tmp, g->free);
+            // free_all(g, &g->tmp, g->free);
             exit(0);
         }
         if (waitepid_and_satus(pid2) /* == err */)
@@ -66,7 +66,7 @@ int	exec_ast(t_cmd *cmd, t_general *g)
         if (pid1 == 0)
         {
             exec_ast(cmd->left, g);
-            free_all(g, &g->tmp, g->free);
+            // free_all(g, &g->tmp, g->free);
             exit(0);
         }
         if (waitepid_and_satus(pid1) /* == err */)
@@ -75,7 +75,7 @@ int	exec_ast(t_cmd *cmd, t_general *g)
             if (pid2 == 0)
             {
                 exec_ast(cmd->right, g);
-                free_all(g, &g->tmp, g->free);
+                // free_all(g, &g->tmp, g->free);
                 exit(0);
             }
             if (waitepid_and_satus(pid2) /* == err */)
@@ -115,7 +115,7 @@ int	exec_ast(t_cmd *cmd, t_general *g)
             dup2(pipefd[1], 1);
             close(pipefd[1]);
             exec_ast(cmd->left, g);
-            free_all(g, &g->tmp, g->free);
+            // free_all(g, &g->tmp, g->free);
             exit(1);
         }
         pid2 = fork();
@@ -125,7 +125,7 @@ int	exec_ast(t_cmd *cmd, t_general *g)
             dup2(pipefd[0], 0);
             close(pipefd[0]);
             exec_ast(cmd->right, g);
-            free_all(g, &g->tmp, g->free);
+            // free_all(g, &g->tmp, g->free);
             exit(1);
         }
         close(pipefd[0]);
@@ -147,8 +147,46 @@ int	exec_ast(t_cmd *cmd, t_general *g)
 
 int	exec_cmd(t_cmd *cmd, t_general *g)
 {
-	int	i;
+	int	    i;
+    int		fd;
+	t_files	*tmp_files;
 
+	if (cmd->files)
+	{
+		tmp_files = cmd->files;
+		while (tmp_files->next != NULL)
+			tmp_files = tmp_files->next;
+        if (tmp_files->mode == REDIR_IN)
+        {
+            fd = open(tmp_files->path, O_RDONLY);
+            if (fd < 0)
+                return (perror("open"), 1);
+            dup2(fd, 0);
+            close(fd);
+        }
+        else if (tmp_files->mode == REDIR_OUT)
+        {
+            fd = open(tmp_files->path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+            if (fd < 0)
+                return (perror("open"), 1);
+            dup2(fd, 1);
+            close(fd);
+        }
+        else if (tmp_files->mode == REDIR_APPEND)
+        {
+            fd = open(tmp_files->path, O_CREAT | O_WRONLY | O_APPEND, 0644);
+            if (fd < 0)
+                return (perror("open"), 1);
+            dup2(fd, 1);
+            close(fd);
+        }
+        else if (tmp_files->mode == HEREDOC)
+        {
+            // cree un fd temporaire et ecrire dedans
+            // puis faire un dup2 de ce fd temporaire sur le 0
+            // puis close le fd temporaire
+        }
+	}
 	i = 0;
     while (g->path[i])
     {
@@ -167,12 +205,6 @@ int	exec_cmd(t_cmd *cmd, t_general *g)
         i++;
     }
     perror("execve");
-    // while (g->path[i])
-    // {
-    //     printf("%s\n", g->path[i]);
-    //     i++;
-    // }
-    
     return (1);
 }
 
