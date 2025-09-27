@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:31:30 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/26 23:24:01 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/27 17:59:45 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,17 +148,26 @@ int	exec_ast(t_cmd *cmd, t_general *g)
 int	exec_cmd(t_cmd *cmd, t_general *g)
 {
 	int	    i;
+	int	    compt;
     int		fd;
 	t_files	*tmp_files;
-
-	if (cmd->files)
-	{
-		tmp_files = cmd->files;
-		while (tmp_files->next != NULL)
-			tmp_files = tmp_files->next;
+	t_files	*tmp;
+    
+	tmp_files = cmd->files;
+	tmp = cmd->files;
+    compt = 0;
+    while (tmp != NULL)
+    {
+        if (tmp->mode == HEREDOC)
+            compt++;
+        tmp = tmp->next;
+    }
+    i = 0;
+	while (tmp_files)
+	{  
         if (tmp_files->mode == REDIR_IN)
         {
-            fd = open(tmp_files->path, O_RDONLY);
+            fd = open(tmp_files->path, O_CREAT | O_RDONLY, 0644);
             if (fd < 0)
                 return (perror("open"), 1);
             dup2(fd, 0);
@@ -180,12 +189,27 @@ int	exec_cmd(t_cmd *cmd, t_general *g)
             dup2(fd, 1);
             close(fd);
         }
-        else if (tmp_files->mode == HEREDOC)
+        if (tmp_files->mode == HEREDOC)
         {
-            // cree un fd temporaire et ecrire dedans
-            // puis faire un dup2 de ce fd temporaire sur le 0
-            // puis close le fd temporaire
+            compt--;
+            if (compt == 0)
+            {
+                
+                int heredoc_fd[2];
+                pipe(heredoc_fd);
+                while (tmp_files->heredoc_content[i])
+                {
+                    ft_putstr_fd(tmp_files->heredoc_content[i], heredoc_fd[1]);
+                    ft_putstr_fd("\n", heredoc_fd[1]);
+                    free(tmp_files->heredoc_content[i]);
+                    i++;
+                }
+                close(heredoc_fd[1]);
+                dup2(heredoc_fd[0], 0);
+                close(heredoc_fd[0]);
+            }
         }
+	    tmp_files = tmp_files->next;
 	}
 	i = 0;
     while (g->path[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:24:27 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/26 23:18:01 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/09/27 17:13:30 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	main(int ac, char **av, char **env)
 			// print_AST_test(init_ast(g.cmd, false));
 			// print_list_cmd(g.cmd);
 			// free_all(&g, &g.tmp, g.free);
+			free_node(g.node);
+			free_cmd(g.cmd);
 		}
 	}
 	free_all(&g, &g.tmp, g.free);
