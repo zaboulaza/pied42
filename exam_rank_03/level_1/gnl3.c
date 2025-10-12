@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gnl3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:24:05 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/21 19:44:57 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/10/13 01:42:37 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./gnl3.h"
+#include "gnl3.h"
 
 char	*ft_strdup(char *line)
 {
@@ -24,33 +24,33 @@ char	*ft_strdup(char *line)
 	if (!res)
 		return (NULL);
 	i = 0;
-    while (line[i])
-    {
-        res[i] = line[i];
-        i++;
-    }
-    res[i] = '\0';
-    return (res);
+	while (line[i])
+	{
+		res[i] = line[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }
 
 char	*get_next_line(int fd)
 {
 	static int	buffer_pos = 0;
-	static int	buffer_read = 0;
+	static int	buffer_res = 0;
 	static char	buffer[BUFFER_SIZE];
 	char		line[1000];
-	int			i;
+	int		i;
 
 	i = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	while (1)
 	{
-		if (buffer_pos >= buffer_read)
+		if (buffer_pos >= buffer_res)
 		{
-			buffer_read = read(fd, buffer, BUFFER_SIZE);
+			buffer_res = read(fd, buffer, BUFFER_SIZE);
 			buffer_pos = 0;
-			if (buffer_read == 0)
+			if (buffer_res <= 0)
 				break ;
 		}
 		line[i++] = buffer[buffer_pos++];
@@ -59,7 +59,7 @@ char	*get_next_line(int fd)
 	}
 	if (i == 0)
 		return (NULL);
-    line[i] = '\0';
+	line[i] = '\0';
 	return (ft_strdup(line));
 }
 
@@ -70,12 +70,12 @@ int	main(void)
 
 	fd = open("test.txt", O_RDONLY);
 	line = get_next_line(fd);
-	while (line != NULL)
+	while (line)
 	{
 		printf("%s", line);
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return (0);
+	return (1);
 }

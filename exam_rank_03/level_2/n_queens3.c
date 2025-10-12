@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   n_queens3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:47:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/21 20:15:11 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/10/13 00:50:41 by zaboulaza        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./n_queens3.h"
+#include "n_queens3.h"
 
 int	is_safe(int *pos, int col, int row)
 {
@@ -69,17 +69,16 @@ int	main(int ac, char **av)
 	int	*pos;
 	int	n;
 
+	pos = 0;
 	if (ac != 2)
 		return (0);
 	n = atoi(av[1]);
+	pos = malloc(sizeof(int) * (n + 1));
 	if (n == 0)
 		return (0);
 	if (n == 2 || n == 3)
 		return (1);
-	pos = malloc(sizeof(int) * n);
-	if (!pos)
-		return (1);
 	solve(pos, 0, n);
 	free(pos);
-	return (0);
+	return (1);
 }
