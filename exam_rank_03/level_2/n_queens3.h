@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:47:17 by nsmail            #+#    #+#             */
-/*   Updated: 2025/09/21 19:48:47 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/10/12 17:38:17 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define N_QUEENS3_H
 
 #include <unistd.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #endif

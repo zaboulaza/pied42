@@ -6,7 +6,7 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:24:05 by nsmail            #+#    #+#             */
-/*   Updated: 2025/10/13 01:42:37 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/10/14 20:44:52 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ char	*ft_strdup(char *line)
 
 char	*get_next_line(int fd)
 {
-	static int	buffer_pos = 0;
-	static int	buffer_res = 0;
+	static int	buff_read = 0;
+	static int	buff_pos = 0;
 	static char	buffer[BUFFER_SIZE];
 	char		line[1000];
 	int		i;
@@ -46,14 +46,14 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (1)
 	{
-		if (buffer_pos >= buffer_res)
+		if (buff_pos >= buff_read)
 		{
-			buffer_res = read(fd, buffer, BUFFER_SIZE);
-			buffer_pos = 0;
-			if (buffer_res <= 0)
+			buff_read = read(fd, buffer, BUFFER_SIZE);
+			buff_pos = 0;
+			if (buff_read <= 0)
 				break ;
 		}
-		line[i++] = buffer[buffer_pos++];
+		line[i++] = buffer[buff_pos++];
 		if (line[i - 1] == '\n')
 			break ;
 	}

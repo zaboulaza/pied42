@@ -6,13 +6,13 @@
 /*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 19:47:12 by nsmail            #+#    #+#             */
-/*   Updated: 2025/10/13 00:50:41 by zaboulaza        ###   ########.fr       */
+/*   Updated: 2025/10/14 21:10:34 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "n_queens3.h"
+#include "./n_queens.h"
 
-int	is_safe(int *pos, int col, int row)
+int	is_solv(int *pos, int col, int row)
 {
 	int	prev_col;
 
@@ -21,7 +21,7 @@ int	is_safe(int *pos, int col, int row)
 	{
 		if (pos[prev_col] == row)
 			return (0);
-		if (abs(pos[prev_col] - row) == abs(prev_col - col))
+		if(abs(pos[prev_col] - row) == abs(prev_col - col))
 			return (0);
 		prev_col++;
 	}
@@ -43,7 +43,7 @@ void	print_solution(int *pos, int n)
 	printf("\n");
 }
 
-void	solve(int *pos, int col, int n)
+void	solv(int *pos, int col, int n)
 {
 	int	row;
 
@@ -55,10 +55,10 @@ void	solve(int *pos, int col, int n)
 	}
 	while (row < n)
 	{
-		if (is_safe(pos, col, row))
+		if (is_solv(pos, col, row))
 		{
 			pos[col] = row;
-			solve(pos, col + 1, n);
+			solv(pos, col + 1, n);
 		}
 		row++;
 	}
@@ -66,19 +66,21 @@ void	solve(int *pos, int col, int n)
 
 int	main(int ac, char **av)
 {
-	int	*pos;
 	int	n;
+	int	*pos;
 
 	pos = 0;
 	if (ac != 2)
-		return (0);
+		return (1);
 	n = atoi(av[1]);
-	pos = malloc(sizeof(int) * (n + 1));
+	pos = malloc(sizeof(int) * n);
+	if (!pos)
+		return (1);
 	if (n == 0)
 		return (0);
 	if (n == 2 || n == 3)
 		return (1);
-	solve(pos, 0, n);
+	solv(pos, 0, n);
 	free(pos);
 	return (1);
 }
