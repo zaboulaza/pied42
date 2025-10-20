@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaboulaza <zaboulaza@student.42.fr>        +#+  +:+       +#+        */
+/*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 19:24:05 by nsmail            #+#    #+#             */
-/*   Updated: 2025/10/14 20:44:52 by nsmail           ###   ########.fr       */
+/*   Created: 2025/10/15 12:11:00 by nsmail            #+#    #+#             */
+/*   Updated: 2025/10/16 12:04:57 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,25 @@ char	*ft_strdup(char *line)
 
 char	*get_next_line(int fd)
 {
-	static int	buff_read = 0;
-	static int	buff_pos = 0;
+	static int	pos_buff = 0;
+	static int	read_buff = 0;
 	static char	buffer[BUFFER_SIZE];
-	char		line[1000];
-	int		i;
+	char		line[10000];
+	int			i;
 
 	i = 0;
-	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (NULL);
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
 	while (1)
 	{
-		if (buff_pos >= buff_read)
+		if (pos_buff >= read_buff)
 		{
-			buff_read = read(fd, buffer, BUFFER_SIZE);
-			buff_pos = 0;
-			if (buff_read <= 0)
+			read_buff = read(fd, buffer, BUFFER_SIZE);
+			pos_buff = 0;
+			if (read_buff <= 0)
 				break ;
 		}
-		line[i++] = buffer[buff_pos++];
+		line[i++] = buffer[pos_buff++];
 		if (line[i - 1] == '\n')
 			break ;
 	}
@@ -77,5 +77,6 @@ int	main(void)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	free(line);
 	return (1);
 }
