@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:11:00 by nsmail            #+#    #+#             */
-/*   Updated: 2025/10/16 12:04:57 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/10/21 00:17:45 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_next_line(int fd)
 			break ;
 	}
 	if (i == 0)
-		return (NULL);
+		return (0);
 	line[i] = '\0';
 	return (ft_strdup(line));
 }

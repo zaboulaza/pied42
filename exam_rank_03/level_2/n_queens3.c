@@ -6,7 +6,7 @@
 /*   By: nsmail <nsmail@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 13:34:40 by nsmail            #+#    #+#             */
-/*   Updated: 2025/10/16 12:47:20 by nsmail           ###   ########.fr       */
+/*   Updated: 2025/10/21 00:57:09 by nsmail           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_safe(int *pos, int col, int row)
 	prev_col = 0;
 	while (prev_col < col)
 	{
-		if (pos[prev_col] == row)
+		if (abs(pos[prev_col] == row))
 			return (0);
 		if (abs(pos[prev_col] - row) == abs(prev_col - col))
 			return (0);
@@ -58,6 +58,7 @@ void	solve(int *pos, int col, int n)
 		if (is_safe(pos, col, row))
 		{
 			pos[col] = row;
+			// printf("test--->%d", pos[col]);
 			solve(pos, col + 1, n);
 		}
 		row++;
@@ -72,10 +73,10 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (0);
 	n = atoi(av[1]);
-	if (n == 0)
-		return (0);
 	pos = malloc(sizeof(int) * n);
 	if (!pos)
+		return (1);
+	if (n == 0)
 		return (0);
 	if (n == 2 || n == 3)
 		return (1);
